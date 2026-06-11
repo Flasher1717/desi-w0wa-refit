@@ -46,6 +46,14 @@ OMEGA_NU_H2_DESI: Final = SUM_MNU_EV / 93.14
 # Aubourg et al. 2015, text after Eq. (16): omega_nu = 0.0107 (sum m_nu / 1 eV).
 OMEGA_NU_H2_AUBOURG: Final = 0.0107 * SUM_MNU_EV
 
+# P8 — calibrated amendment (PREREGISTRATION.md P8, decided AFTER the
+# G5.2 audit, full transparency there): constant multiplicative
+# corrections of the analytic outputs, measured against the pinned
+# official DESI chains by scripts/calibrate_p8.py. Applied ONLY in the
+# DESIParams pipeline entry points; the raw formulas stay untouched.
+KAPPA_R_DRAG: Final = 1.000279376
+KAPPA_THETA_STAR: Final = 1.001314308
+
 # P1 — full-precision compressed prior (theta_star, omega_b h^2, omega_bc h^2),
 # official DESI DR2 yaml, cross-verified on two independent chain files.
 CMB_PRIOR_MEAN: Final = (0.01041027, 0.02223208, 0.14207901)
@@ -185,11 +193,13 @@ class DESIParams:
         )
 
     def r_drag_mpc(self) -> float:
-        return sound_horizon_drag_aubourg_mpc(self.omega_b_h2, self.omega_bc_h2)
+        """Aubourg Eq. (16) with the P8 calibration constant applied."""
+        return KAPPA_R_DRAG * sound_horizon_drag_aubourg_mpc(self.omega_b_h2, self.omega_bc_h2)
 
     def theta_star(self, background: Background | None = None) -> float:
+        """Analytic theta_star with the P8 calibration constant applied."""
         bg = self.background() if background is None else background
-        return theta_star(bg, self.omega_b_h2, self.omega_m_h2)
+        return KAPPA_THETA_STAR * theta_star(bg, self.omega_b_h2, self.omega_m_h2)
 
 
 class CMBCompressedPrior:

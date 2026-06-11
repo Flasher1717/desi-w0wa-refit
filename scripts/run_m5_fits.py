@@ -17,7 +17,13 @@ measure of the compression effect (GO M1.2a), to be compared with the
 Start counts are fixed BEFORE the runs (P7): 24 starts for LCDM fits,
 40 for w0waCDM fits; seeds derive from ROOT_SEED via derive_seed.
 
-Writes results/m5_fits.json. Usage: uv run python scripts/run_m5_fits.py
+P8 re-run: since the calibrated amendment (PREREGISTRATION.md P8) the
+pipeline applies KAPPA_R_DRAG / KAPPA_THETA_STAR in the CMB arms; gates
+are re-evaluated as G5.1b-G5.6b with the SAME windows and written to
+results/m5_fits_corrected.json. The pre-P8 run (raw analytic formulas,
+G5.2 FAIL) is preserved in results/m5_fits.json and RESULTS.md section 4.
+
+Usage: uv run python scripts/run_m5_fits.py
 """
 
 from __future__ import annotations
@@ -43,11 +49,11 @@ N_STARTS_LCDM = 24
 N_STARTS_W0WA = 40
 
 GATES = {
-    "BAO": ("G5.1", 1.7, (1.5, 1.9)),
-    "BAO+CMB": ("G5.2", 2.4, (2.1, 2.7)),
-    "BAO+CMB+PantheonPlus": ("G5.3", 2.8, (1.8, 3.1)),
-    "BAO+CMB+Union3": ("G5.4", 3.8, (2.8, 4.1)),
-    "BAO+CMB+DES-SN5YR": ("G5.5", 4.2, (3.2, 4.5)),
+    "BAO": ("G5.1b", 1.7, (1.5, 1.9)),
+    "BAO+CMB": ("G5.2b", 2.4, (2.1, 2.7)),
+    "BAO+CMB+PantheonPlus": ("G5.3b", 2.8, (1.8, 3.1)),
+    "BAO+CMB+Union3": ("G5.4b", 3.8, (2.8, 4.1)),
+    "BAO+CMB+DES-SN5YR": ("G5.5b", 4.2, (3.2, 4.5)),
 }
 
 
@@ -157,15 +163,15 @@ def main() -> int:
     n_u3 = nsigmas["BAO+CMB+Union3"]
     n_des = nsigmas["BAO+CMB+DES-SN5YR"]
     ordering_pass = n_pp < n_u3 < n_des
-    results["G5.6_ordering"] = {
+    results["G5.6b_ordering"] = {
         "criterion": "N(P+) < N(Union3) < N(DESY5)",
         "values": [n_pp, n_u3, n_des],
         "pass": ordering_pass,
     }
-    print(f"\nG5.6 ordering: {n_pp:.3f} < {n_u3:.3f} < {n_des:.3f} -> pass={ordering_pass}")
+    print(f"\nG5.6b ordering: {n_pp:.3f} < {n_u3:.3f} < {n_des:.3f} -> pass={ordering_pass}")
 
     RESULTS_DIR.mkdir(exist_ok=True)
-    out_path = RESULTS_DIR / "m5_fits.json"
+    out_path = RESULTS_DIR / "m5_fits_corrected.json"
     out_path.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
     print(f"\nWritten {out_path}")
 

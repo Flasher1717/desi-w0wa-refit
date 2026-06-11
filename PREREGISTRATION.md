@@ -176,3 +176,48 @@ après coup ne sera présentée comme résultat principal.)
 - Tolérances M4 (SPEC) : intégrale vs forme fermée CPL < 1e-12 relatif sur
   la grille du prior ; oracles astropy < 1e-6 ; ΛCDM ≡ w0waCDM(−1, 0)
   exact (mêmes chemins de code).
+
+## P8 — Amendement calibré θ*/r_d (GO Téo du 2026-06-11, APRÈS l'audit
+## G5.2 — transparence totale)
+
+- **Statut et transparence** : cet amendement N'EST PAS un
+  pré-enregistrement aveugle. Il a été décidé APRÈS l'échec du gate G5.2
+  (1.957σ, fenêtre [2.1, 2.7]) et son audit (RESULTS.md §5), qui a
+  identifié un biais de ~−0.1 % du θ* analytique (HS96+EH98) face à
+  σ(θ*)/θ* = 2.5×10⁻⁴ ; le diagnostic d'audit (prior décalé du biais
+  alors estimé) donnait déjà ~2.27σ. Même statut assumé que la
+  recalibration Keeley du projet P0. Committé AVANT tout re-run M5.
+- **Nature de la correction** : deux constantes MULTIPLICATIVES sur les
+  sorties analytiques des bras CMB, et rien d'autre —
+  `KAPPA_R_DRAG` sur r_d(Aubourg Eq. 16) et `KAPPA_THETA_STAR` sur
+  θ* = r_s(z*)/D_M(z*) (équivalent à une constante sur r_s(z*)).
+  Indépendantes des données SNe, du modèle (ΛCDM/w0waCDM) et des
+  coupures M7 — vérifiable dans le code (cmb.py, DESIParams).
+- **Source de calibration** : l'ancrage publié DESI Eq. (2)
+  (r_d = 147.05 Mpc) est INSUFFISANT pour θ* (il calibre l'époque drag,
+  pas z*, et l'audit mesure des biais différents : −0.028 % vs −0.13 %) ;
+  conformément à l'ordre de préférence du GO, la calibration utilise les
+  chaînes officielles DESI DR2 épinglées (data_manifest.json, SHA256) :
+  κ_r = moyenne pondérée de rdrag_CAMB/r_d_Aubourg (colonne `rdrag`) ;
+  κ_θ = moyenne pondérée de θ*_CAMB/θ*_analytique, θ*_CAMB reconstruit
+  point par point en inversant la forme quadratique de la colonne
+  `chi2__CMB_compressed` à (ωb, ωbc) connus, choix de racine itéré à
+  point fixe (le choix naïf « racine la plus proche de notre valeur
+  brute » serait systématiquement biaisé bas de ~E[séparation]/2 ;
+  l'itération symétrise les erreurs d'assignation). Script committé :
+  scripts/calibrate_p8.py ; sortie : results/calibration_p8.json.
+- **Valeurs committées** (stride 10, chaînes base + base_w_wa poolées à
+  poids égal par modèle) :
+  - `KAPPA_R_DRAG = 1.000279376` (par modèle : 1.0002834 / 1.0002753)
+  - `KAPPA_THETA_STAR = 1.001314308` (par modèle : 1.0013114 / 1.0013173 ;
+    scatter résiduel 7.6×10⁻⁶ ≈ 0.03σ_prior — la correction constante
+    capture la quasi-totalité du biais ; la « dépendance paramétrique »
+    de l'audit était dominée par le bruit d'assignation de racine)
+- **Gates re-évalués** : G5.1b-G5.6b, MÊMES fenêtres que P4. G5.2
+  (pipeline analytique brut) reste ÉCHOUÉ dans l'historique ; RESULTS.md
+  conserve les deux tableaux côte à côte. Re-run M5 COMPLET (la
+  correction touche tous les bras CMB) ; effet de compression re-mesuré.
+- **Fallback (clause du GO)** : si G5.2b n'est pas vert avec ces seules
+  constantes, STOP — bascule sur l'option (a) (limitation documentée),
+  sans itération supplémentaire.
+- CAMB/CLASS restent hors périmètre v1 (raffinement futur mentionné en M8).

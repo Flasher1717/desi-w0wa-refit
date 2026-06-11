@@ -17,6 +17,8 @@ import pytest
 from desi_w0wa_refit.cmb import (
     CMB_PRIOR_COV,
     CMB_PRIOR_MEAN,
+    KAPPA_R_DRAG,
+    KAPPA_THETA_STAR,
     CMBCompressedPrior,
     DESIParams,
     comoving_distance_fast_mpc,
@@ -133,7 +135,8 @@ def test_fast_integrators_match_adaptive_quad(
     d_fast = comoving_distance_fast_mpc(background, z_star)
     d_quad = background.comoving_distance_scalar_mpc(z_star)
     assert abs(d_fast / d_quad - 1.0) < 1e-7
-    assert abs(params.theta_star() / (r_s_quad / d_quad) - 1.0) < 2e-7
+    # The pipeline entry point applies the P8 calibration constant.
+    assert abs(params.theta_star() / (KAPPA_THETA_STAR * r_s_quad / d_quad) - 1.0) < 2e-7
 
 
 def test_desi_params_mapping_matches_official_yaml_formula() -> None:
@@ -141,6 +144,38 @@ def test_desi_params_mapping_matches_official_yaml_formula() -> None:
     params = DESIParams(omega_m=0.31, h=0.68, omega_b_h2=0.0223, w0=-0.9, wa=-0.4)
     omch2 = 0.31 * 0.68**2 - 0.06 / 93.14 - 0.0223
     assert abs(params.omega_bc_h2 - (omch2 + 0.0223)) < 1e-15
+
+
+def test_p8_calibration_applied_only_in_pipeline_entry_points() -> None:
+    # P8: constant multiplicative corrections, raw formulas untouched.
+    params = DESIParams(omega_m=0.31, h=0.68, omega_b_h2=0.0223)
+    raw_rd = sound_horizon_drag_aubourg_mpc(params.omega_b_h2, params.omega_bc_h2)
+    assert params.r_drag_mpc() == KAPPA_R_DRAG * raw_rd
+    assert KAPPA_R_DRAG != 1.0 and KAPPA_THETA_STAR != 1.0
+
+
+def test_p8_constants_match_committed_calibration_output() -> None:
+    # The committed calibration JSON is the provenance record (P8); the
+    # frozen code constants must equal it exactly.
+    import json
+
+    record = json.loads(
+        (Path(__file__).resolve().parent.parent / "results" / "calibration_p8.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert abs(record["KAPPA_R_DRAG"] - KAPPA_R_DRAG) < 5e-10
+    assert abs(record["KAPPA_THETA_STAR"] - KAPPA_THETA_STAR) < 5e-10
+
+
+def test_p8_corrected_theta_star_lands_on_prior_mean_region() -> None:
+    # After P8 the corrected theta_star at the prior-mean point must sit
+    # within ~2 prior sigma (raw bias was ~-4 sigma); h fixed Planck-like.
+    h = 0.6736
+    omega_m = (CMB_PRIOR_MEAN[2] + 0.06 / 93.14) / h**2
+    params = DESIParams(omega_m=omega_m, h=h, omega_b_h2=CMB_PRIOR_MEAN[1])
+    sigma_theta = float(np.sqrt(CMB_PRIOR_COV[0][0]))
+    assert abs(params.theta_star() - CMB_PRIOR_MEAN[0]) < 2.0 * sigma_theta
 
 
 def test_background_from_desi_params_uses_baseline_neutrinos() -> None:
