@@ -48,3 +48,31 @@ jamais ; toute correction est une nouvelle entrée datée.
 - STOP M1 présenté à Téo : plan M2-M9, choix CMB (Option A = compression
   DESI Eqs. 35-36 recommandée), traitement r_d, tolérances de gates,
   coupures M7 candidates. En attente du GO.
+
+## 2026-06-11 — GO M1 GLOBAL de Téo (4 décisions validées, avec conditions)
+
+1. CMB : Option A (compression DESI, Eqs. 35-36, Lemos & Lewis 2023).
+   Conditions : (a) formules de fitting r_s(z_drag)/z*/r_s(z*) extraites des
+   papiers (n° d'équations), pré-enregistrées et committées en DÉBUT de M2,
+   avant tout code CMB ; (b) oracle permanent : la formule reproduit le r_d
+   fiducial du papier DESI (valeur extraite, jamais de mémoire) à la
+   précision documentée de la formule ; (c) θ* tronqué : effort borné
+   (≤ 1 session) pour trouver la valeur complète dans les produits publics
+   DESI (desilike, chaînes, notebooks App. A) ; sinon 0.01041 + test de
+   sensibilité pré-enregistré (θ* ± 5e-6, effet rapporté en Nσ par bras).
+2. Gates deux niveaux : validés tels quels. Précisions : (a) sur les bras
+   +SNe, l'écart mesuré vs publié est RAPPORTÉ comme mesure de l'effet de
+   compression (référence : −0.7σ mesuré par DESI sur BAO+CMB) ; (b) gate
+   échoué pour cause plausible de minimiseur (scipy vs iminuit) : audit
+   documenté, jamais de relâchement silencieux ; l'ordre P+ < Union3 < DESY5
+   est un gate à part entière.
+3. Coupures M7 (a)-(d) : validées et CLOSES — aucune coupure ajoutée après
+   les premiers chiffres. Métrique de rapport pré-enregistrée avant tout
+   run M7 : ΔNσ par coupure + déplacement du best-fit (w0, wa), format de
+   tableau figé.
+4. Repo : C:\Users\flash\dev\desi-w0wa-refit conservé. Ancrages = ère DR2
+   exclusivement (DES v1.2/Zenodo, Tables 5-6) ; Dovekie (3.2σ) = contexte
+   M8 uniquement, jamais un ancrage.
+
+Périmètre inchangé : M2 ne démarre qu'avec les formules r_s committées.
+Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
