@@ -5,36 +5,36 @@
 
 ## Jalon en cours
 
-M1 — extraction terminée, RESULTS.md §1-2 rédigé. Vérification adversariale
-des équations critiques DESI DR2 (Eq. 22, Eqs. 35-36, priors, Tables 5-6)
-en cours. Ensuite : STOP M1 (plan + choix CMB + traitement r_d + tolérances
-de gates) → GO de Téo.
+M3 — likelihoods SNe (Pantheon+ d'abord, puis DES-SN5YR, Union3
+best-effort). PAS ENCORE COMMENCÉ. Session précédente close à la fin de M2.
 
 ## Fait
 
-- 2026-06-11 : M0 complet et committé (5 commits) : SPEC (prompt ajusté),
-  CLAUDE, MILESTONES, PROGRESS, pyproject uv, ruff/pyright strict/pytest
-  verts, CI matrice, MIT, .gitattributes. Identité git locale vérifiée.
-- 2026-06-11 : M1 extractions — 7 sous-agents rentrés (DESI DR2 2503.14738,
-  bao_data, DES-SN5YR, Union3, compression CMB, low-z/Pantheon+,
-  réponse DES 2511.07517 + Keeley). Recoupement croisé BAO Table 4 vs
-  fichiers bao_data : concordance chiffre à chiffre.
-- 2026-06-11 : RESULTS.md §1-2 rédigé avec références précises.
+- 2026-06-11 : M0 complet (bootstrap, outillage, CI). M1 complet :
+  7 extractions sourcées + recoupement croisé + vérification adversariale
+  6/6 → RESULTS.md §1-2. STOP M1 présenté, GO M1 GLOBAL reçu avec
+  conditions (voir MILESTONES) — toutes levées et committées
+  (PREREGISTRATION.md : compression CMB Option A avec valeurs complètes
+  trouvées dans les yaml officiels DESI, formules Aubourg Eq. 16 / HS96
+  E-1 / EH98 Eq. 4, gates deux niveaux, coupures M7 closes).
+- 2026-06-11 : M2 complet (download SHA256 atomique idempotent + likelihood
+  BAO gaussienne validée + 20 tests verts). Détails : MILESTONES.md.
 
-## Découvertes critiques (à ne pas perdre)
+## Rappels critiques pour la suite
 
-- DES-SN5YR : épingler le tag v1.2 (`95cf14c…`), PAS main (passé à Dovekie).
-- bao_data : tag v2.6 (`b7b8a36…`) ; ordre Lyα inversé (DH avant DM).
-- DES covariance totale = STAT+SYS + diag(MUERR_FINAL²) (STATONLY ~ 0).
-- DESI publie l'ancrage exact du pipeline compressé : DESI+(θ*,ωb,ωbc)_CMB
-  = 2.4σ [Table 6] vs 3.1σ full CMB → à intégrer dans les gates M5.
-- Pantheon+ : coupure cosmologie zHD > 0.01 (1590 SNe).
+- M3 : Pantheon+ zHD > 0.01 (1590 SNe) ; cov 1ʳᵉ ligne = N=1701.
+  DES : épingler tag v1.2 (`95cf14c…`), JAMAIS main (Dovekie) ; cov totale
+  = STAT+SYS + diag(MUERR_FINAL²) ; chaînes `fw0wacdm_SN.txt` pondérées
+  (colonne weight) = ancrage G3.3. Union3 : fichiers cobaya sn_data.
+- Gates pré-enregistrés : PREREGISTRATION.md P3 (M3), P4 (M5), P5 (M7).
+- Prochain STOP utilisateur : fin M5 (rapport chiffré des gates).
+- Politique d'effort : M2-M4 high ; ultracode ponctuel si audit de gate.
 
-## En attente
+## Prochain pas concret (ouverture de session M3)
 
-- Vérification adversariale Eqs. (22)/(35)/(36) → puis STOP M1, GO de Téo.
-
-## Prochain pas concret
-
-Après GO M1 : M2 — scripts/download_data.py (bao_data v2.6, SHA256,
-atomique, idempotent) + likelihood BAO gaussienne + tests covariance.
+1. Rituel d'ouverture (SPEC + PROGRESS + git log -10 + pytest).
+2. Étendre data_manifest.json : Pantheon+ (dat + cov, commit DataRelease
+   épinglé), DES v1.2 (HD.csv + STAT+SYS.txt.gz + chaînes fw0wacdm/flcdm),
+   Union3 (lcparam_full.txt + mag_covmat.txt, commit sn_data épinglé) —
+   SHA256 au premier download.
+3. MarginalizedChi2 (machinerie P0 re-testée ici) puis likelihood Pantheon+.

@@ -95,3 +95,24 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   σ(θ*)/θ* ≈ 2.5e-4 — bornée par le gate G5.2, jamais recalibrée en
   silence.
 - PREREGISTRATION.md committé → M2 ouvert.
+
+## 2026-06-11 — M2 : likelihood BAO + download épinglé (terminé)
+
+- `data_manifest.json` : 3 fichiers épinglés (bao_data ALL_GCcomb mean+cov
+  au commit b7b8a36 = v2.6 ; yaml officiel DESI du prior CMB compressé) avec
+  SHA256 calculés au premier download et vérifiés à chaque run.
+- `scripts/download_data.py` : stdlib seul, atomique (tmp+rename),
+  idempotent (skip si hash OK), erreur dure si mismatch. Seule étape réseau.
+- `src/desi_w0wa_refit/bao.py` : parsing bao_data + validation covariance
+  (finitude, symétrie, Cholesky — pattern P0) + χ² gaussien (Cholesky solve),
+  identique en convention à cobaya `bao.desi_dr2` (logp = −χ²/2, rs_fid=1).
+- Vérité terrain au download : 13 points conformes, ordre Lyα DH-avant-DM
+  confirmé ; yaml DESI = valeurs pré-enregistrées EXACTES ; bonus extrait
+  du yaml : mapping officiel `omch2 = omm·(H0/100)² − mnu/93.14 − ombh2`
+  (consigné dans PREREGISTRATION P2).
+- Découverte mineure documentée : la Table 4 du papier TRONQUE au moins une
+  valeur (38.98897… imprimé 38.988) — tolérance du test d'ancrage 1e-3,
+  commentée dans le test.
+- 20 tests verts (13 unitaires + 7 ancrages requires_data) ; auto-skip
+  sans data/ vérifié (13 passed, 7 skipped). ruff/format/pyright strict :
+  zéro erreur.
