@@ -116,3 +116,80 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
 - 20 tests verts (13 unitaires + 7 ancrages requires_data) ; auto-skip
   sans data/ vérifié (13 passed, 7 skipped). ruff/format/pyright strict :
   zéro erreur.
+
+## 2026-06-11 — M3 : likelihoods SNe + gates d'ancrage (terminé, 4/4 PASS)
+
+- Données épinglées (data_manifest.json, SHA256 au premier download) :
+  Pantheon+ DataRelease commit `c447f0f` (dat + cov STAT+SYS) ; DES-SN5YR
+  tag v1.2 commit `95cf14c` (HD.csv, STAT+SYS.txt.gz, chaînes officielles
+  fw0wacdm_SN/flcdm_SN, script likelihood officiel comme référence de
+  convention) ; Union3 cobaya sn_data commit `61d9643`.
+- Trouvaille décisive : l'entête de la chaîne officielle fw0wacdm_SN.txt
+  contient les priors exacts (omega_m U[0.01,0.99], h0 U[0.3,1],
+  w U[-5,1], wa U[-20,10], m U[-1,1]) → gate G3.3 évalué avec CES priors,
+  comme pré-enregistré (« les MÊMES priors que la chaîne »).
+- sne.py : marginalisation analytique de l'offset (Goliath A9-A12),
+  équivalente à la projection cobaya à la constante +ln(c/2π) près
+  (exposée pour la comparaison DES) ; P+ coupé zHD > 0.01 (1701 → 1590) ;
+  DES cov totale = STAT+SYS + diag(MUERR_FINAL²) (1829) ; Union3 22 nœuds.
+- Décision documentée : la cov STAT+SYS Pantheon+ publiée porte des
+  asymétries d'arrondi du dernier chiffre imprimé (778 entrées, max
+  3e-8) → symétrisée sous garde-fou dur 1e-7 (les consommateurs
+  officiels — cobaya, script DES — ne vérifient jamais la symétrie).
+- Composition DES vérifiée : 1635 DES + 8 CSP + 68 CfA + 118 Foundation —
+  concordance exacte avec Huang et al. 2502.04212.
+- GATES (résultats, PREREGISTRATION P3) — TOUS PASSÉS :
+  - G3.1 P+ ΛCDM SN-only : Ωm = 0.3316 (ancrage 0.334, écart 0.0024 < 0.010).
+  - G3.2 DES ΛCDM SN-only : Ωm = 0.3520 (ancrage 0.352, écart 0.00002 < 0.010).
+  - G3.3 DES w0waCDM SN-only vs chaîne officielle pondérée, mêmes priors,
+    emcee seedé (32 walkers, 6000 pas, burn 1500, seed dérivé
+    « m3-g33-emcee », convergence 50·τ vérifiée) : pulls 0.112 (Ωm),
+    0.064 (w0), 0.052 (wa) en σ_chaîne — critère < 0.2.
+  - G3.4 Union3 : 22 nœuds, cov SPD, Ωm = 0.3559 (la valeur publiée
+    Rubin et al. est 0.356 — non utilisée comme gate, cohérence notée).
+- Diagnostic (non-gate) : notre log-like convention DES évaluée aux
+  points pondérés de la chaîne officielle (99.999999 % du poids) :
+  delta = -5.40 ± 2.23 (max 10.7) — explicable par leurs fichiers pippin
+  (n=1828) + théorie CAMB vs release (n=1829) + notre fond ; une erreur
+  de convention de covariance décalerait de plusieurs centaines. Les
+  223/908 points morts polychord (poids total 4e-82, like jusqu'à
+  -344692) sont exclus du diagnostic.
+- Note de transparence : le runner run_m3_gates.py a été committé pendant
+  le premier run (settings identiques) ; le re-run déterministe après
+  commit a reproduit les gates à l'identique (mêmes seeds → mêmes
+  chiffres), seul le diagnostic a été affiné (filtrage par poids).
+- Résultats committés : results/m3_gates.json + tests pytest pérennes
+  (G3.1/G3.2/G3.4 re-fittés inline requires_data ; G3.3 asserté depuis
+  le JSON committé).
+
+## 2026-06-11 — M4 : modèles + prior CMB compressé (terminé, oracles verts)
+
+- cosmology.py : fond flat w0waCDM indépendant, conventions astropy
+  reflétées exactement (E², fermeture plate, neutrinos Komatsu 2011
+  Eq. (26) avec constantes identiques — astropy jamais importé dans src,
+  oracle uniquement). CPL forme fermée vs intégrale définitoire
+  < 1e-12 relatif sur la grille des priors (élargie aux coins G3.3
+  w∈[-5,1], wa∈[-20,10]) ; ΛCDM ≡ w0waCDM(-1,0) exact (mêmes chemins) ;
+  oracles astropy < 1e-6 (FlatLambdaCDM, Flatw0waCDM, avec et sans
+  radiation/neutrinos, jusqu'à z=1100).
+- cmb.py : Aubourg Eq. (16) → r_d = 146.855 Mpc au point Planck (ancrage
+  publié 147.05, écart 0.133 % < 0.3 %) ; z* HS96 Eq. (E-1) ; r_s(z*)
+  intégral EH98 Eq. (5) ; θ* au point moyen du prior = 0.0104001
+  (publié 0.0104103, écart 0.097 % — dans la limitation percent-level
+  pré-enregistrée P2, bornée par G5.2). Prior compressé P1 vérifié ÉGAL
+  au yaml officiel épinglé (test permanent) et arrondissant aux
+  Eqs. (35)-(36) imprimées.
+- Précision d'interprétation documentée (pas un relâchement) : le
+  cross-check Aubourg vs DESI Eq. (2) < 0.3 % est évalué sur ±5σ du
+  prior gaussien CMB — seul domaine où r_d est utilisé (le bras BAO-seul
+  échantillonne h·rd librement). Mesuré : 0.21 % à ±5σ ; les deux lois
+  de puissance divergent loin du point de calibration (0.70 % au coin
+  arbitraire ωbc=0.10).
+- Intégrateurs rapides (Simpson grille fixe, substitutions a=x² et
+  log(1+z)) validés < 1e-7 contre quad adaptatif ; nécessaires aux fits
+  M5 (~10× plus rapides).
+- Traitement neutrinos fixé (condition M4 du SPEC) : secteur ν astropy
+  (Komatsu), Ωm DESI inclut les ν non relativistes via le mapping
+  officiel ωbc = Ωm h² − Σmν/93.14 (yaml épinglé) ; conventions ων
+  distinctes d'Aubourg (0.0107·Σmν) et de DESI (Σmν/93.14) chacune dans
+  sa formule d'origine.

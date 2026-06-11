@@ -30,7 +30,7 @@
         46.43094779114677,
         50.089680210991666
       ],
-      "runtime_s": 1104.0
+      "runtime_s": 1248.6
     },
     "per_param": {
       "omega_m": {
@@ -60,10 +60,11 @@
     },
     "pass": true,
     "diagnostic_like_vs_official": {
-      "mean_delta": 6028.773459018158,
-      "std_delta": 36696.868796464594,
-      "max_abs_delta": 337803.3936090487,
-      "n_points": 91
+      "weight_covered": 0.9999999881966637,
+      "mean_delta": -5.397392297670917,
+      "std_delta": 2.2271149952767844,
+      "max_abs_delta": 10.71876643221185,
+      "n_points": 468
     }
   },
   "G3.4": {

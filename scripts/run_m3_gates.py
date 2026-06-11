@@ -30,9 +30,9 @@ from pathlib import Path
 import emcee
 import numpy as np
 
+from desi_w0wa_refit.arms import sn_only_chi2
 from desi_w0wa_refit.bao import FloatArray
 from desi_w0wa_refit.chains import read_cosmosis_chain
-from desi_w0wa_refit.cosmology import Background
 from desi_w0wa_refit.fitting import derive_seed, minimize_multistart
 from desi_w0wa_refit.sne import SNSample, load_des_sn5yr, load_pantheon_plus, load_union3
 
@@ -45,13 +45,6 @@ G33_BOUNDS = ((0.01, 0.99), (-5.0, 1.0), (-20.0, 10.0))
 G33_NWALKERS = 32
 G33_NSTEPS = 6000
 G33_BURN = 1500
-
-
-def sn_only_chi2(sample: SNSample, omega_m: float, w0: float = -1.0, wa: float = 0.0) -> float:
-    """Offset-marginalized SN-only chi2 (h fixed, fully degenerate with M)."""
-    background = Background(h=0.7, omega_cb=omega_m, w0=w0, wa=wa)
-    mu = background.distance_modulus(sample.z_cmb, sample.z_hel)
-    return sample.chi2_marginalized(mu)
 
 
 def fit_lcdm_omega_m(sample: SNSample, run_name: str) -> tuple[float, float]:

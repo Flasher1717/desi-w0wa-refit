@@ -58,6 +58,13 @@ def _within(value: float, bounds: tuple[float, float]) -> bool:
     return bounds[0] <= value <= bounds[1]
 
 
+def sn_only_chi2(sample: SNSample, omega_m: float, w0: float = -1.0, wa: float = 0.0) -> float:
+    """Offset-marginalized SN-only chi2 (h fixed: fully degenerate with M)."""
+    background = Background(h=0.7, omega_cb=omega_m, w0=w0, wa=wa)
+    mu = background.distance_modulus(sample.z_cmb, sample.z_hel)
+    return sample.chi2_marginalized(mu)
+
+
 @dataclass(frozen=True)
 class Arm:
     """One data combination with chi2 callables for both models."""
