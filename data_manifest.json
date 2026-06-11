@@ -21,6 +21,69 @@
       "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base_w_wa/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.updated.yaml",
       "sha256": "d74a3f6a8d58fab1196bfa73a84880989c89cdaa7df7af4d9253615d9ea02004",
       "size": 5420
+    },
+    {
+      "name": "Pantheon+SH0ES.dat",
+      "description": "Pantheon+ distances (1701 rows, 47 named columns). PantheonPlusSH0ES/DataRelease at commit c447f0f (HEAD 2022-12-21, repo unchanged since).",
+      "url": "https://raw.githubusercontent.com/PantheonPlusSH0ES/DataRelease/c447f0fea703fcd0fff57de5000947b5ca81286b/Pantheon%2B_Data/4_DISTANCES_AND_COVAR/Pantheon%2BSH0ES.dat",
+      "sha256": "1cb0fc379ef066afdc2ffd1857681cc478024570d8a3eba284fb645775198cf8",
+      "size": 579283
+    },
+    {
+      "name": "Pantheon+SH0ES_STAT+SYS.cov",
+      "description": "Pantheon+ full STAT+SYS covariance (first line = 1701, then N^2 values one per line). Same pinned commit as the .dat file.",
+      "url": "https://raw.githubusercontent.com/PantheonPlusSH0ES/DataRelease/c447f0fea703fcd0fff57de5000947b5ca81286b/Pantheon%2B_Data/4_DISTANCES_AND_COVAR/Pantheon%2BSH0ES_STAT%2BSYS.cov",
+      "sha256": "abf806d966485e64afdb359c87bffc0ecc00d05eff0a31ced66f247385df0fdc",
+      "size": 33284960
+    },
+    {
+      "name": "DES-SN5YR_HD.csv",
+      "description": "DES-SN5YR Hubble diagram, 1829 SNe (CID, IDSURVEY, zHD, zHEL, MU, MUERR_FINAL, ...). des-science/DES-SN5YR pinned at tag v1.2 commit 95cf14c (2024 paper state; main moved to Dovekie).",
+      "url": "https://raw.githubusercontent.com/des-science/DES-SN5YR/95cf14c8e057ef3c2d6bf72ae22cf0d5ee796e1c/4_DISTANCES_COVMAT/DES-SN5YR_HD.csv",
+      "sha256": "95ab1e9f5460a056de37d2b4e28df73ce0c7fd471baba9fb37f1667f41b7901c",
+      "size": 91860
+    },
+    {
+      "name": "DES-SN5YR_STAT+SYS.txt.gz",
+      "description": "DES-SN5YR systematic covariance (first line = 1829, then N^2 values one per line, gzip). Total covariance = this + diag(MUERR_FINAL^2). Tag v1.2.",
+      "url": "https://raw.githubusercontent.com/des-science/DES-SN5YR/95cf14c8e057ef3c2d6bf72ae22cf0d5ee796e1c/4_DISTANCES_COVMAT/STAT%2BSYS.txt.gz",
+      "sha256": "20bc94a881893235a94fc5a1b1c995f4b35bfae333996c2a0ce2696cb05381f2",
+      "size": 16284316
+    },
+    {
+      "name": "DES-SN5YR_fw0wacdm_SN.txt",
+      "description": "Official DES-SN5YR flat w0waCDM SN-only polychord chain (weighted; header embeds the exact priors: omega_m U[0.01,0.99], h0 U[0.3,1], w U[-5,1], wa U[-20,10], m U[-1,1]). Anchor for gate G3.3. Tag v1.2.",
+      "url": "https://raw.githubusercontent.com/des-science/DES-SN5YR/95cf14c8e057ef3c2d6bf72ae22cf0d5ee796e1c/5_COSMOLOGY/chains/fw0wacdm/fw0wacdm_SN.txt",
+      "sha256": "068b5733477038ceb2c8d44193564afa7e3c6510f9c2599f1f62ab1f3dfc9ff0",
+      "size": 160971
+    },
+    {
+      "name": "DES-SN5YR_flcdm_SN.txt",
+      "description": "Official DES-SN5YR flat LCDM SN-only polychord chain (weighted). Context check for gate G3.2. Tag v1.2.",
+      "url": "https://raw.githubusercontent.com/des-science/DES-SN5YR/95cf14c8e057ef3c2d6bf72ae22cf0d5ee796e1c/5_COSMOLOGY/chains/flcdm/flcdm_SN.txt",
+      "sha256": "ceed0efd194fcb0a538ab3da8aa9d6953873fbd1be8d85f9fc8cd0e1c91dbb3f",
+      "size": 531393
+    },
+    {
+      "name": "DES-SN5YR_SN_only_cosmosis_likelihood.py",
+      "description": "Official DES-SN5YR SN-only likelihood (convention reference only, never imported): chi2 = a - b^2/c + ln(c/2pi) [Goliath et al. astro-ph/0104009 Eqs. A9-A12], mu_th = 5 log10((1+zHD)(1+zHEL) D_A) + 25. Tag v1.2.",
+      "url": "https://raw.githubusercontent.com/des-science/DES-SN5YR/95cf14c8e057ef3c2d6bf72ae22cf0d5ee796e1c/5_COSMOLOGY/SN_only_cosmosis_likelihood.py",
+      "sha256": "182accbc5aba24e13c31638a38011c01903d5554ca2e895e0cbf5908a647c545",
+      "size": 8038
+    },
+    {
+      "name": "Union3_lcparam_full.txt",
+      "description": "Union3 binned distances (22 spline nodes, z = 0.05 to 2.26226, mb = distance modulus with arbitrary zero point). CobayaSampler/sn_data at commit 61d9643 (files used by cobaya sn.union3, i.e. by DESI).",
+      "url": "https://raw.githubusercontent.com/CobayaSampler/sn_data/61d96434cafc2770928322c38e5a750e686368ae/Union3/lcparam_full.txt",
+      "sha256": "a840fe71c606bda11b869dbfcacc21c0199a5dc393f3790d10a7b58de97deae7",
+      "size": 1556
+    },
+    {
+      "name": "Union3_mag_covmat.txt",
+      "description": "Union3 22x22 magnitude covariance. Same pinned commit as lcparam_full.txt.",
+      "url": "https://raw.githubusercontent.com/CobayaSampler/sn_data/61d96434cafc2770928322c38e5a750e686368ae/Union3/mag_covmat.txt",
+      "sha256": "64c79abd24bf5154bc1e38ad0c031e31dd6247cdcc5ca930829698169809a146",
+      "size": 9199
     }
   ]
 }
