@@ -90,6 +90,14 @@
   ωbc = ωb + ωc les EXCLUT [Section I, Eq. (6)]. Le traitement neutrino
   exact de notre E(z) est fixé en M4 avec oracle astropy et documenté —
   jamais improvisé.
+- Mapping officiel paramètres → densités (extrait du yaml DESI épinglé,
+  vérifié localement dans data/desi_dr2_cmb_compressed_prior.yaml) :
+  `omch2 = omm·(H0/100)² − mnu/93.14 − ombh2` (donc
+  ωbc = Ωm h² − Σmν/93.14) ; bloc de sampling DESI pour ce bras :
+  (H0, ombh2, w, wa, omm). Le yaml confirme aussi que la likelihood BAO
+  officielle DESI lit les MÊMES fichiers que cobaya bao_data
+  (`bao_data_v1p2/desi_gaussian_bao_ALL_GCcomb_{mean,cov}.txt`) et
+  `inflate_cov: false`.
 
 ## P3 — Gates M3 (ancrages SNe-only, avant tout fit M5)
 
