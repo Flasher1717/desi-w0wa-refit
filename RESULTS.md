@@ -268,3 +268,120 @@ releases différentes, nous répliquons DR2/v1.2 et citons Dovekie en
 contexte ; (iii) valeurs de compression CMB de 2509.21491 (App. C) ≠
 Eqs. (35)-(36) → variantes de datasets (P-ACT vs baseline DESI), nous
 utilisons les Eqs. (35)-(36) si Option A retenue.
+
+## §3 — Décisions méthodologiques M3-M4 (documentées, aucune silencieuse)
+
+1. **Symétrisation de la covariance Pantheon+** : le fichier STAT+SYS
+   publié porte des asymétries d'arrondi du dernier chiffre imprimé
+   (778 entrées sur 2 893 401, max |C−Cᵀ| = 3×10⁻⁸) ; symétrisé
+   ½(C+Cᵀ) sous garde-fou dur 10⁻⁷ (les consommateurs officiels ne
+   vérifient jamais la symétrie). Artefact de fichier, pas un choix
+   physique.
+2. **Priors G3.3** : extraits de l'entête de la chaîne officielle
+   épinglée (omega_m U[0.01,0.99], h0 U[0.3,1], w U[−5,1],
+   wa U[−20,10], m U[−1,1]) — le gate est évalué avec CES priors. Le
+   couple (m, h0) échantillonné par DES est remplacé par la
+   marginalisation analytique de l'offset (les deux ne contraignent que
+   la même combinaison ; effet de bord des bornes négligeable, posterior
+   d'offset très intérieur).
+3. **Modèle SN-only et BAO-only sans radiation** : E² = Ωm(1+z)³ +
+   (1−Ωm)f_DE — la paramétrisation background-only (Ωm, h·rd) de DESI ne
+   permet même pas de spécifier Ωr ; effet ~10⁻⁴ mag sur μ(z≤1.1),
+   négligeable devant les tolérances des gates (0.010 sur Ωm, 0.2σ).
+4. **Domaine du cross-check r_d** (Aubourg Eq. 16 vs DESI Eq. 2,
+   tolérance 0.3 %) : évalué sur ±5σ du prior gaussien CMB, seul domaine
+   où r_d est utilisé (le bras BAO-seul échantillonne h·rd librement).
+   Mesuré : 0.21 % à ±5σ ; les deux lois de puissance divergent loin du
+   point de calibration (0.70 % au coin arbitraire ωbc = 0.10).
+5. **Intégrateurs rapides** : r_s(z*) et D_M(z*) par Simpson sur grilles
+   fixes (substitutions a = x² et log(1+z)), validés < 10⁻⁷ relatif
+   contre quad adaptatif (test permanent).
+6. **Neutrinos** : secteur ν reflète astropy (Komatsu 2011 Eq. 26,
+   constantes identiques, oracles < 10⁻⁶ jusqu'à z = 1100) ; mapping
+   DESI officiel ωbc = Ωm h² − Σmν/93.14 (yaml épinglé, vérifié exact
+   sur les chaînes officielles à 9×10⁻⁹ près) ; ων d'Aubourg
+   (0.0107·Σmν) et de DESI (Σmν/93.14) chacun dans sa formule d'origine.
+
+## §4 — Résultats M5 : fits des 5 combinaisons × 2 modèles (pipeline gelé)
+
+Best-fits MAP (Nelder-Mead multi-départs Sobol seedés, 24 ΛCDM /
+40 w0waCDM, committés avant les runs ; convergence vérifiée par audit :
+4 optimiseurs indépendants coïncident à 2×10⁻⁷, dispersion des départs
+~10⁻¹³). Convention σ : Δχ²_MAP → CDF χ²(2 dof) → équivalent gaussien
+[Eq. (22)] — la conversion reproduit les 5 paires publiées de la Table 6.
+
+| Bras | n | χ²_ΛCDM | χ²_w0wa | Δχ²_MAP | Nσ | publié | fenêtre | gate |
+|---|---|---|---|---|---|---|---|---|
+| BAO seul | 13 | 10.271 | 5.619 | −4.652 | **1.66** | 1.7 | [1.5, 1.9] | G5.1 PASS |
+| BAO+CMB | 16 | 12.761 | 6.784 | −5.977 | **1.96** | 2.4 (ancrage exact) | [2.1, 2.7] | G5.2 **FAIL** |
+| BAO+CMB+Pantheon+ | 1606 | 1418.52 | 1412.12 | −6.406 | **2.05** | 2.8 (full CMB) | [1.8, 3.1] | G5.3 PASS |
+| BAO+CMB+Union3 | 38 | 41.163 | 29.033 | −12.131 | **3.05** | 3.8 (full CMB) | [2.8, 4.1] | G5.4 PASS |
+| BAO+CMB+DES-SN5YR | 1845 | 1662.20 | 1645.74 | −16.456 | **3.65** | 4.2 (full CMB) | [3.2, 4.5] | G5.5 PASS |
+
+G5.6 (ordre) : 2.05 (P+) < 3.05 (Union3) < 3.65 (DESY5) — PASS.
+
+ΔAIC = Δχ²_MAP + 4 ; ΔBIC = Δχ²_MAP + 2 ln n : BAO −0.65/+0.48 ;
+BAO+CMB −1.98/−0.43 ; +P+ −2.41/+8.35 ; +Union3 −8.13/−4.86 ;
++DES −12.46/−1.42 → en BIC (plus punitif), seul Union3 garde une
+préférence nette pour w0waCDM ; rapporté en complément comme prévu.
+
+Repères de réplication exacte : BAO-seul ΛCDM (Ωm = 0.2975,
+h·rd = 101.54 Mpc) = valeurs publiées DESI DR2 chiffre pour chiffre ;
+best-fits w0 des bras SNe proches des publiés (P+ −0.864 vs −0.838 ;
+Union3 −0.704 vs −0.667 ; DES −0.778 vs −0.752).
+
+**Effet de compression mesuré (P4 / GO M1.2a)** — écart Nσ_pipeline −
+Nσ_publié sur les bras +SNe (full CMB chez DESI, compressé chez nous) :
+P+ **−0.75σ**, Union3 **−0.75σ**, DES **−0.56σ** — du même ordre que le
+−0.7σ que DESI mesure lui-même sur BAO+CMB (2.4σ compressé vs 3.1σ
+full). NB : cet « effet de compression » mesuré ici contient AUSSI le
+biais θ* identifié par l'audit (§5) ; la part purement compression vs
+part θ* n'est pas séparable sans refaire les fits avec un θ* exact.
+
+## §5 — Audit du gate G5.2 (pré-enregistré : échec ⇒ STOP, audit, jamais
+## de relâchement silencieux)
+
+G5.2 est l'ancrage EXACT (DESI publie 2.4σ avec la MÊME compression).
+Audit en 5 sondes indépendantes (workflow multi-agents, scripts et
+sorties sous `results/audit/`) :
+
+- **Minimiseur hors de cause** (sonde C) : differential_evolution
+  seedé, Nelder-Mead (du best-fit M5 ET du point officiel), Powell —
+  tous convergent vers χ²_ΛCDM = 12.760649, χ²_w0wa = 6.783639
+  (écarts ≤ 2×10⁻⁷) ; dispersion des 24/40 départs ~10⁻¹³. Les warnings
+  inf−inf du simplexe sont cosmétiques.
+- **Conventions et constantes exactes** (sonde D) : HS96 (E-1), Aubourg
+  Eq. (16), EH98 Eq. (5), moyennes/covariance du prior, inflate_cov
+  false, mapping mnu/93.14 — tous vérifiés caractère par caractère
+  contre les sources et le yaml officiel. AUCUN bug de transcription.
+- **Bras BAO hors de cause** (sondes A, B) : notre χ²_BAO recalculé aux
+  points des chaînes officielles (colonnes chi2__BAO par point) coïncide
+  à +0.13/+0.24 près en moyenne, entièrement expliqué par r_d Aubourg
+  bas de −0.028 % (vs rdrag CAMB des chaînes, quasi constant,
+  σ ≈ 10⁻⁵ relatif) — effet différentiel < 0.05 sur Δχ².
+- **Cause identifiée : biais θ* du modèle HS96+EH98** (sondes A, D) :
+  notre θ* est systématiquement bas de −0.10 à −0.13 % (−4.7 à −5.3σ du
+  prior !), avec une dépendance résiduelle aux paramètres (scatter
+  0.033 %) ; notre χ²_CMB recalculé aux points des chaînes officielles
+  est gonflé de +30 à +34 en moyenne. La likelihood officielle calcule
+  θ* avec CAMB 1.5.4 (recombinaison complète) ; HS96 est précis au
+  pourcent — 40× la largeur du prior. C'est EXACTEMENT la limitation
+  pré-enregistrée P2, qui désignait G5.2 comme sa borne empirique.
+- **Attribution quantifiée** (sonde E, diagnostic — PAS une correction) :
+  en décalant la moyenne θ* du prior par le biais mesuré (−1.013×10⁻⁵),
+  les MÊMES fits donnent Δχ²_MAP = −7.544 → 2.27σ (dans la fenêtre
+  [2.1, 2.7] ; 77 % de l'écart récupéré), et le best-fit w0waCDM rejoint
+  le margestats officiel (h 0.639 vs 0.637 ; w0 −0.461 vs −0.43±0.22 ;
+  wa −1.590 vs −1.72±0.64). Le résidu (~23 %) est cohérent avec la
+  dépendance paramétrique du biais + r_d (0.028 %) + arrondi de
+  l'ancrage publié.
+- **Validation croisée de l'ancrage** (sonde A) : reconstruit depuis les
+  chaînes officielles elles-mêmes (min de chi2__BAO+chi2__CMB_compressed),
+  Δχ²_MAP officiel = −7.965 ≈ −8.0 publié.
+
+**Statut** : G5.2 reste FORMELLEMENT ÉCHOUÉ avec le pipeline gelé —
+aucun recalibrage silencieux (P2/GO M1.2b). La cause est attribuée, avec
+mécanisme et quantification, à la fidélité du θ* analytique (HS96+EH98)
+face à σ(θ*)/θ* = 2.5×10⁻⁴, pas à un bug. Toute remédiation (θ* CAMB,
+correction calibrée et pré-enregistrée, ou acceptation en limitation)
+est une décision méthodologique qui requiert un GO explicite.

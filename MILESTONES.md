@@ -193,3 +193,41 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   officiel ωbc = Ωm h² − Σmν/93.14 (yaml épinglé) ; conventions ων
   distinctes d'Aubourg (0.0107·Σmν) et de DESI (Σmν/93.14) chacune dans
   sa formule d'origine.
+
+## 2026-06-11 — M5 : fits 5 combinaisons × 2 modèles (5/6 gates PASS,
+## G5.2 ÉCHOUÉ → audit pré-enregistré exécuté, cause attribuée)
+
+- Moteur committé AVANT les runs (06ba107) : Nelder-Mead multi-départs
+  Sobol seedés (24 ΛCDM / 40 w0waCDM, seeds dérivés de 20260611),
+  conversion Nσ vérifiée contre les 5 paires publiées de la Table 6.
+- Résultats (results/m5_fits.json, tableau complet RESULTS.md §4) :
+  G5.1 1.66σ [1.5,1.9] PASS ; G5.2 1.96σ [2.1,2.7] **FAIL** ;
+  G5.3 2.05σ [1.8,3.1] PASS ; G5.4 3.05σ [2.8,4.1] PASS ;
+  G5.5 3.65σ [3.2,4.5] PASS ; G5.6 ordre P+ < Union3 < DESY5 PASS.
+  Réplication exacte BAO-seul ΛCDM : Ωm = 0.2975, h·rd = 101.54 Mpc.
+- Effet de compression mesuré (GO M1.2a) : −0.75σ (P+), −0.75σ (Union3),
+  −0.56σ (DES) vs le −0.7σ que DESI mesure sur BAO+CMB.
+- AUDIT G5.2 (mot-clé ultracode, workflow 5 sondes indépendantes,
+  artefacts results/audit/) — verdict unanime, AUCUN bug : minimiseur
+  parfait (4 optimiseurs, mêmes minima à 2e-7) ; constantes vérifiées
+  aux sources caractère par caractère ; bras BAO innocenté (r_d Aubourg
+  −0.028 % vs rdrag CAMB des chaînes officielles, différentiel < 0.05 en
+  Δχ²) ; CAUSE = biais θ* du modèle analytique HS96+EH98 : −0.10 à
+  −0.13 % ≈ −5σ du prior, scatter paramétrique 0.033 %, χ²_CMB gonflé de
+  +30 vs les colonnes chi2__CMB_compressed officielles. Diagnostic
+  d'attribution (PAS une correction) : prior θ* décalé du biais mesuré →
+  Δχ²_MAP = −7.544 → 2.27σ (dans la fenêtre), best-fit aligné sur le
+  margestats officiel. Ancrage validé depuis leurs propres chaînes
+  (Δχ²_MAP reconstruit −7.965 ≈ −8.0).
+- C'est exactement la limitation pré-enregistrée P2 (z* HS96 percent
+  level vs σ(θ*)/θ* = 2.5e-4), qui désignait G5.2 comme sa borne
+  empirique. Conformément à P2/GO M1.2b : G5.2 reste FORMELLEMENT
+  ÉCHOUÉ, aucun recalibrage silencieux ; toute remédiation (θ* CAMB,
+  correction calibrée pré-enregistrée, ou acceptation en limitation)
+  attend le GO de Téo au STOP M5.
+- Données d'audit épinglées au manifest : chaînes officielles DESI
+  base/base_w_wa du bras compressé (8 fichiers + 2 margestats, SHA256) —
+  colonnes par point chi2__BAO, chi2__CMB_compressed, rdrag.
+- Note de transparence : une erreur 50x transitoire de data.desi.lbl.gov
+  a produit un premier margestats base_w_wa corrompu (page HTML),
+  détecté à la vérification de taille et re-téléchargé avant épinglage.

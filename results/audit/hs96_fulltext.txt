@@ -1,0 +1,1860 @@
+arXiv:astro-ph/9510117v2  19 Apr 1996
+IAS/SNS-AST-95/42, CfPA-TH-95-18, UTAP-212
+SMALL SCALE COSMOLOGICAL PER TURBA TIONS:
+AN ANAL YTICAPPROACH †
+Wayne Hu1 and Naoshi Sugiyama 2
+1Institute for Advanced Study
+School of Natural Sciences
+Princeton, NJ 08540
+2Department of Physics, Faculty of Science
+The University of Tokyo, Tokyo 113, Japan
+Through analytic techniques veriﬁed by numerical calculat ions, we establish general relations between the
+matter and cosmic microwave background (CMB) power spectra and their dependence on cosmological
+parameters on small scales. Fluctuations in the CMB, baryon s, cold dark matter (CDM), and neutrinos
+receive a boost at horizon crossing. Baryon drag on the photo ns causes alternating acoustic peak heights in
+the CMB and is uncovered in its bare form under the photon diﬀu sion scale. Decoupling of the photons at last
+scattering and of the baryons at the end of the Compton drag ep och, freezes the diﬀusion-damped acoustic
+oscillations into the CMB and matter power spectra at diﬀere nt scales. We determine the dependence of the
+respective acoustic amplitudes and damping lengths on fund amental cosmological parameters. The baryonic
+oscillations, enhanced by the velocity overshoot eﬀect, co mpete with CDM ﬂuctuations in the present matter
+power spectrum. We present new exact analytic solutions for the cold dark matter ﬂuctuations in t he presence
+of a growth-inhibiting radiation and baryon background. Combined with the acoustic contributio ns and
+baryonic infall into CDM potential wells, this provides a hi ghly accurate analytic form of the small-scale
+transfer function in the general case.
+Subject headings: cosmic microwave background – large-scale structure of uni verse – cosmology:theory
+whu@sns.ias.edu
+sugiyama@yayoi.phys.s.u-tokyo.ac.jp
+† Submitted to ApJ, revised November 26, 2024
+1
+The sage sets aside obfuscation
+And is indiﬀerent to baseness and honor
+The mass of men are all hustle-bustle
+The sage is slow and simple
+He combines myriad years
+Into a single purity
+Thus does he treat the myriad things
+And thereby gathers them together
+–Chuang-tzu, 2
+I. Introduction
+Small scale ﬂuctuations in the cosmic microwave background (CMB) and the matter density provide
+a unique opportunity to probe structure formation in the uni verse. As CMB anisotropy experiments reach
+toward smaller and smaller angles, the region of overlap wit h large scale structure measurements will increase
+dramatically. Since the CMB and matter power spectra encode information at very diﬀerent epochs in the
+formation of structure, comparison of the two will provide a powerful consistency test for competing scenarios.
+Unfortunately, the simple relation between the two power sp ectrum at large scales (Sachs & Wolfe 1967)
+does not hold at small scales. To establish the general relat ion, we need to employ a more complete analysis
+of how gravitational instability aﬀects the matter and CMB t ogether.
+In previous papers (Hu & Sugiyama 1995a,b, hereafter HSa,b) , we developed a conceptually simple
+analytic description of CMB anisotropy formation. The cent ral advance over previous analytic works ( e.g.
+Doroshkevich, Zel’dovich & Sunyaev 1978) involved the inﬂu ence of gravitational potential wells, established
+by the decoupled matter, on the acoustic oscillations in the photon-baryon ﬂuid. In this paper, we reﬁne
+the analysis for scales much smaller than the horizon at last scattering as is relevant for large scale structure
+calculations. We furthermore extend it to encompass the pho ton-baryon backreaction on the evolution of
+the cold dark matter and gravitational potential as well as b aryonic decoupling and evolution. This makes
+it possible to extract the relation between CMB and matter ﬂu ctuations established in the early universe.
+Analytic solutions in terms of elementary functions can be constructed in the small scale limit and ser ve
+to illuminate the physical processes involved in a model-in dependent manner. Despite the simplicity of the
+ﬁnal results, the study of small scale ﬂuctuations requires a rather technical exposition of perturbation theory.
+For this reason, we divide this paper into two components. Th e main text discusses results drawn from a
+series of appendices and illustrates the corresponding pri nciples in the familiar context of adiabatic cold
+dark matter (CDM), adiabatic baryonic dark matter (BDM), an d isocurvature BDM scenarios for structure
+formation.
+We begin in §2 with a discussion of the central approximations employed, i.e. the tight coupling limit
+for the photons and baryons and the external potential repre sentation for metric ﬂuctuations. Details of
+these methods and the justiﬁcation of their use can be found i n Appendix A. As established in Appendix
+B, all ﬂuctuations are given a boost at horizon crossing due t o the driving eﬀects of gravitational infall
+and dilation. Since the gravitational potential subsequen tly decays, the driving eﬀects disappear well after
+horizon crossing, leaving ﬂuctuations to evolve in their na tural source-free modes. For the photon-baryon
+system, these are acoustic oscillations whose zero point is displaced by baryon drag. As described in §3
+2
+and §4, these oscillations are frozen into the photon and baryon s pectra at last scattering and the end of
+the Compton drag epoch respectively. Since these epochs are not equal, photon diﬀusion (Silk 1968) sets
+a diﬀerent damping scale in the CMB and the baryons. This proc ess is described by the acoustic visibility
+functions introduced in Appendix C.
+The baryonic oscillations may be hidden in CDM models by larg er cold dark matter ﬂuctuations. These
+are discussed in §5. The baryon and radiation background also suppresses CDM growth before the end of
+the Compton drag epoch. Appendix D treats this source-free e volution of the CDM component analytically.
+After the end of the Compton drag epoch, the CDM ﬂuctuations p rovide potential wells into which the
+baryons fall. From the combined analysis of CMB, baryon and C DM ﬂuctuations, we obtain accurate
+analytic expressions for matter and photon transfer functi ons in the small scale limit. This greatly improves
+upon the ﬁtting functions for the matter power spectrum in th e literature (Bardeen et al. 1986, hereafter
+BBKS, Peacock & Dodds 1994, Sugiyama 1995) in the case of a sig niﬁcant baryon fraction. Our form is
+constructed out of ﬁts from Appendix E for parameters that de pend on the detailed physics of recombination,
+i.e. the last scattering epoch, Compton drag epoch, photon dampi ng length, and Silk damping length.
+2. Acoustic Approximation
+We previously developed an analytic description of acousti c oscillations in the photons and baryons
+(HSa,HSb). As discussed in more detail in Appendix A, this ap proach is based on two simplifying assump-
+tions: that a perturbative expansion in the Compton scatter ing time between photons and electrons can be
+extended up to recombination and that the gravitational pot ential may be considered as an external ﬁeld.
+Combined these two simpliﬁcations imply that photon pressu re resists compression by infall into potential
+wells and sets up acoustic oscillations in the photon-baryo n ﬂuid which then damp by photon diﬀusion.
+However, both of these approximations would seem to be probl ematic for small-scale ﬂuctuations. Here, the
+optical depth through a wavelength of the ﬂuctuation at last scattering is small implying weak rather than
+tight coupling (see e.g. Kaiser 1984, Hu & White 1995). This issue is addressed more fu lly in Appendix
+C [below eqn. (C-3)] where it is shown that only acoustic cont ributions from the tight coupling regime are
+visible through the last scattering surface, i.e. those from a time slightly earlier than last scattering when
+the optical depth to Compton scattering was still high.
+On the other hand, the second issue poses a computational pro blem. Inside the horizon in the radiation
+dominated epoch, the acoustic oscillations in the photon-b aryon density feed back into the evolution of the
+gravitational potential through the generalized Poisson e quation. Hu & White (1996) take the approach
+of including the self-gravity eﬀects consistently by separ ating them from the truly external potentials. For
+many cases, a simpler approach suﬃces. By considering the se lf-gravity of the ﬂuid as contributing to an
+external potential, we retain the conceptual simplicity of HSa and HSb. Although a consistent evolution of
+the potential would seem to require a full numerical solutio n of the coupled equations, it is in practice not
+generally necessary. The key point is that the feedback eﬀec t on the potentials is not arbitrary. Since photon
+pressure prevents the growth of photon-baryon ﬂuctuations and collisionless damping eliminates neutrino
+contributions, the potential decreases to zero after horiz on crossing in the radiation dominated epoch. We
+shall examine how this aﬀects the acoustic oscillations mor e carefully in §3.
+3
+Fig. 1. Acoustic oscillations receive a boost at horizon crossing aH due driving from
+gravitational potential decay. The perturbations then set tle into a pure acoustic mode
+and are subsequently damped by photon diﬀusion. Together th e potential driving and
+diﬀusion damping eﬀects form the acoustic envelope. After d iﬀusion damping has destroyed
+the acoustic oscillations, the underlying baryon drag eﬀec t becomes apparent. Since Ψ is
+here constant for a ≫aeq, |RΨ | increases with time. This contribution itself is damped at
+last scattering a∗ by cancellation. Well after last scattering a ≫a∗, isotropic perturbations
+collisionlessly damp creating angular ﬂuctuations in the C MB. The model here is adiabatic
+CDM, Ω 0 = 1, h = 0.5, Ω b = 0.05.
+Due to Compton drag from the coupling, the baryons density ﬂu ctuations follow the photons as
+˙δb = 3
+4
+˙δγ = 3 ˙Θ 0 orδb = 3Θ 0 +S and exhibit acoustic oscillations as well. Here overdots re present derivatives
+with respect to conformal time, Θ 0 is the isotropic temperature perturbation in Newtonian gau ge, and S
+is the constant photon-baryon entropy. On the other hand, th e cold dark matter, if present, is decoupled
+from photons and suﬀers only the gravitational eﬀects of the oscillating radiation. Again, since the potential
+created by the radiation merely oscillates and damps away af ter horizon crossing, the CDM density pertur-
+bationsδc experience a kick at horizon crossing only to settle into the pure logarithmically growing mode in
+the radiation dominated universe.
+3. Photons Fluctuations
+3.1 Driving Eﬀects
+Before recombination, the photon-baryon system behaves as a damped, forced oscillator. As discussed
+in §2, the self-gravity of the acoustic oscillations contribut es to the gravitational force on the oscillator at
+horizon crossing if the photons or baryons contribute signi ﬁcantly to the density of the universe at that epoch.
+Even though the detailed behavior at horizon crossing in the radiation dominated epoch is complicated by
+feedback eﬀects, the end result is extremely simple: ﬂuctua tions experience a boost proportional to the
+potential at horizon crossing. As the ﬁrst compression of th e ﬂuid is halted by photon pressure, the self-
+gravitational potential decays. This leaves the oscillato r in a highly compressed state and enhances the
+amplitude of the subsequent oscillation. For adiabatic ini tial conditions, the amplitude of the potential at
+4
+horizon crossing is essentially the initial curvature ﬂuct uation. For isocurvature initial conditions, it is simply
+related to the initial entropy perturbations.
+We quantify these statements in Appendix B and calculate the exact boost factor [see eqns. (B-5),(B-
+6)]. It represents an enhancement in temperature ﬂuctuatio ns of a factor of three over its initial value
+in the adiabatic case or more importantly a factor of 5 /(1 + 4
+15fν) over the gravitational redshift induced
+large-scale ﬂuctuations in a scale-invariant model (Sachs & Wolfe 1967). Here the fraction of the radiation
+energy density contributed by the neutrinos is fν =ρν/(ρν +ργ) ≃ 0.405 for the standard thermal history
+with three massless species. Its presence accounts for neut rino anisotropic stress which provides the relation
+between the gravitational potential Ψ and the curvature ﬂuc tuation Φ [see eqn. (A-5)]. Note that neutrino
+temperature ﬂuctuations are boosted by a similar factor (Hu et al. 1995).
+Three features are worth emphasizing:
+(1) Potential decay enhances temperature perturbations.
+(2) Enhancement only occurs for scales that cross the horizo n before equality.
+(3) It occurs at horizon crossing causing phase-coherent oscillations in t he wavenumber k.
+Together the ﬁrst two points imply that as a function of k, the acoustic amplitude will increase through keq,
+the horizon crossing wavenumber at equality, forming a pote ntial envelope. By delaying equality, one moves
+the transitional regime to larger scales and enhances the lo wer k oscillations. This explains the increasing
+prominence of the ﬁrst few acoustic peaks as the matter conte nt Ω 0h2 is lowered or the number of relativistic
+species raised in adiabatic models. It is interesting to not e that the eﬀect of equality on the CMB and matter
+power spectrum are anticorrelated providing a powerful con sistency test for its redshift zeq. As we shall see
+in §3.2 though, a complication arises since high- k oscillations are damped by photon diﬀusion.
+The third point follows because the gravitational driving t erm is eﬀective at sound horizon crossing
+η ∼ 1/kcs, thus mimicing a driving frequency of ˜ ω ∼ kcs. Here η =
+∫
+dt/a is the conformal time and we
+take c = 1 throughout. Since the natural frequency of the oscillati on is related to the sound speed cs as
+ω =kcs, the two scale in the same manner. Thus the horizon crossing e ﬀect is timed to produce a coherent
+oscillation in k. Speciﬁcally, adiabatic and isocurvature initial conditi ons yield cosine and sine temperature
+oscillations respectively.
+3.2. Damping Eﬀects
+The photons and baryons are not in fact perfectly coupled lea ding to diﬀusion damping. The coupling
+strength is quantiﬁed by the Compton optical depth τ . Correspondingly, the mean free path of the photons
+in the baryons is given by ˙ τ −1. Explicitly, ˙ τ = xeneσTa where xe is the electron ionization fraction, ne
+is the electron number density, and σT is the Thomson cross section. As the photons random walk acro ss
+a wavelength of the perturbation, temperature ﬂuctuations collisionally damp. More speciﬁcally, diﬀusion
+generates viscosity or anisotropic stress in the photon-ba ryon ﬂuid and causes heat conduction across the
+wavelength (Weinberg 1972). Both of these processes damp ﬂu ctuations. To order of magnitude, the damping
+length is the random walk distance
+√
+η/ ˙τ . It exceeds the wavelength of a ﬂuctuation when the optical d epth
+through a single wavelength ˙τ/k =kη. If the diﬀusion scale is well under the horizon, kη ≫ 1 so that ˙τ/k
+is still high at crossover. The photons and baryons are thus s till strongly coupled and the damping may be
+calculated under the tight coupling approximation.
+5
+A quantitative treatment of diﬀusion damping is given in App endix A. Subtle eﬀects such as the angular
+and polarization dependence of Compton scattering slightl y enhance the generation of viscosity and thus
+damping in the radiation dominated universe (Kaiser 1983). The end result of the calculation is a wavenumber
+kD(η) by which acoustic ﬂuctuations are damped as exp[ −(k/kD)2] [see eqn. (A-14)]. Combined with the
+potential envelope from the horizon crossing boost of §3.1, this completes the acoustic envelope shown in
+Fig. 1. Remaining after diﬀusion damping is the acoustic oﬀs et of Θ 0 + Ψ = −RΨ, where R = 3ρb/4ργ =
+31.5Ω bh2Θ −4
+2.7(z/103)−1. Here Θ 2.7 = T0/2.7K is the scaled present temperature of the CMB, Ω b is the
+fraction of critical density contributed by the baryons, an d the Hubble constant is H0 = 100h km s −1
+Mpc−1. We add the Newtonian potential Ψ to the temperature perturb ation Θ 0 to remove the eﬀect of
+gravitational redshift on the photons (see Appendix A). The RΨ term represents the baryon drag eﬀect on
+the photons and is analogous to the Silk mechanism (Silk 1968 ) with the roles of the photons and baryons
+interchanged. Infalling baryons drag the photons into pote ntial wells leading to a displacement of the zero
+point of the acoustic oscillation (HSa). Thus it is responsi ble for the alternating peak heights and amplitude
+enhancement of intermediate scale acoustic oscillations ( see Appendix A, Fig. 8a). The zero-point shift
+remains even after diﬀusion damping has eliminated the osci llations themselves.
+3.3. Decoupling
+As the total optical depth to the present drops below unity τ (z∗) = 1, last scattering of the CMB photons
+freezes the acoustic oscillations into the spectrum. The op tical depth drops rapidly as neutral hydrogen forms
+so that last scattering and recombination approximately co incide in the absence of subsequent reionization.
+This epoch is nearly independent of cosmological parameter s such as the matter and baryon content Ω 0h2
+and Ω bh2 (Peebles 1968, Jones & Wyse 1985). However variations at the 10% level do occur across the full
+range of parameters. In Appendix E [eqn. (E-1)], we present a n extremely accurate analytic ﬁt to the last
+scattering epoch.
+The phase of the acoustic oscillation is frozen in at the valu e krs(η∗), where (HSa)
+rs = 2
+√
+3
+3 (Ω 0H 2
+0 )−1/2
+√ aeq
+Req
+ln
+√
+1 +R +
+√
+R +Req
+1 +
+√
+Req
+, (1)
+is the sound horizon with Req =R(aeq) and aeq = 2.35 × 10−5(Ω 0h2)−1(1 −fν)−1Θ 4
+2.7. Its variation with k
+produces an oscillatory pattern in the CMB temperature with extrema at scales (HSb)
+kγjrs(η∗) =
+{ jπ, adiabatic
+(j − 1/2)π. isocurvature (2)
+The physical scale of the peaks kγj is projected onto an angular scale on the sky and provides a se nsitive
+angular diameter distance test for curvature in the univers e.
+To determine the amplitude of the ﬂuctuations, this instant aneous decoupling approximation must
+be modiﬁed to account for diﬀusion damping through recombin ation. The diﬀerential visibility function
+Vγ = ˙τe −τ expresses the probability that a photon last scattered with in dη of η. This function describes
+how ﬂuctuations at recombination are frozen into the CMB. Eq ually useful for our purposes is the acoustic
+visibility function ˆVγ = Vγ exp[−(k/kD)2]. By including the intrinsic damping behavior of the ﬂuctua tions,
+it describes how acoustic oscillations are frozen into the C MB (see Fig. 2). Due to the growth of the diﬀusion
+length through recombination, this function is weighted to slightly earlier times than Vγ. At small scales,
+6
+Fig. 2. Visibility functions for the photons and baryons. In the und amped k → 0 limit, the
+photon acoustic visibility and the Compton visibility are e quivalent ˆVγ = Vγ and the baryon
+acoustic visibility equals the drag visibility, ˆVb = Vb. If Ω bh2
+∼< 0.03, Vb peaks at later times
+than Vγ, i.e. ηd > η∗. For small scales, the acoustic visibilities, which weight the acoustic
+contributions from the tight coupling regime, are increasi ngly suppressed at later times by
+damping and the width and amplitude of the acoustic visibili ties decrease as k increases.
+only the small fraction of photons last which last scattered beforez∗, and hence in the tight coupling regime,
+retain acoustic ﬂuctuations. This leads to a sharp decrease in acoustic ﬂuctuations with k. More speciﬁcally,
+the damping envelope is given by (HSa)
+Dγ(k) =
+∫ η0
+0
+dη ˆVγ(η,k ) =
+∫ η0
+0
+dηVγ(η)e−[k/kD (η)]2
+, (3)
+i.e. a near exponential damping in k. Through the ﬁrst decade of the drop, it is well approximated by the
+form
+Dγ(k) ≃e−[k/kDγ ]mγ
+. (4)
+The damping angle is given by the same projection conversion as the acoustic peaks ℓD = kDγrθ(η∗).
+Accurate ﬁtting functions for kDγ and mγ are given in Appendix E, eqns. (E-4) (E-7). Note that kDγ is
+the wavenumber at which diﬀusion suppresses the ﬂuctuation by e−1. It is interesting to note that k−1
+Dγ is
+intimately related to the width of the Compton visibility fu nction. This is because the thickness of the last
+scattering surface is by deﬁnition the diﬀusion length at la st scattering.
+Combining the damping envelope with the intrinsic amplitud e of acoustic oscillations discussed in §2
+and Appendix B, we obtain the transfer function at small scal es. This function represents the growth to
+the present from the initial curvature or entropy perturbat ion. In Fig. 3, we plot examples for the adiabatic
+BDM, isocurvature BDM, and adiabatic CDM models with standa rd recombination. Note that in more
+typical isocurvature BDM models (Peebles 1987a,b), reioni zation may occur soon after recombination. In
+this limit, the damping length continues to grow until it rea ches the horizon at the new last scattering surface
+and destroys all oscillations in the photons.
+The corresponding anisotropy can be obtained by choosing an initial curvature and entropy spectrum
+Φ(0 ,k ) and S(0,k ) and employing the free streaming solution (see HSa eq. 12) f or the monopole and dipole
+7
+Fig. 3. Photon transfer function. Plotted is the present rms photo n temperature ﬂuctuation
+relative to the initial curvature ﬂuctuation Φ(0 ,k ) for adiabatic ﬂuctuations and the initial
+entropy ﬂuctuation S(0,k ) for isocurvature ﬂuctuations assuming standard recombin ation.
+The intrinsic acoustic amplitude is approximated by the ana lysis in Appendix B for scales
+well inside the horizon at equality k ≫keq. The damping is well approximated by the tight
+coupling expansion for high Ω bh2 and is slightly overestimated for low values. Below the
+damping tail, the baryon drag oﬀset clearly appears in (b) an d (c) where the gravitational
+potential is not dominated by acoustic density ﬂuctuations . An analytic treatment of this
+eﬀect is given in Appendix A and C.
+contributions to the rms given in Appendix B, eqn. (B-7). Not e that for low Ω bh2 models, the damping length
+is somewhat overestimated by the tight coupling approximat ion. This is not surprising since as Ω bh2 → 0,
+the photon mean free path approaches the horizon. In this cas e, the diﬀusion length passes the wavelength of
+the ﬂuctuation when the optical depth through a wavelength i s near unity and the tight coupling expansion
+of Appendix A breaks down. The damping length is overestimated because the photons essentially free
+stream across the wavelength and do not suﬀer collisional da mping. A phenomenological correction for this
+eﬀect is given in Appendix E.
+In summary, the general features of the CMB ﬂuctuation spect rum are
+(1) Acoustic peaks at harmonics of the angle the sound horizo n subtends at last scattering, sensitive to
+8
+Fig. 4. Baryon ﬂuctuation time evolution. The baryon density ﬂuctu ation δb follows the
+photons before the drag epoch ad yielding a simple oscillatory form for aH ≪a ≪ad. The
+Silk damping length is given by the diﬀusion length at the dra g epoch. The portion of the
+baryon ﬂuctuations that enter the growing mode is dominated by the velocity perturbation at
+the drag epoch ad due to the velocity overshoot eﬀect (see also Fig. 11). Since a ﬂat Λ model
+is chosen here, the growth rate is slowed by the rapid expansi on for a ∼>aΛ = (Ω 0/Ω Λ )1/3.
+(a) The curvature,
+(b) The adiabatic or isocurvature nature of the initial ﬂuct uations;
+(2) An acoustic envelope for the oscillation amplitude sens itive to
+(a) The matter-radiation ratio, e.g. the adiabatic acoustic envelope varies from 1
+3 Ψ to 5
+3 Ψ as one passes
+through the equality scale,
+(b) The baryon-photon ratio due to the a modulation of RΨ from baryon drag,
+(c) The thermal history from the exponential diﬀusion-damp ing tail,
+though the exact nature will depend on details of the model.
+4. Baryon Fluctuations
+In the tight coupling limit, the baryons participate in the a coustic oscillations of the photons. Near
+recombination, they decouple from the photons though not ex actly at last scattering. Scattering represents
+an exchange of momentum between the two ﬂuids and seeks to equ alize their bulk velocities Vb and Vγ.
+However the two momentum densities ( ργ +pγ)Vγ = 4
+3ργVγ and (ρb +pb)Vb ≃ ρbVb are not equal. Thus
+momentum conservation requires that the rate of change of th e baryon velocity due to Compton drag is scaled
+by a factor of R−1 = 4
+3ργ/ρb compared with the photon case: i.e. ∝ ˙τd =τ/R . The explicit expression for
+the baryon momentum conservation or Euler equation is given in Appendix A and is used in Appendix C to
+make the qualitative statements here rigorous. The form of t he coupling suggests that we can deﬁne a drag
+depthτd(ηd) =
+∫ η0
+ηd
+˙τddη. Below drag depth τd(ηd) = 1, the baryons dynamically decouple from the photons.
+For the standard recombination scenario, this occurs near r ecombination but at a diﬀerent value than last
+9
+Fig. 5 . Matter transfer function. The analytic estimates of the in trinsic acoustic amplitude
+is a good approximation for k ≫keq. The Silk damping scale is adequately approximated
+although its value is underestimated by ∼ 10%. For isocurvature BDM and adiabatic CDM,
+the acoustic contributions do not dominate the small scale ﬂ uctuations. We have added in
+the contributions from the initial entropy ﬂuctuations and the cold dark matter potentials
+according to the analytic treatment of Appendix E.
+scattering. Analytic ﬁtting formulae for zd are given in Appendix E, equation (E-2). Since recombinatio n
+occurs around z = 10 3 for all models, the end of the drag epoch precedes last scatte ring if Ω bh2
+∼> 0.03.
+The acoustic ﬂuctuations in the baryons are frozen in at the d rag epoch rather than at last scattering.
+Furthermore, unlike for the CMB, it is not the acoustic densi ty ﬂuctuation that forms peaks in observable
+spectrum today but rather the acoustic velocity. This is bec ause the baryon ﬂuctuations continue to evolve.
+In Appendix C, we give the exact matching conditions at zd onto the growing and decaying modes of pres-
+sureless perturbation theory. This yields an accurate desc ription for the subsequent evolution of the baryonic
+ﬂuctuations in the presence of a background radiation energ y density and cold dark matter. Qualitatively,
+the acoustic velocity at the drag epoch dominates over the ac oustic density for the growing mode of ﬂuctu-
+ations due to the velocity overshoot eﬀect (Sunyaev & Zel’do vich 1970, Press & Vishniac 1980). The former
+moves matter and produces clumping in the baryon density. Si nce expansion damps peculiar velocities, this
+lasts for approximately an expansion time ηd. Thus only scales smaller than the horizon kηd ≫ 1 experience
+10
+a boost due to the velocity at release. We show an example in Fi g. 4, where the k-mode is chosen to be near a
+zero point of the acoustic density oscillation at ηd. The rapid regeneration of density ﬂuctuations via velocit y
+overshoot is due to the fact that zeros of the density oscilla tion are maxima of the velocity oscillation. The
+peaks in the matter power spectrum due to baryonic acoustic o scillations therefore occur at
+kbjrs(ηd) =
+{
+(j − 1/2)π, adiabatic
+jπ, isocurvature (5)
+and are roughly π/2 out of phase with the corresponding CMB ﬂuctuations.
+To obtain the amplitude of the acoustic ﬂuctuations, we must also consider damping eﬀects. Photon
+diﬀusion in the tight coupling regime damps baryon ﬂuctuati ons as well due to Compton drag, i.e. via the
+Silk mechanism (Silk 1968). Analogous to the photon case, we can construct the drag visibility function Vb
+out of the drag optical depth τd. The acoustic visibility function then becomes ˆVb = Vb exp[−(k/kD)2] (see
+Fig. 2). Similarly, the net damping as a function of scale is d escribed by
+Db(k) =
+∫ η0
+0
+dη ˆVb(η,k ) =
+∫ η0
+0
+dηVb(η)e−[k/kD (η)]2
+≃e−(k/kS )mS
+, (6)
+where the approximation is valid through the ﬁrst decade of d amping. Analytic ﬁtting formula for kS and
+mS are given in Appendix E eqns. (E-9) (E-10). As is the case with the photons, the latter accounts for the
+width of the visibility function and is almost independent o f cosmological parameters. Note that the Silk
+damping length is not the same as the photon damping length de spite the underlying similarity in cause.
+The small diﬀerence between last scattering and the drag epo ch can alter it signiﬁcantly due to the rapid
+change in kD around recombination (see Fig. 2). Moreover, the two scale d iﬀerently with the baryon and
+matter content.
+Together with the horizon crossing boost from Appendix B, th is deﬁnes the contribution to the matter
+transfer function of the acoustic oscillations (see Fig. 5) . Explicit expressions for the three scenarios shown
+are given in Appendix D eqns. (D-22) (D-23). In the isocurvat ure BDM models, the transfer function at small
+scales is dominated by the initial entropy ﬂuctuation S(0,k ). Furthermore, unlike the photon oscillations,
+baryon oscillations may survive early reionization if it oc curs more than an expansion time after the drag
+epoch. In this case, the baryonic oscillations are subseque ntly surrounded by a homogeneous and isotropic
+distribution of photons. They then represent entropy pertu rbations and are not damped by further photon
+diﬀusion. Even in the rather unphysical event of near instan taneous reionization, baryonic oscillations may
+survive if reionization is accompanied by the formation of a signiﬁcant fraction of compact baryonic objects
+(see e.g. Gnedin & Ostriker 1990).
+If the model contains cold dark matter, baryons suﬀer an addi tional eﬀect. After the drag epoch,
+they fall into potential wells established by the CDM. If the CDM to baryon ratio is high, this eﬀect will
+dominate over the velocity overshoot of the acoustic oscill ations. To quantify this eﬀect, we need to consider
+the evolution of CDM ﬂuctuations.
+11
+Fig. 6. CDM and matter ﬂuctuation time evolution. The cold dark matt er ﬂuctuations
+are constant outside the horizon scale and experience a boos t into a logarithmically growing
+mode at horizon crossing in the radiation dominated epoch. B etween equality and the drag
+epoch, the presence of baryons suppress the growth rate of CD M ﬂuctuations [see eqn. (7)].
+By lowering Ω 0h2, this region of suppression can be reduced for ﬁxed Ω b/Ω 0, cf. (a) and
+(b). After the drag epoch, we plot δm = (δbρb +δcρc)/(ρb +ρc) rather than δc since the
+two components thereafter contribute similarly to the tota l growth. Baryons also lower the
+contribution of δc to δm at the drag epoch.
+5. Cold Dark Matter Fluctuations
+Let us begin with the evolution of CDM ﬂuctuations before the drag epoch. As shown in §2 and
+Appendix B2, CDM ﬂuctuations are given a kick at horizon cros sing that sends them into a logarithmicly
+growing mode. As the universe becomes matter dominated, thi s stimulates power-law growing and decaying
+modesδc ∝ap. If CDM dominates the non-relativistic matter, p = {1, −3/2}. However if the baryon fraction
+is signiﬁcant, the power law is modiﬁed. To ﬁrst order in Ω b/Ω 0,
+p =
+{
+1 − 3
+5
+Ω b
+Ω 0
+, − 3
+2
+[
+1 − 2
+5
+Ω b
+Ω 0
+]}
+. (7)
+CDM growth is thus inhibited by the presence of baryons. We gi ve the exact solution to the evolution
+equation from horizon crossing to zd in Appendix D. Because of the complexity of these expression s, it
+is also useful and instructive to obtain approximate scalin g relations. If ad ≫ aeq and Ω b/Ω 0 ≪ 1,
+the main eﬀect is an amplitude reduction of the CDM density pe rturbation δc(ηd,k ) by approximately
+(ad/aeq)−0.6Ω b/Ω 0 ≃ (24Ω 0h2)−0.6Ω b/Ω 0 (see also Fig. 10). As Ω 0h2 is lowered, the drag epoch recedes into
+the radiation domination epoch and the regime where the grow th rate is aﬀected aeq <a<a d vanishes.
+At the drag epoch, the baryons are released from the photons a nd behave dynamically as if they were
+CDM. Since baryonic infall into CDM wells subsequently cont ributes to the self-gravity of the matter, the
+growth rates again become p = {1, −3/2} regardless of the baryon fraction. We thus follow the total n on-
+relativistic matter perturbation δm after the drag epoch. The relative contribution of the CDM ﬂu ctuations
+at the drag epoch to the total non-relativistic matter ﬂuctu ationsδm scales as 1 − Ω b/Ω 0. A good ﬁt to the
+net suppression is given by the form
+δm ≃α
+(
+1 − Ω b
+Ω 0
+)
+× lim
+Ω b→0
+δm, (8)
+12
+where α ≃ (47Ω 0h2)−0.67Ω b/Ω 0 for low Ω b/Ω 0 ∼< 0.5 and high Ω 0h2 ≫ 0.03. The change in the coeﬃcients
+from the naive scaling relation is due to detailed matching o f growing and decaying modes [see Appendix D
+eqn. (D-18)]. A highly accurate ﬁtting formula for α in the general case is given in Appendix E, eqn. (E-12).
+For the Ω b → 0 limit, an exact expression in terms of elementary function s is given in Appendix D which
+improves the 10% accuracy of the standard BBKS ﬁtting formul a to better than the 1% level at small scales.
+In Fig. 6, we show the resulting evolution of a scale under the Silk damping length for which the baryon
+ﬂuctuations at the drag epoch are negligible. To extend the s caling of equation (8) to larger scales for Fig. 5,
+we have employed a generalization of the BBKS ﬁtting functio n given in Appendix D. Notice that
+(1) the change in the growth rate between equality and the dra g epoch, and
+(2) the fractional contribution of δc to δm at the drag epoch,
+both play a signiﬁcant role in suppressing the ﬁnal amplitud e of matter ﬂuctuations. Combined with the
+acoustic contributions from §4, this completes the matter transfer function in CDM models .
+We can now address the question of when acoustic oscillation s are prominent in the matter transfer
+function. The main eﬀect is simply due to the density ratio ρb/ρc = Ω b/Ω c. However, the acoustic and
+cold dark matter contributions have a diﬀerent dependence o n scale. Relative to the cold dark matter,
+acoustic contributions scale as ( kηd)Db due to the velocity overshoot and diﬀusion damping factors. Since
+Db encorporates an exponential cut oﬀ at the Silk scale kS and velocity overshoot weights the spectrum
+toward small scales, acoustic contributions will be most vi sible just above the Silk scale. The relative
+contribution to the matter transfer function will therefor e scale as kSηd. Acoustic contributions increase in
+prominence if the Silk scale is small compared with the horiz on at the drag epoch, i.e. in the high Ω bh2 case.
+By including the suppression factor from equation (8) and nu merical factors from Appendix B and D, the
+maximum ratio of the acoustic amplitude to the CDM contribut ion in the transfer function scales crudely
+as [see Appendix D, eqn. (D-31)]
+0.4kS
+Ω b
+Ω c
+(Ω 0h2)−1(1 + 24Ω 0h2)−1/2(1 + 32Ω bh2)−3/4α−1, (9)
+where kS, here in Mpc −1, and α are given explicitly in Appendix E. This relation encorpora tes:
+(1) Baryon acoustic oscillations;
+(2) Baryon decoupling;
+(3) Silk damping;
+(4) Velocity overshoot;
+(5) Baryon gravitational instability;
+(6) Baryon infall into CDM wells whose depth depends on
+(a) Acoustic feedback into the potential,
+(b) CDM self-gravity vs. the expansion rate,
+and combines them in a consistent manner.
+13
+6. Discussion
+We have established a framework for treating small scale ﬂuc tuations in the realistic case of a coupled
+multiﬂuid system. In the limit that ﬂuctuations crossed the horizon in the radiation dominated epoch,
+closed-form analytic solutions are available. The fundame ntal elements uncovered by this approach are the
+boost at horizon crossing due to infall and dilation eﬀects f rom potential decay, the source-free solution of
+the component evolution equations, the baryon drag on the ph otons, and the Compton drag on the baryons.
+Together they establish general consistency relations bet ween the matter and the radiation power spectra as
+well as expose their sensitivity to changes in the backgroun d model.
+Unlike the case of the matter ﬂuctuations, decay in the poten tial results in an ampliﬁcation of acoustic
+oscillations in the CMB. These opposing manifestations of t he same physical eﬀect provide both a measure
+and a powerful consistency check on the redshift of equality . Baryon drag displaces the zero point of the
+acoustic oscillations which remains as a temperature shift even after the oscillations have damped by photon
+diﬀusion. Last scattering marks the end of the baryon drag ep och at which the acoustic oscillations with
+their characteristic diﬀusion damping scale are frozen int o the photon spectrum. Correspondingly, at the
+end of the Compton drag epoch, the Silk-damped baryonic acou stic oscillations are frozen into the matter
+spectrum. We have provided convenient analytic ﬁtting form ulae for these quantities as a function of the
+matter and baryon content. These may be useful for the extrac tion of cosmological information from the
+CMB and matter power spectrum once observations become avai lable.
+The photon-baryon system also aﬀects the growth of CDM ﬂuctu ations. It ﬁrst stimulates growth
+through the horizon crossing boost. Subsequently, it aﬀect s the balance of the growth inhibiting expansion
+to the self-gravity of the CDM. We have obtained an analytic s olution for adiabatic initial conditions and the
+exact general solution for the two eﬀects respectively. To s implify these expressions, we have also provided
+an accurate ﬁtting form for the transfer function in terms of elementary functions. Growth suppression due
+to the presence of baryons has implications for the ﬁrst gene ration of structure. The expressions derived
+here remain valid for linear perturbations to an arbitraril y small scale where direct numerical calculations
+are impractical.
+Baryonic acoustic oscillations are of course not prominent in presently popular models where Ω b/Ω 0 ≪ 1
+due to the extra growth of the CDM ﬂuctuations between horizo n crossing and the drag epoch. However,
+they serve as a useful complement to their CMB counterpart if either Ω 0h2
+∼< 0.05 or big bang nucleosynthesis
+constraints are too stringent (Gnedin & Ostriker 1990). Ind eed there are tentative indications from cluster
+inventories that the baryon fraction may be as high as 15% (Wh ite et al. 1993). The presence or absence
+of acoustic oscillations in the observations of the CMB and l arge scale structure will in the future provide a
+robust distinction between general classes of scenarios:
+(1) Oscillations in CMB and matter power spectra: standard r ecombination with Ω b ∼> Ω c;
+(2) Oscillations in CMB alone: standard recombination with Ω b ≪ Ω c;
+(3) Oscillations in matter power spectra alone: early reion ization with Ω b ∼> Ω c.
+Large scale structure observations already suggest there a re no dramatic oscillations in the matter power
+spectrum as would be the case for (1) and (3) if Ω b ≫ Ω c (Peacock & Dodds 1994). However low amplitude
+oscillations, as might be expected if Ω b ∼ Ω c, remain possible. Of course, the exact form that these
+14
+oscillations will take in the observations depends on issue s such as redshift space distortions and non-linear
+corrections.
+If oscillations are discovered in neither spectra, the most natural conclusion is our universe has Ω b ≪ Ω c
+and suﬀered early reionization. However other possibiliti es include the formation of perturbations after
+recombination, reionization within an expansion time afte r the drag epoch, equal or random stimulation of
+adiabatic and isocurvature mode acoustic ﬂuctuations. † These scenarios can be distinguished by measuring
+the location of the damping scale. All scenarios obeying sta ndard recombination, regardless of the presence
+of actual peak-like structures, follows the scalings for th e damping length discussed here. In all reionized
+models, the horizon at last scattering and at the drag epoch m arks the damping scale for the photons and
+baryons respectively.
+If acoustic oscillations are discovered in both the CMB and large scale structure power spectra, we
+will possess a strong consistency test for the dynamics of th e expansion, i.e. a combination of the matter
+content, curvature, and cosmological constant, as well as t he adiabatic or isocurvature nature of the initial
+ﬂuctuations. Furthermore, the two contain complementary i nformation on several speciﬁc fundamental
+cosmological parameters. The scale of the peaks in the matte r power spectrum are mainly determined by
+the matter content Ω 0h2 whereas the angular scale of the CMB peaks is mostly sensitiv e to the curvature
+1 − Ω 0 − Ω Λ . The two damping lengths also probe diﬀerent combinations o f Ω 0h2 and Ω bh2. The ratio of the
+peak heights to the underlying CDM contribution in the matte r power spectrum probes Ω b/Ω 0. Furthermore,
+by comparing similar scales, dependence on the initial powe r spectrum can be eliminated providing a clean
+test of the whole gravitational instability paradigm.
+Acknowledgments
+We would like to acknowledge useful discussions with J.R. Bo nd, U. Seljak, J. Silk, & P. Steinhardt.
+W.H. would like to thank J.R. Bond for calling to his attentio n the enhancement of diﬀusion damping through
+polarization and M. White for pointing out several typos in t he draft. W.H. was supported by grants from
+the NSF and W.M. Keck Foundation.
+† This may be accomplished by balancing the initial condition s or hypothesizing a gravitational forcing
+potential that is external to the linear photon-baryon-neu trino-CDM system, e.g. cosmological defects.
+15
+Appendix A: Tight Coupling Limit
+A.1. Evolution Equations
+The Fourier transform of the Newtonian temperature ﬂuctuat ion can be broken up into Legendre mo-
+ments, related to the direction cosines of the photon moment a γi, Θ( η, k, γ ) = ∑
+ℓ(−i)ℓΘ ℓPℓ(k · γ ). The
+evolution equation for these moments is given by the Boltzma nn hierarchy (Bond & Efstathiou 1984, HSb)
+˙Θ 0 = −k
+3 Θ 1 − ˙Φ ,
+˙Θ 1 =k
+[
+Θ 0 + Ψ − 2
+5 Θ 2
+]
+− ˙τ (Θ 1 −Vb),
+˙Θ 2 =k
+[ 2
+3 Θ 1 − 3
+7 Θ 3
+]
+− ˙τ
+( 9
+10 Θ 2 − 1
+10 Θ Q
+2 − 1
+2 Θ Q
+0
+)
+,
+˙Θ ℓ =k
+[ ℓ
+2ℓ − 1 Θ ℓ−1 − ℓ + 1
+2ℓ + 3 Θ ℓ+1
+]
+− ˙τ Θ ℓ, (ℓ> 2)
+(A–1)
+if the ratio of the wavelength to the curvature scale is much s maller than the angle considered, i.e.k ≫ℓ
+√
+−K
+whereK = −H 2
+0 (1−Ω 0−Ω Λ ). Recall that overdots are derivatives with respect to conf ormal timeη =
+∫
+dt/a.
+Here Θ Q
+ℓ is the CMB temperature perturbation in the Stokes parameter Q. It accounts for polarization
+generated by Compton scattering of anisotropic radiation. The metric ﬂuctuations in the mode are given
+by g00 = −(1 + 2Ψ Y ) and gij = a2(1 + 2Φ Y )γij, where γij is the three metric on a surface of constant
+curvature andY is a plane wave eik·x in ﬂat space or more generally a k-eigenfunction of the Laplacian. The
+presence of the curvature perturbation Φ in the monopole equ ation represents the dilation eﬀect. The form
+of the metric shows that it has the same origin as the photon re dshift with the expansion. The gravitational
+potential Ψ in the dipole or velocity equation accounts for g ravitational infall or redshift.
+The tight coupling approximation assumes that the Compton s cattering rate ˙τ is suﬃciently rapid to
+equilibrate changes in the photon-baryon ﬂuid. It is an expa nsion in the Compton scattering time ˙ τ −1, or
+more speciﬁcally the inverse of the optical depth through a w avelength ˙τ/k and through a period of the
+oscillation ˙τ/ω = ˙τ/kc s> ˙τ/k , where
+cs = 1
+√
+3(1 +R)
+(A–2)
+is the photon-baryon sound speed with R = 3
+4ρb/ργ. To ﬁrst order, only the ℓ = 0 monopole (with density
+ﬂuctuation δγ = 4Θ 0) and ℓ = 1 dipole (with bulk velocity Vγ = Θ 1) survive and one obtains the forced
+oscillator equation for acoustic waves in the photon-baryo n ﬂuid (HSa). † To second order, the acoustic
+oscillations of the monopole and dipole are damped due to the imperfect coupling between the photons
+and baryons. Photon diﬀusion creates heat conduction throu gh Θ 1 −Vb and shear viscosity through Θ 2
+(Weinberg 1972, Bond 1995).
+† In HSa and HSb, we employed a hybrid gauge or “gauge invariant ” representation of density ﬂuctuations
+for computational convenience. Since there are no beneﬁts o f this choice below the horizon, we work entirely
+in the Newtonian gauge in this paper. Only the deﬁnition of de nsity ﬂuctuations is aﬀected: the total matter
+gauge ∆ X =δX + 3 ˙a
+a (1 +pX/ρX )VT/k where X represents any of the particle components.
+16
+To close these equations, we need the continuity and Euler eq uations for the baryons
+˙δb = −kVb − 3 ˙Φ ,
+˙Vb = − ˙a
+aVb +kΨ + ˙τ (Θ 1 −Vb)/R,
+(A–3)
+the polarization hierarchy equations for the CMB (Bond & Efs tathiou 1984, Kosowsky 1995)
+˙Θ Q
+0 = −k
+3 Θ Q
+1 − ˙τ
+[ 1
+2 Θ Q
+0 − 1
+10 (Θ 2 + Θ Q
+2 )
+]
+,
+˙Θ Q
+1 =k
+[
+Θ Q
+0 − 2
+5 Θ Q
+2
+]
+− ˙τ Θ 1,
+˙Θ Q
+2 =k
+[ 2
+3 Θ Q
+1 − 3
+7 Θ Q
+3
+]
+− ˙τ
+( 9
+10 Θ Q
+2 − 1
+10 Θ 2 − 1
+2 Θ Q
+0
+)
+,
+˙Θ Q
+ℓ =k
+[ ℓ
+2ℓ − 1 Θ Q
+ℓ−1 − ℓ + 1
+2ℓ + 3 Θ Q
+ℓ+1
+]
+− ˙τ Θ Q
+ℓ , (ℓ> 2)
+(A–4)
+and the Einstein-Poisson equations for the metric or potent ial perturbations
+k2Φ = 4 πGa2ρT [δT + 3 ˙a
+a (1 +wT )VT
+k ],
+k2(Φ + Ψ) = −8πGa2pT Π T,
+(A–5)
+ifk ≫
+√
+−K. Here wT =pT/ρT where the subscript T denotes the total matter including all particle species
+and the total anisotropic stress is related to the radiation quadrupoles as
+Π T = 12
+5 [Θ 2 +N2], (A–6)
+withN2 as the neutrino temperature quadrupole. Notice that the bar yon continuity equation can be rewritten
+as ˙δb = −k(Vb − Θ 1) + 3 ˙Θ 0 since dilation eﬀects on the photon temperature and baryon d ensity ﬂuctuations
+are analogous. This represent adiabatic evolution if Vb = Θ 1.
+A.2. Acoustic Dispersion Relation
+Let us derive the dispersion relation for acoustic oscillat ions in the tight coupling limit. Consider ﬁrst
+the eﬀects of polarization. Since only the polarization mon opole Θ Q
+0 and quadrupole Θ Q
+2 feed back into the
+temperature ﬂuctuations, we may immediately expand the pol arization hierarchy in ˙τ −1 to obtain
+Θ Q
+2 = Θ Q
+0 = 1
+4 Θ 2, (A–7)
+which simpliﬁes the temperature quadrupole evolution of (A –1) to
+˙Θ 2 =k
+[ 2
+3 Θ 1 − 3
+7 Θ 3
+]
+− ˙τf 2Θ 2, (A–8)
+where f2 = 3
+4 . Other approximations commonly used are f2 = 9
+10 for unpolarized radiation (Chibisov 1972)
+and f2 = 1 for further neglecting the angular dependence of Compton scattering (Weinberg 1972, Peebles
+1980, HSa). We keep the factor f2 implicit so that the separation of eﬀects can be read directl y oﬀ the ﬁnal
+results. Expanding the quadrupole equation (A–8) to ﬁrst or der in ˙τ −1 we obtain
+Θ 2 = ˙τ −1f −1
+2
+2
+3kΘ 1. (A–9)
+17
+Fig. 7. Photon diﬀusion scale. The photon diﬀusion scale grows rapi dly near last scattering
+due to the increasing mean free path of the photons but remain s well under the horizon scale
+k−1
+∗ = ( ˙a/a)|a∗ at last scattering. The small diﬀerence between a∗ and ad is suﬃcient to
+cause a signiﬁcant diﬀerence in the eﬀective damping if Ω bh2 diﬀers substantially from
+the crossover point 0 .03. The inclusion of the angular dependence of Compton scatt ering
+enhances damping by a small factor f2 = 9/10 as does the further inclusion of polarization
+f2 = 3/4.
+A second-order expansion for the quadrupole is not necessar y since its eﬀect on the ﬂuid equations through
+˙Θ 1 is already of ﬁrst order in ˙ τ −1.
+On the other hand, a second order expansion of the baryon Euler equation is necessary. L et us try a
+solution of the form Θ 1 ∝ expi
+∫
+ωdη and ignore variations on the expansion time scale ˙ a/a in comparison
+with those at the oscillation frequency ω. The electron velocity, obtained by iteration of the Euler e quation,
+is to second order
+Vb = Θ 1 − ˙τ −1R[iωΘ 1 −kΨ] − ˙τ −2R2ω2Θ 1. (A–10)
+Substituting this into the photon dipole equation (A–1) and eliminating the zeroth order term yields
+iω(1 +R)Θ 1 =k[Θ 0 + (1 +R)Ψ] − ˙τ −1R2ω2Θ 1 − 4
+15 ˙τ −1f −1
+2 k2Θ 1. (A–11)
+This suggests that we try a solution of the form Θ 0 + (1 + R)Ψ ∝ expi ∫ ωdη. Employing the monopole
+equation of (A–1) and again assuming that variations at the o scillation frequency are suﬃciently rapid that
+changes in R, Φ, and Ψ can be neglected, we obtain
+(1 +R)ω2 = k2
+3 +i ˙τ −1ω
+(
+R2ω2 + 4
+15k2f −1
+2
+)
+. (A–12)
+With the ﬁrst order relation ω2 =k2/3(1 +R), the solution to the resultant quadratic equation is
+ω = ± k√
+3(1 +R)
++i 1
+6k2 ˙τ −1
+[ R2
+(1 +R)2 + 4
+5f −1
+2
+1
+1 +R
+]
+. (A–13)
+18
+Fig. 8. Baryon drag eﬀect in adiabatic CDM models. (a) Baryons cause a drag eﬀect on
+the photons leading to a temperature enhancement of −RΨ = |RΨ | inside potential wells
+which shifts the zero point of the oscillation (short dashed lines). (b) This contribution
+yields alternating peak heights in the rms and is also retain ed after diﬀusion damping. Here
+numerical results are displayed.
+Thus to second order acoustic oscillations are damped as exp [−(k/kD)2] with the damping length (Weinberg
+1972, Kaiser 1983, Bond 1995)
+k−2
+D = 1
+6
+∫
+dη 1
+˙τ
+R2 + 4f −1
+2 (1 +R)/5
+(1 +R)2 . (A–14)
+If R ∼< 1, polarization and the angular dependence of Compton scatt ering enhances damping through the
+generation of viscosity (see Fig. 7). Viscosity is related t o photon diﬀusion because the quadrupole and
+higher moments are generated as photons from regions of diﬀe rent temperatures meet.
+A.3. Baryon Drag and the Adiabatic Invariant
+The temperature perturbation oscillates around Θ 0 + (1 +R)Ψ = 0 due to the baryon drag eﬀect. This
+can be more easily understood by examining the ﬁrst order equ ation from which it originates,
+(1 +R) ¨Θ 0 + k2
+3 Θ 0 ≃ −k2
+3 (1 +R)Ψ , (A–15)
+ignoring slow changes in R, Φ and Ψ from the expansion. Notice that meﬀ = (1 + R) plays the role of the
+eﬀective mass of the oscillator and the gravitational poten tial provides the eﬀective acceleration through
+infall. The photon pressure acts as the restoring force and i s independent of the baryon content R.
+Equation (A–15) has the immediate solution
+Θ 0 = [Θ 0(0,k ) + (1 +R)Ψ] cos( ωη) + 1
+ω
+˙Θ 0(0,k ) sin(ωη) − (1 +R)Ψ , (A–16)
+where the frequency ω =k/√3meﬀ =k/
+√
+3(1 +R) in agreement with the ﬁrst order dispersion relation of
+(A–13). This solution describes an oscillator whose zero po int has been displaced by −meﬀ Ψ = −(1+R)Ψ due
+to the gravitational force. The photons, although massless , suﬀer infall eﬀects due to gravitational blueshift.
+Since this is exactly cancelled as the photons stream out of t he potential wells, we can consider Θ 0 + Ψ as
+the eﬀective temperature perturbation. Thus this part of th e zero point shift has no net eﬀect. However, the
+19
+baryons also contribute to the eﬀective mass of the ﬂuid. Sin ce the photons and baryons are tightly coupled,
+baryonic infall drags the photons into potential wells and c ontributes −RΨ to the displacement. Notice
+that baryon drag also increases the amplitude of the cosine o scillation since the initial conditions Θ(0 ,k )
+represent a greater displacement from the zero point. Thus b aryon drag accounts for both the alternating
+peak heights of the acoustic oscillations and their enhance ment with Ω bh2 (HSa). After diﬀusion damping
+has eliminated the oscillations themselves, the zero point shift −RΨ remains. Of course, for adiabatic BDM
+models Ψ is also reduced to zero by the diﬀusion.
+In reality, the variation of oscillator parameters, such as the eﬀective mass and gravitational force, on
+the expansion time scale cannot be ignored over many periods of the oscillation. From equations (A–1) and
+(A–3), the full ﬁrst order equation is
+d
+dη (1 +R) ˙Θ 0 + k2
+3 Θ 0 = −k2
+3 (1 +R)Ψ − d
+dη (1 +R) ˙Φ , (A–17)
+where the addition of the space curvature term comes from the dilation eﬀect ˙Θ 0 = − ˙Φ. Notice that the left
+hand side is precisely the equation of an oscillator with a ti me-varying massmeﬀ = (1+R). The homogeneous
+equation can be solved by employing the fact that variations over a single period of the oscillation are small.
+The adiabatic invariant associated with an oscillator is gi ven by the energyE = 1
+2meﬀω2A2 over the frequency
+ω. The amplitude therefore scales as A ∝ω1/2 ∝ (1 +R)−1/4. This yields fundamental solutions of the form
+(1 +R)−1/4 exp(±i
+∫
+ωdη) (Peebles & Yu 1970). The phase integral can be performed ana lytically
+∫
+ωdη =k
+∫
+csdη =krs,
+where rs is the sound horizon given in equation (1).
+A.4. Summary
+Several points are worth emphasising:
+(1) The ﬁrst order dispersion relation for acoustic oscilla tions is ω =kcs =k/
+√
+3(1 +R).
+(2) Slow changes in the baryonic contribution to the eﬀectiv e mass cause the temperature oscillation to decay
+as (1 + R)−1/4.
+(3) The oscillation phase is related to the sound horizon rs = ∫ csdη by ∫ ωdη =krs.
+(4) Photon diﬀusion alters the dispersion relation and lead s to exponential damping.
+(5) The damping length increases roughly as λD ∼ k−1
+D ∼
+√
+η/ ˙τ or the geometric mean of the conformal
+time and the Compton mean free path as one expects of a random w alk.
+(6) If it is well under the horizon, the damping length surpas ses the wavelength when ˙τ/k =kη ≫ 1 or when
+the optical depth through a wavelength is still high.
+(7) The angular dependence of Compton scattering and polari zation increases the damping length when
+R ∼< 1.
+(8) The zero point of oscillations in Θ 0 + Ψ is −RΨ due to baryon drag and remains as a temperature shift
+after diﬀusion damping.
+20
+Appendix B. Horizon Crossing
+B.1. Photon-Baryon System
+The amplitude of the acoustic oscillation is determined by t he growth of ﬂuctuations before and in par-
+ticular during the epoch when the scale crosses the horizon. Since the secon d-order tight-coupling expansion
+just yields a multiplicative diﬀusion damping factor, let u s obtain the ﬁrst order solution which we denote
+by overhats. The full solution can be constructed through th e relations
+Θ 0 + Ψ = [ ˆΘ 0 + (1 +R)Ψ] exp[ −(k/kD)2] −RΨ ,
+Θ 1 = ˆΘ 1 exp[−(k/kD)2],
+δb = 3Θ 0 +S(0,k ),
+kVb =kΘ 1 = − ˙Θ 0 − ˙Φ ,
+(B–1)
+where recall S(0,k ) is the initial entropy perturbation in the photon-baryon s ystem S(0,k ) = δb(0,k ) −
+3
+4δγ(0,k ). Near or above the horizon at η∗, where the sources from potential growth and decay drive the
+oscillator, the full formalism of HSa is needed to follow the ﬂuctuations accurately. However, we are only
+interested in small scale ﬂuctuations which enter the horiz on well before last scattering. Since radiation
+pressure prevents the growth of ﬂuctuations in the radiatio n dominated epoch, the gravitational potentials
+decay away after horizon crossing. On small scales, the acou stic oscillations therefore experience a boost at
+horizon crossing and thereafter settle into pure modes Θ 0(η,k ) = (1+R)−1/4[CA(k) cos(krs)+CI (k) sin(krs)].
+Equation (A–17) yields exact solutions for CA andCI for the fundamental adiabatic and isocurvature modes
+of the ﬂuctuation if anisotropic stress Π T is ignored so that Ψ = −Φ. The adiabatic mode arises from an
+initial curvature perturbation Φ(0 ,k ), whereas the isocurvature mode from an initial entropy per turbation
+S(0,k ). The solutions are (Kodama & Sasaki 1986, HSb)
+lim
+Π →0
+CA(k) = 3
+2 Φ(0 ,k ), adiabatic
+lim
+Π →0
+CI (k) = −
+√
+6
+4
+keq
+k S(0,k ), isocurvature
+(B–2)
+where keq = (2Ω 0H 2
+0/aeq)1/2 = 9.67 × 10−2Ω 0h2(1 −fν)1/2Θ −2
+2.7 Mpc−1 is the wavenumber that passes the
+horizon at equality. Recall that fν =ρν/(ργ +ρν). The two modes stimulate pure cosine and sine modes since
+the gravitational forcing function yields near resonant dr iving with the phase ﬁxed by Φ(0 ,k ) = constant and
+Φ(0 ,k ) = 0 respectively (HSb, Hu & White 1996). The amplitude of the ﬂuctuations is easy to understand
+qualitatively. For the adiabatic case, Θ 0(0,k ) = 1
+2 Φ(0 ,k ). If photon streaming is ignored ˙Θ = − ˙Φ, the
+dilation eﬀect would raise the amplitude to Θ 0(η,k ) = 1
+2 Φ(0 ,k ) − Φ( η,k ) + Φ(0 ,k ) = 3
+2 Φ(0 ,k ). Note that a
+decaying potential boosts the acoustic amplitude due to the gravitational forcing eﬀe ct. A similar analysis
+for the isocurvature mode accounting for potential growth o utside the horizon explains the isocurvature
+amplitude (HSb).
+The eﬀect of anisotropic stress can be considered as a pertur bation (HSa). The dominant term comes
+from the neutrino quadrupole since photon anisotropies are damped exponentially with optical depth before
+21
+last scattering. The order of magnitude can be simply read oﬀ the initial conditions for the growing mode
+of the perturbation,
+Θ 0(0,k ) = − 1
+2 Ψ(0 ,k ) = 1
+2
+(
+1 + 2
+5fν
+) −1
+Φ(0 ,k ), adiabatic (B–3)
+or Θ 0(0,k ) = Ψ(0 ,k ) = Φ(0 ,k ) = 0 and
+˙Θ 0(0,k ) =
+√
+2
+16keq
+(
+1 + 2
+15fν
+)
+S(0,k ),
+˙Φ(0 ,k ) =
+√
+2
+16keq
+(
+1 + 2
+15fν
+)
+S(0,k ), isocurvature
+˙Ψ(0 ,k ) = −
+√
+2
+16keq
+(
+1 − 6
+15fν
+)
+S(0,k ).
+(B–4)
+Indeed, we ﬁnd that the adiabatic amplitude is well approxim ated by
+CA(k) = 3
+2
+(
+1 + 2
+5fν
+) −1
+Φ(0 ,k ), adiabatic (B–5)
+and likewise
+CI (k) = −
+√
+6
+4
+keq
+k
+(
+1 − 4
+15fν
+)
+S(0,k ), isocurvature (B–6)
+for the isocurvature mode. Explicitly, the ﬁrst order acous tic solution is
+ˆΘ 0 + Ψ ≃ ˆΘ 0 = (1 +R)−1/4[CA cos(krs) +CI sin(krs)],
+ˆΘ 1 = ˆVb = −
+√
+3(1 +R)−3/4[CA sin(krs) +CI cos(krs)].
+(B–7)
+In Fig. 1, we display an adiabatic example. In this case, it is also useful to compare the acoustic amplitude
+to the Sachs-Wolfe eﬀect (Sachs & Wolfe 1967) |Θ + Ψ |rms(η0,k ) = 1
+3 Ψ( η0,k ). With the relation (see HSa
+eq. A18),
+Ψ( η0,k ) = − 9
+10
+(
+1 + 4
+15fν
+) −1 (
+1 + 2
+5fν
+) −1
+Φ(0 ,k ), (B–8)
+valid at large scales k ≪keq, the relative amplitude becomes
+|3CA(k)/Ψ( η0,k )| = 5
+(
+1 + 4
+15fν
+) −1
+, (B–9)
+and represents a signiﬁcant boost.
+B.2. CDM Component
+The evolution of the cold dark matter ﬂuctuations in the pres ence of acoustic oscillations is also interest-
+ing and relevant for determining the small scale behavior of the matter transfer function (see Appendix D).
+The cold dark matter evolution equations are of the same form as the baryon continuity and Euler equations
+save for the absence of coupling to the photons,
+¨δc + ˙a
+a
+˙δc = −k2Ψ − 3 ¨Φ . (B–10)
+22
+In the radiation dominated epoch, the metric terms on the rig ht hand side are dominated by perturbations
+in the radiation and may be considered as external driving fo rces. The homogeneous equation has two
+fundamental solutions δc ∝ {lna, 1}. The particular solution is constructed via Green’s method
+δc =C1 lna +C2 +
+∫ η
+0
+[lna′ − lna]a′
+˙a′ (k2Ψ + 3 ¨Φ) dη′. (B–11)
+Adiabatic initial conditions require C1 = 0 and C2 = 3Θ 0(0,k ). Thus δc remains constant outside the
+horizon and then gets a kick from infall and dilation that gen erates a logarithmic growing mode. Since the
+behavior of the potentials is self-similar in k, i.e. they are constant outside the horizon and decay to zero as
+a−2 inside of it, their eﬀect on δc is the same for all k. Once the potentials have decayed to zero, δc settles
+into the logarithmic growing mode as
+δc ≃I1Φ(0 ,k ) ln
+(
+I2
+a
+aH
+)
+, a H ≪a ≪aeq (B–12)
+where horizon crossing occurs at
+aH
+aeq
+= 1 +
+√
+1 + 8(k/keq)2
+4(k/keq)2
+≃
+√
+2
+2
+keq
+k . k ≫keq
+(B–13)
+By numerical calculation of the integrals in (B–11), we obta in
+I1 = 9.11(1 + 0.128fν + 0.029f 2
+ν ),
+I2 = 0.594(1 − 0.631fν + 0.284f 2
+ν ),
+(B–14)
+valid at the 1% or better level for the full range 0 ≤ fν ≤ 1. As we shall see in Appendix D, this solution
+can be joined onto the growing mode in the matter dominated ep och to describe the full time evolution of
+the CDM ﬂuctuations.
+Appendix C. Decoupling
+C.1 Photon Decoupling
+The tight coupling approximation is strictly valid only wel l before decoupling. However, the acoustic
+modes may be simply joined onto the free-streaming solution s once diﬀusion damping near decoupling has
+been taken into account. The full Boltzmann hierarchy has th e formal solution (see HSa eq. 11)
+[Θ + Ψ]( η0,k,µ ) =
+∫ η0
+0
+dη[(Θ 0 + Ψ −iµVb) ˙τ − ˙Φ + ˙Ψ] e−τeikµ(η−η0), (C–1)
+where kµ = k · γ and curvature has been neglected. The terms in parenthesis c ontribute at last scattering
+due to weighting by the visibility function Vγ = ˙τe −τ and the ISW metric terms play a role between last
+scattering and the present. This formal solution is made pra ctical by replacing the sources Θ 0 and Vb with
+their acoustic solution at last scattering.
+23
+It may seem that employing the tight coupling solution throu gh decoupling would lead to erroneous
+results. In particular, the damping approximation should b reak down if the optical depth through a wave-
+length drops below unity. However, let us examine the tight c oupling solution more carefully. Equation
+(B–1) implies
+[Θ + Ψ]( η0,k,µ ) =
+∫ η0
+0
+dη( ˆΘ 0 + Ψ −iµ ˆVb)
+{
+Vγe−[k/kD (η)]2 }
+eikµ(η−η0)
++
+∫ η0
+0
+dηRΨ( e−[k/kD (η)]2
+− 1)Vγeikµ(η−η0).
+(C–2)
+Although baryon drag eﬀects such as acoustic displacement a nd enhancement are already encorporated in
+the acoustic solution ˆΘ 0 [see equation (A–16)], the residual RΨ term appears beneath the diﬀusion scale.
+Let us ignore this for the moment. The eﬀective visibility for the acoustic oscillations is given by
+ˆVγ = Vγe−[k/kD (η)]2
+. (C–3)
+This function is plotted for a given model in Fig. 2. Unlike Vγ, ˆVγ is exponentially damped at late times
+by the growing diﬀusion length and thus peaks at earlier time s. Note that a 10% shift in redshift represents
+a factor of three in optical depth near last scattering. Thus the region where we expect the approximation
+to break down is given little weight in the integral. More spe ciﬁcally, the exponential damping insures that
+most contributions come from before the epoch at which the di ﬀusion length surpasses the wavelength. As
+we have seen in Appendix A, the optical depth through a wavele ngth is high at this time and justiﬁes the
+tight coupling expansion.
+The damping of acoustic modes through last scattering can in general occur due to two diﬀerent mech-
+anisms working in equation (C–2): diﬀusion and cancellatio n. However the eﬀects are of greatly unequal
+magnitude. Cancellation occurs since on small scales many w avelengths of the perturbation span the Comp-
+ton visibility function. Photons that last scattered at the crests of the perturbation will have their eﬀect
+cancelled by those that scattered at the troughs. Mathemati cally this occurs in equation (C–2) because the
+oscillating plane wave is integrated over the visibility fu nction. Cancellation leads to a power law damping of
+ﬂuctuations as the scale decreases below the width of the vis ibility function. However, in the case of diﬀusion
+damped acoustic contributions, it is not the width of the Com pton visibility function Vγ that is relevant but
+rather the acoustic visibility function ˆVγ. As one goes to smaller and smaller scales (high k), the width of
+this function decreases as well. Thus even at high k the cancellation regime is never fully reached and one
+may approximate the integral (C–2) by replacing ˆVγ by a delta function, i.e.
+[Θ + Ψ]( η0,k,µ ) ≃ [ ˆΘ 0 + Ψ −iµ ˆVb](η∗,k )eikµ(η∗−η0)Dγ(k), (C–4)
+where
+Dγ(k) =
+∫ η0
+0
+dη ˆVγ =
+∫ η0
+0
+dηVγe−[k/kD (η)]2
+. (C–5)
+The observable anisotropy follows by decomposing equation (C–4) into Legendre moments Θ = ∑ (−i)ℓΘ ℓPℓ(µ)
+and summing over k-modesCℓ = 2
+π
+∫
+k3|Θ ℓ(η0,k )/(2ℓ + 1)|2d lnk (HSa). Decoupling thus increases the eﬀec-
+tive diﬀusion damping length due to the corresponding incre ase in the mean free path of the photons. The
+24
+Fig. 9. The residual baryon drag eﬀect after last scattering in an ad iabatic CDM model. On
+scales under the width of the visibility function, cancella tion between contributions which
+came from potential wells and hills at last scattering damps ﬂuctuations from the baryon
+drag eﬀect. Note that cancellation damping is weak and scale s as ( kη∗)−1/2 in contrast
+to the exponential diﬀusion damping. Projection relates th e rms ﬂuctuation in (a) to the
+anisotropy power spectrum in (b).
+result is a near exponential damping with scale that complet ely overwhelms the small residual cancellation
+damping.
+Cancellation damping does occur for the baryon drag eﬀect −RΨ in equation (C–2) which remains after
+diﬀusion damping. The amplitude of the resultant ﬂuctuatio ns can be estimated by noting that
+[Θ + Ψ]( η0,k,µ ) = −
+∫ η0
+0
+dηVγRΨ eikµ(η−η0) (C–6)
+is approximately a Fourier transform. Employing Parceval’ s theorem, we obtain
+|Θ 0 + Ψ |2
+rms ≡ 1
+2
+∫ 1
+−1
+|Θ + Ψ |2dµ
+≃ π
+k
+∫ η0
+0
+|RΨ Vγ|2dη
+≃ π
+k |Ψ( η∗,k )|2
+∫ η0
+0
+(RVγ)2dη.
+(C–7)
+Thus the contribution to the rms is suppressed by roughly ( kη∗)−1/2 due to cancellation. Note that the resid-
+ual baryon drag eﬀect only appears in models where Ψ itself is not damped away by diﬀusion, e.g. adiabatic
+CDM and isocurvature BDM models. In Fig. 9a, we display this e ﬀect. The amplitude of the eﬀect is slightly
+overestimated since baryon drag weakens through last scatt ering. Its eﬀect on the anisotropy is shown in
+Fig. 9b and can be obtained analytically in a computationall y simple matter through the approximations of
+Hu & White (1995). Since it is unlikely to be observable due to eﬀects in the foreground of last scattering,
+we omit a detailed calculation here.
+25
+C.2 Baryon Decoupling
+The formal solution to the baryon Euler equation (A–3) is
+aVb =
+∫ η
+0
+dη′a[ ˙τdΘ 1 +kΨ] e−τd, (C–8)
+where recall ˙τd = ˙τ/R and quantities in the integrand are evaluated at η′. The two source terms are the
+Compton drag eﬀect and infall into potential wells. The form er forces the baryon velocity to follow the
+photon dipole (velocity) at high drag optical depth τd. The presence of the scale factor a in the equation
+represents the fact that baryon velocities decay as a−1 in the absence of sources. Since ˙ τde−τd is very nearly
+a delta function with respect to variations on the expansion time scale, this equation is conceptually identical
+to its photon analogue (C–1) with the replacement ˙ τ → ˙τd. The plane wave factor is absent for the baryons
+since their particle velocities are low and the streaming ca n be neglected in comparison to the wavelength.
+Drag depth unity τd(zd) = 1 marks the transition between the drag and infall epochs. For Ω bh2
+∼> 0.03, the
+drag epoch precedes last scattering zd > z∗ assuming standard recombination. If the universe is reioni zed
+after recombination to some ionization level xe, zd = 263(Ω 0h2)1/5x−2/5
+e (1 −Yp/2)−2/5Θ −8/5
+2.7 and the drag
+epoch signiﬁcantly precedes last scattering in most scenar ios.† HereYp is the helium mass fraction Yp ≃ 0.23
+By analogy to the photon case, it is useful to deﬁne the drag vi sibility function
+Vb = a ˙τde−τd
+∫ η0
+0 dηa ˙τde−τd
+, (C–9)
+suitably normalized to have unity area. Diﬀusion damping mo diﬁes the acoustic visibility function as
+ˆVb = Vbe−[k/kD (η)]2
+. (C–10)
+Thus, we expect that immediately after the drag epoch the bar yon velocity and density perturbations are
+approximately
+Vb(ηd,k ) = ˆΘ 1(ηd,k )Db(k),
+δb(ηd,k ) = ˆδb(ηd,k )Db(k),
+(C–11)
+where
+Db(k) =
+∫ η0
+0
+dη ˆVb =
+∫ η0
+0
+dηVbe−[k/kD (η)]2
+, (C–12)
+and recall that ˆΘ 1 and ˆδb were given in (B–7).
+Appendix D. Matter Evolution
+After horizon crossing but before the end of the drag epoch, b aryons follow the acoustic solution of
+(C–11) and the CDM follows their own pressureless evolution . After the drag epoch, the baryon evolution
+equation (A–3) is identical to the cold dark matter and their joint evolution can be expressed in terms of
+ﬂuctuations in the total non-relativistic matter density δm. Thus, the solution for the time evolution of the
+matter ﬂuctuations requires knowledge of both the baryon an d CDM perturbations at the drag epoch. The
+baryonic contribution was obtained in Appendix C. Let us now evaluate the CDM contributions.
+† This diﬀers from the treatment of (HSb) where zd was deﬁned to be the epoch when the perturbation
+joined the growing mode of pressureless linear theory. The p resence of a decaying mode lowers this redshift
+by a factor of 3
+5 [see Appendix D, eqn. (D-19)].
+26
+Fig. 10. CDM evolution in the Compton drag epoch. If baryons contribu te a signiﬁcant
+fraction of the total matter density, CDM growth will be slow ed between equality and the
+drag epoch. Held by Compton drag, the baryons do not contribu te their self-gravity. For
+the numerical results, we choose a model that never recombin ed so that ad ≫aeq.
+D.1 Exact CDM Solutions
+The evolution of CDM ﬂuctuations is described by equation (B –10). Since the curvature or Λ terms are
+negligible before the drag epoch, this equation can be rewri tten in terms of the equality-normalized scale
+factor y =a/aeq as
+d2
+dy2δc + (2 + 3y)
+2y(1 +y)
+d
+dyδc = 3
+2y(1 +y)
+Ω c
+Ω 0
+δc. (D–1)
+Here we have assumed that the radiation contributions to the gravitational potential have decayed to zero
+well after horizon crossing. In typical adiabatic models, t he CDM contribution usually dominates the non-
+relativistic matter. Consider ﬁrst the limit of negligible baryon fraction, Ω b/Ω 0 ≪ 1. In this case, the
+matching condition at the drag epoch becomes trivial since t he baryons have no eﬀect on the CDM. If
+Ω c = Ω 0, equation (D–1) has same solution before and after the drag e poch (see Peebles 1980 eqns. 12.5,
+12.9),
+U1 = 2
+3 +y,
+U2 = 15
+8 (2 + 3y) ln
+[ (1 +y)1/2 + 1
+(1 +y)1/2 − 1
+]
+− 45
+4 (1 +y)1/2,
+(D–2)
+before curvature or Λ domination. Matching to the radiation dominated solution (B–12), we obtain
+δT (η,k ) ≃δc(η,k ) = I1Φ(0 ,k )
+[ 3
+2 ln
+(
+4I2e−3aeq
+aH
+)
+U1(η) − 4
+15U2(η)
+]
+, (D–3)
+for k ≫keq.
+Let us now solve the equation (D–1) for the case that the contr ibution of baryon is not negligible. The
+two independent solutions are given in exact form through Ga uss’ hypergeometric function F by
+Ui = (1 +y)−αiF (αi,α i + 1
+2, 2αi + 1
+2 ; 1
+1 +y ), (D–4)
+27
+where i = 1, 2 and
+αi = 1 ±
+√
+1 + 24Ω c/Ω 0
+4 , (D–5)
+with − and + for i = 1 and 2, respectively. Note that lim y→∞Ui = y−αi. Thus the main eﬀect of the
+baryons is to slow the power law growth of CDM after equality.
+It is easy show that these solutions are identical to equatio ns (D–2) for Ω c = Ω 0. They also take on
+elementary forms for two other special cases: Ω c = 0,
+U1 =1,
+U2 = 1
+2 ln
+[ (1 +y)1/2 + 1
+(1 +y)1/2 − 1
+]
+,
+(D–6)
+and Ω c = 1
+3 Ω 0,
+U1 =(1 +y)1/2,
+U2 = 3
+2 (1 +y)1/2 ln
+[ (1 +y)1/2 + 1
+(1 +y)1/2 − 1
+]
+− 3.
+(D–7)
+In order to map the solution for the radiation dominated limi t (B–12) onto amplitudes of U1 andU2, we
+have to take the limit as y → 0 of (D–4). By using a linear transformation of the hypergeom etric function
+(see e.g. [1] eq. 15.3.9), we ﬁnd
+lim
+y→0
+Ui = Γ(2αi + 1/2)
+Γ(αi)Γ(αi + 1/2) [− lny + 2ψ(1) −ψ(αi) −ψ(αi + 1/2)] , (D–8)
+where Γ( x) and ψ(x) = Γ ′(x)/Γ(x) are gamma and digamma functions respectively. Matching to the
+radiation dominated solution (B–12) yields
+δc(η,k ) = I1Φ(0 ,k ) [A1U1(η) +A2U2(η)] , (D–9)
+where
+A1 = − Γ(α1)Γ(α1 + 1/2)
+Γ(2α1 + 1/2) [ψ(α1) +ψ(α1 + 1/2) −ψ(α2) −ψ(α2 + 1/2)]
+×
+[
+ln
+(
+I2
+aeq
+aH
+)
++ 2ψ(1) −ψ(α2) −ψ(α2 + 1/2)
+]
+.
+(D–10)
+A2 is obtained by replacing the subscripts 1 ↔ 2 of A1. Since Ω b/Ω 0 ≤ 1, it is useful to approximate the
+coeﬃcients with a series expansion,
+A1 =B1 ln
+(
+I2
+aeq
+aH
+)
++B2, (D–11)
+with
+B1 = 3
+2
+[
+1 − 0.568(Ω b/Ω 0) + 0.094(Ω b/Ω 0)2 + O[(Ω b/Ω 0)3]
+]
+,
+B2 = 3
+2 (ln 4 − 3)
+[
+1 − 1.156(Ω b/Ω 0) + 0.149(Ω b/Ω 0)2 − 0.074(Ω b/Ω 0)3 + O[(Ω b/Ω 0)4]
+]
+,
+(D–12)
+valid at the percent level for Ω b/Ω 0< 1/2, and
+A2 = − Γ(α2)Γ[α2 + 1/2]
+Γ[2α2 + 1/2]
+[ Γ(2α1 + 1/2)
+Γ(α1)Γ(α1 + 1/2)A1 + 1
+]
+. (D–13)
+28
+Fig. 11. Velocity overshoot eﬀect. Below the horizon at the drag epoc h kηd ≫ 1, the
+acoustic velocity at zd dominates the growing mode and hence the ﬁnal transfer funct ion.
+Near the horizon, the acoustic density becomes comparable a nd shifts the zero points of the
+oscillation.
+For the three special cases, we can describe δc by elementary functions. If Ω c = Ω 0, δc is given by equation
+(D–2), whereas
+δc(η,k ) =I1Φ(0 ,k )
+[
+ln
+(
+4I2
+aeq
+aH
+)
+U1 − 2U2
+]
+Ω c = 0,
+δc(η,k ) =I1Φ(0 ,k )
+[
+ln
+(
+4I2e−2aeq
+aH
+)
+U1 − 2
+3U2
+]
+Ω c = 1
+3 Ω 0.
+(D–14)
+In Fig. 10, we show the time evolution of δc before the drag epoch for several diﬀerent values of Ω b/Ω c.
+Numerical results in this ﬁgure are for fully reionized mode ls so that the drag epoch ends well after equality
+unlike other examples in this paper.
+D.2 Matter T ransfer F unction
+With the baryon and CDM ﬂuctuations at the drag epoch from equ ations (C–11) and (D–9) respectively,
+we can now solve for the evolution to the present. After the dr ag epoch, baryons behave dynamically as
+CDM and the combined non-relativistic matter ﬂuctuations
+δm = Ω b
+Ω 0
+δb +
+(
+1 − Ω b
+Ω 0
+)
+δc,
+Vm = Ω b
+Ω 0
+Vb +
+(
+1 − Ω b
+Ω 0
+)
+Vc.
+(D–15)
+follow the growing and decaying solutions for δm (Peebles 1980)
+D1 = 2
+3 +y,
+D2 = 15
+8 (2 + 3y) ln
+[ (1 +y)1/2 + 1
+(1 +y)1/2 − 1
+]
+− 45
+4 (1 +y)1/2,
+(D–16)
+29
+before curvature or Λ domination. To account for eﬀects from curvature and Λ at a ≫ aeq or y ≫ 1, one
+simply needs to replace a →D, where
+D(a) = 5
+2 Ω 0g(a)
+∫ da′
+[a′g(a′)]3,
+g2(a) = a−3Ω 0 +a−2(1 − Ω 0 − Ω Λ ) + Ω Λ ,
+(D–17)
+is the growing mode of radiationless linear theory normaliz ed to equal a at early times.
+By matching the ﬂuctuations at the drag epoch, we obtain for t he growing mode
+δm(η,k ) = [G1(ηd)δm(ηd,k ) +G2(ηd)kVm(ηd,k )]D1(η),
+G1(η) =
+˙D2
+D1 ˙D2 − ˙D1D2
+, G 2(η) = D2
+D1 ˙D2 − ˙D1D2
+(D–18)
+and similarly for the decaying mode. The combined time evolu tion is plotted in Fig. 4 for a BDM model
+with δm =δb. If zd ≪zeq, equation (D–18) reduces to the familiar form
+δm(η,k ) = a
+ad
+[ 3
+5δm(ηd,k ) − 1
+5 (kηd)Vm(ηd,k )
+]
+. (D–19)
+Notice that on scales much less than the horizon at the drag ep och, the velocity at ηd dominates the growing
+mode if the two values are comparable at ηd (see Fig. 11). This “velocity overshoot” eﬀect occurs since the
+peculiar velocity moves the matter and creates density ﬂuct uations kinematically. Expansion drag on the
+velocity eliminates it in an expansion time ηd and thus causality prevents this eﬀect from generating dens ity
+ﬂuctuation above the horizon at the drag epoch kηd ≪ 1.
+It is conventional to recast the evolutionary eﬀects in term s of a transfer function. As with equation
+(D–15), we can break the present day transfer function up int o a baryonic and cold dark matter contribution
+at the drag epoch
+T (k) = Ω b
+Ω 0
+Tb(k) +
+(
+1 − Ω b
+Ω 0
+)
+Tc(k). (D–20)
+It should be kept in mind that Tb and Tc do not represent the respective transfer functions today. Let us
+consider the adiabatic transfer function. Here one express es the evolution of small scale ﬂuctuations in terms
+of those at large scales, i.e. |δT (η0,k )|2 ∝T 2(k)P (k) with normalization lim k→0T (k) = 1 and initial power
+spectrum P (k) ∝ |k2Φ(0 ,k )|2. The large scale solution is given by (see HSa eqn. A-15)
+lim
+k→0
+δT (η,k ) =
+(
+1 + 4
+15fν
+) (
+1 + 2
+5fν
+) −1 6
+5
+( k
+keq
+) 2
+D1(η)Φ(0 ,k ). (D–21)
+The acoustic contribution of the baryons is therefore,
+Tb(k) = 15
+4
+(
+1 + 4
+15fν
+) −1 ( keq
+k
+) 2
+Db(k)(1 +R)−1/4
+(
+coskrs − D2
+˙D2
+kcs sinkrs
+)
+G1
+⏐
+⏐
+⏐
+⏐
+⏐
+η=ηd
+. (D–22)
+This equation is compared with numerical results for the adi abatic transfer function in Fig. 5a.
+For isocurvature BDM models, T = Tb and it is conventional to deﬁne it such that |δT (η0,k )|2 ∝
+T 2(k)|S(0,k )|2 with normalization lim k→∞T (k) = 1. From equation (B–6), the small scale tail of the
+transfer function becomes
+T (k) = 1 − 3
+√
+6
+4
+(
+1 − 4
+15fν
+) keq
+k Db(k)(1 +R)−1/4
+(
+sinkrs − D2
+˙D2
+kcs coskrs
+) ⏐
+⏐
+⏐
+⏐
+⏐
+η=ηd
+. (D–23)
+30
+This function is plotted in Fig. 5b.
+In the Ω b/Ω 0 → 0 limit, the CDM contributions can be expressed in terms of el ementary functions as
+lim
+Ω b→0
+T (k) = I1
+(
+1 + 2
+5fν
+) (
+1 + 4
+15fν
+) −1 5
+4
+( keq
+k
+) 2
+ln
+(
+4I2e−3aeq
+aH
+)
+≃ ln 1.8q
+14.2q2, f ν = 0.405
+(D–24)
+where q = (k/Mpc−1)Θ 2
+2.7(Ω 0h2)−1. This should be compared with the high k tail of the standard ﬁtting
+function to the numerical results (BBKS),
+TBBKS(q) = ln(1 + 2.34q)
+2.34q [1 + 3.89q + (16.1q)2 + (5.46q)3 + (6.71q)4]−1/4, (D–25)
+i.e. limq→∞T (q) = ln(2.34q)/15.7q2 which diﬀers by ∼ 10% from the analytic prediction at small scales. In
+fact, since the ﬁtting formula was designed to ﬁt intermedia te scales, equation (D–24) is more accurate at
+extremely small scales.
+If the baryon fraction is non-negligible, the contribution is expressed in terms of hypergeometric functions
+through equation (D–4),
+Tc =I1
+(
+1 + 2
+5fν
+) (
+1 + 4
+15fν
+) −1 5
+6
+( keq
+k
+) 2 {
+G1[A1U1 +A2U2] −G2[A1 ˙U1 +A2 ˙U2]
+} ⏐
+⏐
+⏐
+η=ηd
+. (D–26)
+Though exact, this expression is rather complicated. It is u seful and instructive to seek a simple scaling
+relation for this form. Notice that for all cases the scale de pendence of the transfer function may be written
+as
+Tc ≃α ln 1.8βq
+14.2q2 , (D–27)
+for fν = 0.405. Here α and β are functions of Ω 0h2 and Ω b/Ω 0. Note that as q → ∞ the modiﬁcation due
+toβ becomes insigniﬁcant. A very accurate ﬁt to both α andβ is given in Appendix E eqns. (E-12) (E-13).
+The numerical, analytic and ﬁtted analytic results are comp ared with the empirical scalings of (Peacock &
+Dodds 1994, Sugiyama 1995) in Fig. 12. The analytic calculat ion is essentially exact while the ﬁtted analytic
+form works to 1% accuracy. Notice that in this extreme case we have signiﬁcantly improved upon previous
+results.
+Equation (D–27) breaks down for intermediate to large scale s. The CDM contribution can be approxi-
+mately scaled from the BBKS form as
+Tc(k) ≃TBBKS(˜q),
+˜q(k) = k
+Mpc−1α−1/2(Ω 0h2)−1Θ 2
+2.7. (D–28)
+This expression is employed in Fig. 5 with the coeﬃcient 6 .71 in (D–25) replaced by 6 .71(14.2/15.7) = 6.07
+to match the analytic small scale tail. Notice that at the lar gest scales, this expression underestimates the
+matter transfer function. This is because baryon contribut ions must be properly included. Although the
+limiting form lim k→0Tb = 1 is simple, the behavior near the horizon scale at zd is not. Since this region is
+31
+Fig. 12. Adiabatic CDM transfer function in a high Ω b/Ω 0 = 2/3 case. The analytic
+solution is essentially exact in the small scale limit. Simp le ﬁts based on the BBKS form
+can cause large errors at the small scale: PD (Peacock & Dodds 1994) and S (Sugiyama
+1995). The ﬁtting function developed here [see equation (D– 27)] works at the 1% level even
+for this extreme case.
+not the main focus of this work, we do not attempt to describe t his analytically. If the baryonic oscillations
+are small or smoothed over, an approximate patch is given by
+T (k) ≃TBBKS(ˆq),
+ˆq(k) = k
+Mpc−1
+(
+1 − Ω b
+Ω 0
+) −1/2
+α−1/2(Ω 0h2)−1Θ 2
+2.7,
+(D–29)
+which extends the Peacock & Dodds (1994) approach to high Ω b/Ω 0.
+Finally, we can express the ratio of the acoustic peak height s to the CDM tail with equations (D–20),
+(D–22) and (D–24),
+Ω b
+Ω c
+Tb
+Tc
+≃
+√
+3
+I1
+kG2(ηd)[1 +R(ηd)]−3/4Db(k)
+(
+1 + 2
+5fν
+) −1 [
+ln
+(
+4I2e−3aeq
+aH
+)] −1 limΩ b→0Tc
+Tc
+(D–30)
+if the velocity overshoot eﬀect dominates the acoustic cont ributions. We can simplify this expression by
+noting that G2(ηd) ≃ 2
+5 (Ω 0H 2
+0/aeq)−1/2(1 +ad/aeq)−1/2. Furthermore, the function kDb peaks at roughly
+0.8kS with an amplitude of 0 .4kS. With the scaling of equation (D–27), the peak relative ampl itude of the
+acoustic oscillation is approximately
+70 Ω b
+Ω c
+kS
+Mpc−1
+aeq
+(aeq +ad)1/2 [1 +R(ηd)]−3/4(Ω 0h2)−1/2α−1
+[
+ln
+( 1.8β
+Ω 0h2
+kS
+Mpc−1
+)] −1
+. (D–31)
+The logarithmic term is roughly unity and may be dropped for e stimation purposes [ cf. equation (9)]. Equa-
+tion (D–31) roughly quantiﬁes the prominence of the acousti c oscillations in a CDM model. For best accuracy
+however, the solutions (D–22) and (D–26) for the baryons and CDM respectively should be employed.
+32
+Appendix E: Recombination Fitting Formulae
+Rather than recalculate the atomic physics of recombinatio n each time one needs to consider eﬀects at
+the last scattering and drag epochs, it is convenient to have accurate ﬁtting formulae that encorporate the
+ionization history. In general, all quantities associated with the ionization history must be functions of Ω 0h2
+and Ω bh2 alone once the CMB temperature T0 = 2.726K (Mather et al. 1994), neutrino fraction fν = 0.405,
+and helium fraction Yp ≃ 0.23 are ﬁxed. Fitting functions in this Appendix are designed to be valid at the
+percent level for an extended range of parameter space, 0 .0025 ∼< Ω bh2
+∼< 0.25 and 0.025 ∼< Ω 0h2
+∼< 0.64 and
+consequently appear rather complicated. We employ a recomb ination calculation based on the improvements
+discussed in Hu et al. (1995).
+The last scattering epoch is a very weak function of paramete rs and is given by
+z∗ = 1048[1 + 0.00124(Ω bh2)−0.738][1 +g1(Ω 0h2)g2 ],
+g1 = 0.0783(Ω bh2)−0.238[1 + 39.5(Ω bh2)0.763]−1,
+g2 = 0.560[1 + 21.1(Ω bh2)1.81]−1.
+(E–1)
+The drag epoch ends at a related redshift which depends somew hat more strongly on the parameters
+zd = 1345 (Ω 0h2)0.251
+1 + 0.659(Ω 0h2)0.828 [1 +b1(Ω bh2)b2 ],
+b1 = 0.313(Ω 0h2)−0.419[1 + 0.607(Ω 0h2)0.674],
+b2 = 0.238(Ω 0h2)0.223.
+(E–2)
+The two are approximately equal if Ω bh2 ≃ 0.03.
+The diﬀusion damping envelope can be approximated through t he ﬁrst decade of damping by the form
+Dγ(k) ≃e−[k/kDγ ]mγ
+, (E–3)
+where the eﬀective damping scale kDγ has simple asymptotic scaling,
+kDγ
+Mpc−1 =
+{
+F1, Ω bh2 ≫ 0.1
+(Ω bh2)p1F2, Ω bh2 ≪ 0.1 (E–4)
+with
+F1 = 0.293(Ω 0h2)0.545[1 + (25.1Ω 0h2)−0.648],
+F2 = 0.524(Ω 0h2)0.505[1 + (10.5Ω 0h2)−0.564],
+p1 = 0.29.
+(E–5)
+The basic scaling in the low Ω bh2 limit can be understood by the Saha approximation in which th e ioniza-
+tion fraction approximately scales as xe ∝ (Ω bh2)−1/2. Thus the diﬀusion length λD ∼ k−1
+γ ∼
+√
+η∗/ ˙τ ∝
+η1/2
+∗ (Ω bh2)−1/4. Since η∗ ∝ (Ω 0h2)−1/2 in the matter dominated high Ω 0h2 limit, this is approximately of
+the same form as equation (E–5). For high Ω bh2, the corrections from an accurate treatment of the atomic
+levels becomes more important due to the high Lyman- α opacity. These two simple limits can be accurately
+joined by a rather artiﬁcial looking but highly accurate for m
+kDγ
+Mpc−1 =
+{ 2
+π arctan
+[ π
+2 (F2/F1)p2/p1 (Ω bh2)p2
+] } p1/p2
+F1,
+p2 = 2.38(Ω 0h2)0.184.
+(E–6)
+33
+From Fig. 2, we see that this overestimates the true damping a s Ω bh2 → 0 due to a breakdown of tight
+coupling. It is interesting to note that the full numerical r esults suggest that the Saha estimation of p1 ≃ 0.25
+in equations (E–5) and (E–6) is a somewhat better phenomenol ogical ﬁt.
+The steepness index mγ of the diﬀusion damping envelope is a very weak function of co smological
+parameters. In the limit that last scattering occurred inst antaneously mγ → 2. The ﬁnite width of the
+visibility function modiﬁes this as
+mγ = 1.46(Ω 0h2)0.0303 (
+1 + 0.128arctan
+{
+ln[(32.8Ω bh2)−0.643]
+})
+, (E–7)
+which only varies by ∼ 10% across the full range of parameter space.
+Silk damping for the baryons can likewise be approximated by
+Db(k) ≃e−(k/kS )mb
+, (E–8)
+with
+kS
+Mpc−1 = 1.38(Ω 0h2)0.398(Ω bh2)0.487 1 + (96.2Ω 0h2)−0.684
+1 + (346Ω bh2)−0.842 , (E–9)
+and the steepness index by
+mS = 1.40 (Ω bh2)−0.0297(Ω 0h2)0.0282
+1 + (781Ω bh2)−0.926 . (E–10)
+As is the case with the photons, the latter accounts for the wi dth of the visibility function and is almost
+independent of cosmological parameters.
+Finally, by employing equation (E–2) for the drag epoch, the cumbersome analytic result for the CDM
+drag-contribution to the small scale transfer function T = (Ω b/Ω 0)Tb + (Ω c/Ω 0)Tc from (D–26) can be ﬁt as
+Tc ≃α ln(1.8βq)
+14.2q2 , (E–11)
+with
+α =a−Ω b/Ω 0
+1 a−(Ω b/Ω 0)3
+2 ,
+a1 = (46.9Ω 0h2)0.670[1 + (32.1Ω 0h2)−0.532],
+a2 = (12.0Ω 0h2)0.424[1 + (45.0Ω 0h2)−0.582],
+(E–12)
+as the suppression factor and
+β−1 = 1 + b1[(Ω c/Ω 0)b2 − 1],
+b1 = 0.944[1 + (458Ω 0h2)−0.708]−1,
+b2 = (0.395Ω 0h2)−0.0266,
+(E–13)
+as the correction to the logarithm.
+34
+Symbol Deﬁnition Equation
+Θ CMB temperature pert. (A–1)
+Θ 0 CMB monopole pert. (A–1)
+Θ 1 Vγ–CMB dipole pert. (A–1)
+Π T Anisotropic stress pert. (A–5)
+Φ Curvature perturbation (A–5)
+Ψ Newtonian potential (A–5)
+Ω i Critical fraction in i (1)
+α BaryonT -suppression (E–11)
+α1 α2 U1U2 power law (D–5)
+β BaryonT -log correct. (E–11)
+η (ηt) Conformal time (at t) (A–1)
+δi Density pert. in i (8)
+τ Compton optical depth (A–1)
+τd Drag optical depth (C–8)
+ω Acoustic frequency (A–13)
+Dγ Photon damping factor (C–5)
+Db Baryon damping factor (C–12)
+Vγ Compton visibility (C–1)
+ˆVγ CMB acoustic visibility (C–3)
+Vb Drag visibility (C–9)
+ˆVb Baryon acoustic visibility (C–11)
+A1 A2 Boost CDM matching cond. (D–10)
+CA Adiabatic acoustic amp. (B–5)
+CI Isocurvature acoustic amp. (B–6)
+D Radiationless growth (D–17)
+D1 D2 Matter-radiation growth (D–16)
+G1 G2 Drag matching cond. (D–18)
+I1 I2 CDM boost integrals (B–14)
+U1 U2 Drag CDM growth (D–4)
+R (Rt) b/γ momentum (at t) (A–2)
+T Transfer function (D–20)
+Tb BaryonT drag contrib. (D–22) (D–23)
+Tc CDM T drag contrib. (D–28)
+Vi Velocity in i (A–1)
+Table 1: Commonly used symbols. †
+† Fluid elements are i = b,c,γ,ν,m,r for the baryons, CDM, photons, neutrinos, total non-relati vistic
+matter, and total relativistic matter respectively. Speci al epochs include t = ∗,d,eq,H for last scattering,
+the drag epoch, matter-radiation equality, and horizon cro ssing respectively. Overdots represent conformal
+time derivatives.
+35
+Table 1 (cont.)
+a (at) Scale factor (at t) (A–1)
+aH Horizon crossing a (B–13)
+cs Photon-baryon sound speed (A–2)
+fν Neutrino fraction (B–2)
+k wavenumber (Lapl. eigenv.) (A–1)
+kD Diﬀusion waven. (A–14)
+kDγ CMB damping waven. (A–14) (E–6)
+kS Silk damping waven. (6) (E–9)
+keq Equality horizon waven. (B–2)
+kγj jth photon peak waven. (2)
+kbj jth baryon peak waven. (5)
+mγ CMB damping steepness (4) (E–7)
+mS Baryon damping steepness (6) (E–10)
+q Scaled wavenumber (D–25)
+rs Sound horizon (A–2)
+y a/aeq (D–1)
+z∗ Last scatt. redshift (E–1)
+zd Drag redshift (E–2)
+zeq Equality redshift (1)
+36
+References
+Abramowitz, M. & Stegun, I.A. 1965 Handbook of Mathematical Functions , (Dover, New York)
+Bardeen, J.M., Bond, J.R., Kaiser, N., & Szalay, A.S. 1986 Ap J, 304, 15 (BBKS)
+Bond, J.R. 1996, Cosmology and Large Scale Structure , edited by R. Schaeﬀer (Elsevier Science Publishers,
+Netherlands) in press.
+Bond, J.R. & Efstathiou, G. 1984, ApJ Lett., 285, L45
+Chibisov, G.V. 1972, Astr. Zh., 49, 72
+Doroshkevich, A.G., Zel’dovich, Ya.B., & Sunyaev, R.A. 197 8, Sov. Astron., 22, 523
+Gnedin, N.Y. & Ostriker, J.P. 1990, ApJ, 400, 1
+Hu, W. & Sugiyama, N. 1995, ApJ, 444, 489 (HSa)
+Hu, W. & Sugiyama, N. 1995, Phys. Rev. D., 51, 2599 (HSb)
+Hu, W., Scott, D., Sugiyama, N. & White, M. 1995, Phys. Rev. D. , 52, 5498 (1995)
+Hu, W. & White 1995, M., A&A (in press, astroph-9507060)
+Hu, W. & White 1996, M., ApJ (in press, astroph-9602019)
+Jones, B.J.T. & Wyse, R.F.G. 1985, A&A, 149, 144
+Kaiser, N. 1983, MNRAS, 202 1169
+Kaiser, N. 1984, ApJ, 282, 374
+Kodama, H. & Sasaki M. 1986, Int. J. Mod. Phys. A1, 265
+Kosowsky A. 1996, Ann. Phys., 246, 49
+Mather, J.C. et al. 1994, ApJ 420, 439
+Peacock, J.A. & Dodds, S.J. 1994, MNRAS, 267, 1020
+Peebles, P.J.E. 1968, ApJ, 153, 1
+Peebles, P.J.E. 1980, Large Scale Structure of the Universe , (Princeton University Press, Princeton) §12, 92.
+Peebles, P.J.E. 1987a, ApJ Lett., 315, L73
+Peebles, P.J.E. 1987b, Nature, 327, 210
+Peebles, P.J.E. & Yu, J.T. 1970, ApJ, 162, 815
+Press, W.H. & Vishniac, E.T. 1980, ApJ, 236, 323
+Sachs, R.K. & Wolfe, A.M. 1967, ApJ, 147, 73
+Silk, J. 1968, ApJ, 151, 459
+Sugiyama, N. 1995, ApJS, 100, 281
+Sunyaev, R.A. & Zel’dovich, Ya. B. 1970, Ap&SS, 7, 3
+Weinberg, S. 1972, Gravitation and Cosmology (Wiley, New York) p. 568.
+White, S.D.M., Navarro, J.F., Evrard, A.E., Frenk, C.S. 199 3 Nature, 366, 429.
+37

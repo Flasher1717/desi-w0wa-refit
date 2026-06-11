@@ -1,0 +1,76 @@
+{
+  "lcdm": {
+    "label": "LCDM",
+    "n_points": 46828,
+    "bias_mean_mpc": -0.04182007747816355,
+    "bias_std_mpc": 0.0010750006703470934,
+    "bias_min_mpc": -0.04401296433943003,
+    "bias_max_mpc": -0.03536851152901477,
+    "bias_rel_mean": -0.00028304666323418205,
+    "bias_rel_std": 7.083160166060369e-06,
+    "regression": {
+      "intercept": -0.001660779184702032,
+      "slope_ombh2_relbias_per_unit": 0.05343097068924259,
+      "slope_omch2_relbias_per_unit": 0.0015372554393386292,
+      "resid_std_rel": 2.5804106203873053e-06
+    },
+    "planck_point": {
+      "ombh2": 0.02236,
+      "omch2": 0.12083999999999999,
+      "aubourg_rd_mpc": 146.85495726762377,
+      "rel_bias_regression": -0.0002803007328008876,
+      "abs_bias_regression_mpc": -0.0411750935464522
+    },
+    "omch2_mapping_check_20pts": {
+      "max_abs_diff": 4.964203978441439e-09,
+      "mean_abs_diff": 2.517507408789088e-09
+    },
+    "rdrag_camb_mean_mpc": 147.74732392094475,
+    "aubourg_mean_mpc": 147.70550384346657
+  },
+  "w0wacdm": {
+    "label": "w0waCDM",
+    "n_points": 107532,
+    "bias_mean_mpc": -0.04053003409145781,
+    "bias_std_mpc": 0.0016171178658378814,
+    "bias_min_mpc": -0.043936704598962706,
+    "bias_max_mpc": -0.0297323988264111,
+    "bias_rel_mean": -0.00027505779504114527,
+    "bias_rel_std": 1.0582044813249553e-05,
+    "regression": {
+      "intercept": -0.002350630677962586,
+      "slope_ombh2_relbias_per_unit": 0.03413907738568439,
+      "slope_omch2_relbias_per_unit": 0.011002661343692176,
+      "resid_std_rel": 4.0299131738945705e-06
+    },
+    "planck_point": {
+      "ombh2": 0.02236,
+      "omch2": 0.12083999999999999,
+      "aubourg_rd_mpc": 146.85495726762377,
+      "rel_bias_regression": -0.0002577193108469207,
+      "abs_bias_regression_mpc": -0.037857114891026354
+    },
+    "omch2_mapping_check_20pts": {
+      "max_abs_diff": 8.855330482782087e-09,
+      "mean_abs_diff": 3.256924888117574e-09
+    },
+    "rdrag_camb_mean_mpc": 147.3427274681955,
+    "aubourg_mean_mpc": 147.30219743410404
+  },
+  "chi2_bao_effect": {
+    "bestfit": {
+      "omega_m": 0.30072,
+      "h": 0.68495,
+      "omega_b_h2": 0.02236
+    },
+    "rel_bias_global_aubourg_minus_camb_over_camb": -0.0002774813679858429,
+    "rd_aubourg_mpc": 147.58115166882968,
+    "chi2_bao_rd_aubourg": 10.881765487730409,
+    "rd_corrected_to_camb_mpc": 147.62211405498263,
+    "chi2_bao_rd_corrected_to_camb": 10.75969760024986,
+    "delta_chi2_corrected_minus_base": -0.12206788748054898,
+    "rd_times_1_plus_bias_mpc": 147.54020064897568,
+    "chi2_bao_rd_times_1_plus_bias": 11.024019080243528,
+    "delta_chi2_literal_minus_base": 0.14225359251311964
+  }
+}

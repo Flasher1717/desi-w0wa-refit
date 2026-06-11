@@ -34,6 +34,9 @@ packages = ["src/desi_w0wa_refit"]
 line-length = 100
 target-version = "py311"
 src = ["src", "tests", "scripts"]
+# results/ holds verbatim run artifacts (incl. audit evidence scripts);
+# they are records, not maintained code.
+extend-exclude = ["results"]
 
 [tool.ruff.lint]
 select = [
