@@ -231,3 +231,36 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
 - Note de transparence : une erreur 50x transitoire de data.desi.lbl.gov
   a produit un premier margestats base_w_wa corrompu (page HTML),
   détecté à la vérification de taille et re-téléchargé avant épinglage.
+
+## 2026-06-11 — GO Téo décision G5.2 : option (b), amendement calibré P8
+
+- Conditions du GO : P8 committé avant tout re-run (nature constante,
+  source de calibration ordonnée, transparence totale) ; rien d'écrasé
+  (tableau brut conservé, gate corrigé = G5.2b) ; re-run M5 complet ;
+  CAMB/CLASS restent hors périmètre ; fallback = option (a) si G5.2b
+  pas vert sans autre changement. Après re-run vert : GO M6 + M7
+  enchaînés, prochain STOP fin M7.
+- L'ancrage publié Eq. (2) jugé insuffisant pour θ* (calibre l'époque
+  drag ; biais audités différents −0.028 % vs −0.13 %) → calibration
+  sur les chaînes officielles épinglées (préférence (ii) du GO).
+- scripts/calibrate_p8.py : κ_r = moyenne pondérée rdrag_CAMB/r_d_Aubourg ;
+  κ_θ par inversion de la quadratique chi2__CMB_compressed avec
+  assignation de racine itérée à point fixe — le choix naïf « racine la
+  plus proche de notre valeur brute » sous-estimait κ_θ de ~0.02 %
+  (systématique de racine basse, identifié et corrigé AVANT le commit
+  des constantes). Valeurs committées : κ_r = 1.000279376,
+  κ_θ = 1.001314308 (scatter résiduel 7.6e-6 ; accord inter-modèles 6e-6).
+- P8 committé (9411591) AVANT le re-run.
+
+## 2026-06-11 — M5b : re-run complet P8 — 6/6 gates VERTS
+
+- G5.1b 1.656σ (identique au brut — P8 ne touche pas le bras BAO, comme
+  déclaré) ; G5.2b Δχ²_MAP = −8.023 → 2.363σ (ancrage −8.0/2.4σ ;
+  best-fits alignés sur les produits officiels à ~4 décimales) ;
+  G5.3b 2.279σ ; G5.4b 3.288σ ; G5.5b 3.837σ ; G5.6b ordre OK.
+- Effet de compression re-mesuré proprement : −0.52σ (P+), −0.51σ
+  (Union3), −0.36σ (DES) vs −0.7σ mesuré par DESI sur BAO+CMB.
+- Résultats : results/m5_fits_corrected.json ; RESULTS.md §6 (le
+  tableau brut §4 et le verdict G5.2 FAIL restent dans l'historique).
+- Fallback du GO non déclenché. Enchaînement M6 puis M7 (runners
+  committés avant leurs runs : e8d5a9e).

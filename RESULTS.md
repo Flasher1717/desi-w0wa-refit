@@ -385,3 +385,50 @@ mécanisme et quantification, à la fidélité du θ* analytique (HS96+EH98)
 face à σ(θ*)/θ* = 2.5×10⁻⁴, pas à un bug. Toute remédiation (θ* CAMB,
 correction calibrée et pré-enregistrée, ou acceptation en limitation)
 est une décision méthodologique qui requiert un GO explicite.
+
+→ Décision de Téo (GO du 2026-06-11) : amendement calibré P8
+(PREREGISTRATION.md P8 — transparence totale : décidé APRÈS l'audit,
+même statut que la recalibration Keeley du P0). Voir §6.
+
+## §6 — Résultats M5 corrigés P8 (gates G5.xb, mêmes fenêtres)
+
+Amendement P8 : deux constantes multiplicatives sur les sorties
+analytiques des bras CMB, calibrées sur les chaînes officielles
+épinglées — κ_r = 1.000279376 (r_d Aubourg), κ_θ = 1.001314308 (θ*).
+Le scatter résiduel post-correction (7.6×10⁻⁶ ≈ 0.03σ_prior) montre
+qu'une constante capture la quasi-totalité du biais ; rien d'autre n'a
+changé (vérifiable : seuls les points d'entrée `DESIParams.r_drag_mpc`
+et `DESIParams.theta_star` appliquent κ). Le tableau brut (§4) reste le
+résultat du pipeline purement analytique.
+
+| Bras | χ²_ΛCDM | χ²_w0wa | Δχ²_MAP | Nσ | publié | fenêtre | gate |
+|---|---|---|---|---|---|---|---|
+| BAO seul | 10.271 | 5.619 | −4.652 | **1.66** | 1.7 | [1.5, 1.9] | G5.1b PASS |
+| BAO+CMB | 15.151 | 7.129 | **−8.023** | **2.36** | 2.4 / −8.0 (ancrage exact) | [2.1, 2.7] | G5.2b PASS |
+| BAO+CMB+Pantheon+ | 1420.95 | 1413.37 | −7.574 | **2.28** | 2.8 (full CMB) | [1.8, 3.1] | G5.3b PASS |
+| BAO+CMB+Union3 | 43.584 | 29.790 | −13.794 | **3.29** | 3.8 (full CMB) | [2.8, 4.1] | G5.4b PASS |
+| BAO+CMB+DES-SN5YR | 1664.66 | 1646.67 | −17.984 | **3.84** | 4.2 (full CMB) | [3.2, 4.5] | G5.5b PASS |
+
+G5.6b (ordre) : 2.28 (P+) < 3.29 (Union3) < 3.84 (DESY5) — PASS.
+**6/6 gates verts.** Le bras BAO seul est identique au §4 (P8 ne le
+touche pas, comme déclaré).
+
+Points de réplication frappants :
+- G5.2b : Δχ²_MAP = −8.023 vs −8.0 publié ; best-fit w0waCDM
+  (Ωm = 0.3509, h = 0.6372, w0 = −0.445, wa = −1.645) vs margestats
+  officiel (0.353, 0.637, −0.43 ± 0.22, −1.72 ± 0.64) ; best-fit ΛCDM
+  χ² = 15.151 vs 15.145 reconstruit des chaînes officielles.
+- Bras SNe, best-fits (w0, wa) vs publiés [Table 5] : P+ (−0.853, −0.52)
+  vs (−0.838, −0.62) ; Union3 (−0.686, −0.99) vs (−0.667, −1.09) ;
+  DES (−0.766, −0.78) vs (−0.752, −0.86).
+
+**Effet de compression re-mesuré proprement (post-P8)** —
+Nσ_pipeline − Nσ_publié(full CMB) : P+ **−0.52σ**, Union3 **−0.51σ**,
+DES **−0.36σ**, à comparer au **−0.7σ** que DESI mesure sur BAO+CMB
+(2.4σ compressé vs 3.1σ full). L'effet est systématiquement
+atténuateur et du même ordre ; il est plus faible sur les bras où les
+SNe dominent l'information sur (w0, wa) — attendu, la compression ne
+dégrade que le canal CMB.
+
+ΔAIC/ΔBIC (k = 2 ; n = points du bras) : BAO −0.65/+0.48 ; BAO+CMB
+−4.02/−2.48 ; +P+ −3.57/+7.19 ; +Union3 −9.79/−6.52 ; +DES −13.98/−2.94.
