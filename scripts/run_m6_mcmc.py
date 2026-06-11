@@ -54,13 +54,17 @@ FIGURES_DIR = RESULTS_DIR / "figures"
 CHAINS_DIR = RESULTS_DIR / "chains"
 M5_RESULTS = RESULTS_DIR / "m5_fits_corrected.json"
 
-# Committed BEFORE the M6 runs (P7).
+# Committed BEFORE the M6 runs (P7). Lengths serve the pre-registered
+# convergence REQUIREMENT (nsteps - burn > 50 tau); the first attempt
+# (10000/8000 steps) failed it on BAO+CMB (50 tau = 9312 > 8000) and was
+# lengthened across the CMB arms — documented in MILESTONES.md, the
+# criterion itself never moved.
 ARM_SETTINGS: dict[str, dict[str, int]] = {
     "BAO": {"nwalkers": 40, "nsteps": 12000, "burn": 2000},
-    "BAO+CMB": {"nwalkers": 40, "nsteps": 10000, "burn": 2000},
-    "BAO+CMB+PantheonPlus": {"nwalkers": 40, "nsteps": 8000, "burn": 2000},
-    "BAO+CMB+Union3": {"nwalkers": 40, "nsteps": 10000, "burn": 2000},
-    "BAO+CMB+DES-SN5YR": {"nwalkers": 40, "nsteps": 8000, "burn": 2000},
+    "BAO+CMB": {"nwalkers": 40, "nsteps": 22000, "burn": 3000},
+    "BAO+CMB+PantheonPlus": {"nwalkers": 40, "nsteps": 16000, "burn": 3000},
+    "BAO+CMB+Union3": {"nwalkers": 40, "nsteps": 20000, "burn": 3000},
+    "BAO+CMB+DES-SN5YR": {"nwalkers": 40, "nsteps": 16000, "burn": 3000},
 }
 BALL_SCALE = 0.02  # relative Gaussian ball around the MAP for walker init
 
@@ -186,12 +190,18 @@ def main() -> int:
         make_cmb_arm(bao, prior, union3),
         make_cmb_arm(bao, prior, des),
     ]
+    out_path = RESULTS_DIR / "m6_mcmc.json"
     results: dict[str, object] = {}
+    if out_path.is_file():
+        results = json.loads(out_path.read_text(encoding="utf-8"))
     for arm in arms:
+        previous = results.get(arm.name)
+        if isinstance(previous, dict) and previous.get("settings") == ARM_SETTINGS[arm.name]:
+            print(f"=== {arm.name} === (already sampled with identical settings, kept)")
+            continue
         print(f"=== {arm.name} ===")
         results[arm.name] = run_arm(arm)
-    out_path = RESULTS_DIR / "m6_mcmc.json"
-    out_path.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
+        out_path.write_text(json.dumps(results, indent=2) + "\n", encoding="utf-8")
     print(f"\nWritten {out_path}")
     return 0
 
