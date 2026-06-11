@@ -76,3 +76,22 @@ jamais ; toute correction est une nouvelle entrée datée.
 
 Périmètre inchangé : M2 ne démarre qu'avec les formules r_s committées.
 Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
+
+## 2026-06-11 — Conditions du GO M1 levées, pré-enregistrement committé
+
+- (1a) Formules extraites des papiers, constantes verbatim : Aubourg 2015
+  Eq. (16) (r_d, précision 0.021 %), HS96 Eq. (E-1) (z*), EH98 Eq. (4)
+  (z_d, information), r_s intégral [EH98 Eqs. (5)-(6)] ; cross-check :
+  formule du papier DESI lui-même [2503.14738v3, Eq. (2)].
+- (1b) Oracle r_d : point d'ancrage publié Eq. (2) = 147.05 Mpc au point
+  Planck (le papier ne publie pas de r_d fiduciel isolé) ; tolérance 0.3 %.
+- (1c) θ* complet TROUVÉ dans les produits officiels (yaml des chaînes
+  DESI DR2, data.desi.lbl.gov, contre-vérifié sur 2 fichiers) :
+  (0.01041027, 0.02223208, 0.14207901) + covariance complète. Test de
+  sensibilité P6 caduc (clause conditionnelle non déclenchée).
+- Conventions neutrinos baseline extraites (Σmν = 0.06 eV un état massif,
+  Neff = 3.044, Ωm inclut ν non relativistes, ωbc les exclut).
+- Limitation pré-enregistrée : précision percent-level de z* HS96 vs
+  σ(θ*)/θ* ≈ 2.5e-4 — bornée par le gate G5.2, jamais recalibrée en
+  silence.
+- PREREGISTRATION.md committé → M2 ouvert.

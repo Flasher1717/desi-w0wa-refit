@@ -65,12 +65,16 @@
     alttext) : Eqs. (35)-(36) confirmées entrée par entrée, signes et
     exposant compris ; ordre (θ*, ωb, ωbc) confirmé ; c'est bien θ*
     (≈ 0.0104 rad), pas 100θ*.
-  - **Caveat de précision** : le papier imprime θ* = 0.01041 (5 décimales)
-    alors que σ(θ*) = √(6.621×10⁻¹²) ≈ 2.6×10⁻⁶ — la moyenne publiée est
-    ~4× plus grossière que son incertitude. Troncature du papier lui-même
-    (pas un artefact HTML). À traiter au GO M1 : chercher la valeur
-    complète dans les produits de données DESI, sinon documenter en
-    limitation (biais possible ≲ 2σ(θ*) sur ce seul axe).
+  - **Caveat de précision — RÉSOLU** : le papier imprime θ* = 0.01041
+    (5 décimales) alors que σ(θ*) ≈ 2.6×10⁻⁶. La valeur complète a été
+    trouvée dans les produits officiels DESI DR2 (yaml Cobaya des chaînes
+    publiées, data.desi.lbl.gov, contre-vérifiée sur deux fichiers
+    indépendants) : moyennes (0.01041027, 0.02223208, 0.14207901) et
+    covariance complète — voir PREREGISTRATION.md P1, épinglage SHA256
+    en M2.
+  - **Piège** : le papier contient aussi un prior θ*-SEUL distinct
+    (100θ* = 1.04110 ± 0.00053, largeur gonflée ~75 %) — à ne jamais
+    confondre avec le prior 3D compressé utilisé ici.
 - Point décisif : la ligne « DESI+(θ*, ωb, ωbc)_CMB » figure dans la
   Table 6 publiée (Δχ²_MAP = −8.0, 2.4σ) → ancrage EXACT de notre pipeline
   compressé pour la combinaison BAO+CMB, sans approximation de notre part.
@@ -100,7 +104,20 @@ D_H/r_d corrélés). Valeurs : voir §2.1 (fichiers bao_data) — concordance
 vérifiée chiffre à chiffre entre Table 4 et les fichiers (recoupement
 croisé : deux agents, deux sources indépendantes).
 
-### 1.7 Le test low-z fait par DESI eux-mêmes
+### 1.7 Formules pré-recombinaison et convention neutrinos
+
+- Le papier fournit sa propre formule d'échelle pour r_d [Section I,
+  Eq. (2)] : r_d = 147.05 Mpc · (ω_b/0.02236)^−0.13 · (ω_bc/0.1432)^−0.23 ·
+  (Neff/3.04)^−0.1, « scaled to the best-fit values from Planck ».
+- Formule de fitting principale du pipeline : Aubourg et al. 2015
+  [arXiv:1411.1074, Eq. (16), précision documentée 0.021 %] ; z* pour θ* :
+  Hu & Sugiyama 1996 [astro-ph/9510117, App. E, Eq. (E-1)]. Détails,
+  constantes verbatim et limitations : PREREGISTRATION.md P2.
+- Neutrinos baseline [Section V + chain.input.yaml officiels] :
+  Σmν = 0.06 eV (un état massif), Neff = 3.044 ; Ωm inclut les neutrinos
+  non relativistes ; ωbc = ωb + ωc les exclut [Section I, Eq. (6)].
+
+### 1.8 Le test low-z fait par DESI eux-mêmes
 
 « The constraining power of SNe in measuring the equation of state comes
 primarily from the comparison of low-redshift (z<0.1) and high redshift
