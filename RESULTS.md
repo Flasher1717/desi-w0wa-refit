@@ -5,7 +5,8 @@
 > suivantes (méthodo, résultats, limites) seront remplies aux jalons M5-M8.
 > Rédigé le 2026-06-11. Extraction : 7 sous-agents (un par source) +
 > recoupement croisé + contre-vérification adversariale des équations
-> critiques du papier DESI DR2.
+> critiques du papier DESI DR2 (Eq. 22, Eqs. 35-36, priors, Tables 5-6) :
+> 6/6 claims confirmés chiffre par chiffre, Eqs. (35)-(36) sur LaTeX brut.
 
 ## §1 — Conventions DESI DR2 (arXiv:2503.14738v3, publié PRD 112, 083515)
 
@@ -60,6 +61,16 @@
      [0.12444, 21.344, −94.001],
      [−1.1929, −94.001, 1488.4]] [Eq. (36)] ;
   - fondement méthodologique : Lemos & Lewis 2023 (arXiv:2302.12911).
+  - Vérification adversariale (second agent, lecture du LaTeX brut via
+    alttext) : Eqs. (35)-(36) confirmées entrée par entrée, signes et
+    exposant compris ; ordre (θ*, ωb, ωbc) confirmé ; c'est bien θ*
+    (≈ 0.0104 rad), pas 100θ*.
+  - **Caveat de précision** : le papier imprime θ* = 0.01041 (5 décimales)
+    alors que σ(θ*) = √(6.621×10⁻¹²) ≈ 2.6×10⁻⁶ — la moyenne publiée est
+    ~4× plus grossière que son incertitude. Troncature du papier lui-même
+    (pas un artefact HTML). À traiter au GO M1 : chercher la valeur
+    complète dans les produits de données DESI, sinon documenter en
+    limitation (biais possible ≲ 2σ(θ*) sur ce seul axe).
 - Point décisif : la ligne « DESI+(θ*, ωb, ωbc)_CMB » figure dans la
   Table 6 publiée (Δχ²_MAP = −8.0, 2.4σ) → ancrage EXACT de notre pipeline
   compressé pour la combinaison BAO+CMB, sans approximation de notre part.

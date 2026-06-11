@@ -26,3 +26,25 @@ jamais ; toute correction est une nouvelle entrée datée.
   compression CMB, coupures low-z (2408.07175, 2502.04212) + ancrage
   Pantheon+ (2202.04077), réponse DES (2511.07517) + Keeley 2024.
   Recoupement croisé prévu avant le STOP M1.
+
+## 2026-06-11 — M1 : extraction des conventions (terminée, en attente du GO)
+
+- 7 extractions rentrées ; RESULTS.md §1-2 rédigé avec n° de
+  section/équation/table pour chaque fait.
+- Recoupement croisé : Table 4 (DESI DR2) vs fichiers bao_data — concordance
+  chiffre à chiffre sur les 13 points et covariances (deux agents, deux
+  sources indépendantes).
+- Contre-vérification adversariale (agent indépendant, LaTeX brut) des
+  Eqs. (22), (35), (36), priors, Tables 5-6 : 6/6 confirmés. Trouvaille :
+  θ* imprimé à 5 décimales dans le papier (troncature source) vs
+  σ(θ*) ≈ 2.6×10⁻⁶ — à traiter au GO M1.
+- Découvertes critiques : DES-SN5YR à épingler au tag v1.2 (main = Dovekie
+  2026, 1820 SNe ≠ papier 2024) ; bao_data tag v2.6, ordre Lyα inversé
+  (DH avant DM) ; covariance DES totale = STAT+SYS + diag(MUERR_FINAL²) ;
+  ancrage exact publié du pipeline compressé DESI+(θ*,ωb,ωbc)_CMB = 2.4σ
+  [Table 6].
+- Union3 : décision best-effort → INCLUS (fichiers cobaya sn_data, usage
+  identique à DESI ; limite Kim arXiv:2412.14181 documentée en M8).
+- STOP M1 présenté à Téo : plan M2-M9, choix CMB (Option A = compression
+  DESI Eqs. 35-36 recommandée), traitement r_d, tolérances de gates,
+  coupures M7 candidates. En attente du GO.
