@@ -126,12 +126,18 @@ def run_g33(des: SNSample) -> dict[str, object]:
 
     # Diagnostic (not a gate): our log-likelihood in the official DES
     # convention (-0.5 (chi2_marg + ln(c/2pi))) evaluated at the official
-    # chain points, against the chain's own `like` column. Their theory
-    # is CAMB (with radiation and massive neutrinos); small smooth
-    # residuals are expected, a convention error would be enormous.
+    # chain points, against the chain's own `like` column. Restricted to
+    # the weighted posterior support: polychord output also stores dead
+    # exploration points (223/908 with like < -1000 but total weight
+    # 4e-82) where both codes blow up differently. Their chain used the
+    # pippin files (n=1828) and CAMB theory, so a small smooth residual
+    # is expected; a covariance-convention error would shift chi2 by
+    # hundreds.
     like_chain = chain.column("like")
+    weights = chain.weights
+    keep = np.flatnonzero(weights > 1e-6 * float(weights.max()))
     deltas: list[float] = []
-    for index in range(0, chain.samples.shape[0], 10):
+    for index in keep:
         omega_m = float(chain.column("omega_m")[index])
         w0 = float(chain.column("w")[index])
         wa = float(chain.column("wa")[index])
@@ -139,6 +145,7 @@ def run_g33(des: SNSample) -> dict[str, object]:
         deltas.append(ours_like - float(like_chain[index]))
     delta_arr = np.asarray(deltas)
     diagnostic = {
+        "weight_covered": float(weights[keep].sum() / weights.sum()),
         "mean_delta": float(np.mean(delta_arr)),
         "std_delta": float(np.std(delta_arr)),
         "max_abs_delta": float(np.max(np.abs(delta_arr))),
