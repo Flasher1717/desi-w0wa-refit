@@ -432,3 +432,50 @@ dégrade que le canal CMB.
 
 ΔAIC/ΔBIC (k = 2 ; n = points du bras) : BAO −0.65/+0.48 ; BAO+CMB
 −4.02/−2.48 ; +P+ −3.57/+7.19 ; +Union3 −9.79/−6.52 ; +DES −13.98/−2.94.
+
+## §7 — M7 : profil de sensibilité low-z (coupures P5, CLOSES au GO M1)
+
+Pipeline P8, mêmes moteur et nombres de départs que M5b ; baselines =
+bras complets de §6 ; métrique de tableau FIGÉE (P5) ; SHA256 de chaque
+sous-échantillon consigné dans results/m7_cuts.json. Coupures :
+C-a z > 0.1 ; C-b exclusion CfA (IDSURVEY 61-66) + CSP (5), Foundation
+(150) et low-z divers P+ conservés ; C-c DES pur (IDSURVEY = 10) / P+
+z > 0.1 ; C-d z > 0.025 (contrôle Dovekie).
+
+**BAO+CMB+Pantheon+** (baseline : N = 1590, Δχ²_MAP = −7.574, 2.279σ,
+w0 = −0.853, wa = −0.522) :
+
+| Coupure | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | Δw0 | Δwa |
+|---|---|---|---|---|---|---|---|---|
+| C-a | 960 | −6.247 | 2.014 | −0.265 | −0.780 | −0.715 | +0.073 | −0.193 |
+| C-b | 1357 | −7.155 | 2.198 | −0.081 | −0.845 | −0.544 | +0.008 | −0.021 |
+| C-c | 960 | −6.247 | 2.014 | −0.265 | −0.780 | −0.715 | +0.073 | −0.193 |
+| C-d | 1322 | −6.921 | 2.152 | −0.127 | −0.852 | −0.522 | +0.001 | −0.000 |
+
+**BAO+CMB+DES-SN5YR** (baseline : N = 1829, Δχ²_MAP = −17.984, 3.837σ,
+w0 = −0.766, wa = −0.778) :
+
+| Coupure | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | Δw0 | Δwa |
+|---|---|---|---|---|---|---|---|---|
+| C-a | 1632 | −3.887 | 1.464 | **−2.373** | −0.819 | −0.616 | −0.052 | +0.162 |
+| C-b | 1753 | −16.160 | 3.607 | −0.230 | −0.755 | −0.806 | +0.011 | −0.028 |
+| C-c | 1635 | −4.184 | 1.540 | **−2.297** | −0.811 | −0.639 | −0.045 | +0.139 |
+| C-d | 1829 | −17.984 | 3.837 | ±0.000 | −0.766 | −0.778 | −0.000 | +0.000 |
+
+Lecture factuelle (aucune conclusion physique au-delà du profil) :
+
+- Le bras DES-SN5YR perd l'essentiel de sa préférence dès que les SNe
+  z < 0.1 (ou tout le low-z externe) sont retirées : 3.84σ → 1.46-1.54σ
+  — miroir quantitatif du test de DESI (Fig. 14, « incertitudes
+  élargies, significativité réduite ») et du mécanisme pointé par
+  Efstathiou : les best-fits (w0, wa) bougent PEU (Δw0 ≈ −0.05,
+  Δwa ≈ +0.15), c'est le pouvoir contraignant qui s'effondre.
+- En revanche, l'exclusion ciblée des échantillons historiques
+  (CfA + CSP, Foundation conservé — le test de 2502.04212) ne coûte que
+  −0.23σ : dans NOTRE profil, la sensibilité vient du retrait de tout
+  le levier z < 0.1, pas spécifiquement des relevés historiques.
+- La coupure Dovekie z > 0.025 est strictement neutre pour DES (aucune
+  SN du release sous z = 0.025 — cohérence vérifiée, ΔNσ = 0 exact).
+- Le bras Pantheon+ est robuste : 2.28σ → 2.01σ (z > 0.1), −0.08σ
+  (CfA+CSP), −0.13σ (z > 0.025). Contrôle interne : C-c(P+) ≡ C-a(P+)
+  chiffre pour chiffre, comme attendu par construction.
