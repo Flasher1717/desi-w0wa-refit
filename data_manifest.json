@@ -84,6 +84,76 @@
       "url": "https://raw.githubusercontent.com/CobayaSampler/sn_data/61d96434cafc2770928322c38e5a750e686368ae/Union3/mag_covmat.txt",
       "sha256": "64c79abd24bf5154bc1e38ad0c031e31dd6247cdcc5ca930829698169809a146",
       "size": 9199
+    },
+    {
+      "name": "desi_dr2_base_cmbcompressed_chain.1.txt",
+      "description": "Official DESI DR2 LCDM chain, desi-bao-all + compressed CMB prior (G5.2 audit anchor; per-point chi2__BAO, chi2__CMB_compressed, rdrag columns).",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.1.txt",
+      "sha256": "a0a5b9b6cdf451b5b44765252b65c6adc7cb233649447257b93bc1145c85a3b7",
+      "size": 6701835
+    },
+    {
+      "name": "desi_dr2_base_cmbcompressed_chain.2.txt",
+      "description": "Official DESI DR2 LCDM chain (2/4), same combination.",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.2.txt",
+      "sha256": "58221bbff85b43ce6ab3c53eea70abc4e2124710ae3b405b2958bc8130db3910",
+      "size": 6807577
+    },
+    {
+      "name": "desi_dr2_base_cmbcompressed_chain.3.txt",
+      "description": "Official DESI DR2 LCDM chain (3/4), same combination.",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.3.txt",
+      "sha256": "c1dcd307658ef4d3399c9f593f42b2be4a62c40fe844b311b4ad41be5837774d",
+      "size": 6866839
+    },
+    {
+      "name": "desi_dr2_base_cmbcompressed_chain.4.txt",
+      "description": "Official DESI DR2 LCDM chain (4/4), same combination.",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.4.txt",
+      "sha256": "42131c1a9ef8a23cdbd0d9007e18a4373427746a8c1fc3d83a37cd281865ad97",
+      "size": 6833141
+    },
+    {
+      "name": "desi_dr2_base_cmbcompressed_chain.margestats",
+      "description": "Marginalized statistics of the official LCDM compressed-prior chain.",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.margestats",
+      "sha256": "0eb0edf8f1fdd2db99d5ea5d5f4527c6de0a74b3eeeeaef5cea0d2fb18745ae2",
+      "size": 1936
+    },
+    {
+      "name": "desi_dr2_base_w_wa_cmbcompressed_chain.1.txt",
+      "description": "Official DESI DR2 w0waCDM chain, desi-bao-all + compressed CMB prior (G5.2 audit anchor).",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base_w_wa/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.1.txt",
+      "sha256": "fed81f7222585f1774ebce1bd6e461a71d9c59872eebcfbfefce99352d3a9001",
+      "size": 16633142
+    },
+    {
+      "name": "desi_dr2_base_w_wa_cmbcompressed_chain.2.txt",
+      "description": "Official DESI DR2 w0waCDM chain (2/4), same combination.",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base_w_wa/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.2.txt",
+      "sha256": "e2a836d53ecca4fd4b88ee79484f73e79c4cd18c3bbb6173ffb19555c6df160a",
+      "size": 16429013
+    },
+    {
+      "name": "desi_dr2_base_w_wa_cmbcompressed_chain.3.txt",
+      "description": "Official DESI DR2 w0waCDM chain (3/4), same combination.",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base_w_wa/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.3.txt",
+      "sha256": "80aeed2801d23e8cfaef3d20223a56c242643f65fb0c665f7e1b7f9d27a726de",
+      "size": 16379360
+    },
+    {
+      "name": "desi_dr2_base_w_wa_cmbcompressed_chain.4.txt",
+      "description": "Official DESI DR2 w0waCDM chain (4/4), same combination.",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base_w_wa/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.4.txt",
+      "sha256": "e3633678256dd92bf75f0346e5bb4f7594fa8ae541b939237b6e45c3e1d286ea",
+      "size": 16478053
+    },
+    {
+      "name": "desi_dr2_base_w_wa_cmbcompressed_chain.margestats",
+      "description": "Marginalized statistics of the official w0waCDM compressed-prior chain (H0 63.7, w -0.43+/-0.22, wa -1.72+/-0.64, rdrag 147.34+/-0.23).",
+      "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base_w_wa/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.margestats",
+      "sha256": "a8f6e1e7eb43719bfbb00d919d43c335eff5e4eb14ca2555a4ef419eba993a5e",
+      "size": 2178
     }
   ]
 }
