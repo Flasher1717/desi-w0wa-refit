@@ -1,0 +1,77 @@
+{
+  "G3.1": {
+    "sample": "PantheonPlus (1590 SNe, zHD > 0.01)",
+    "anchor": "Omega_m = 0.334 +/- 0.018 [Brout 2022, Table 3]",
+    "omega_m_pipeline": 0.33157617161174596,
+    "chi2_min": 1402.9191282391548,
+    "criterion": "|Omega_m - 0.334| < 0.010",
+    "abs_diff": 0.0024238283882540568,
+    "pass": true
+  },
+  "G3.2": {
+    "sample": "DES-SN5YR (1829 SNe)",
+    "anchor": "Omega_m = 0.352 +/- 0.017 [DES 2024, Table 2]",
+    "omega_m_pipeline": 0.3519535425303449,
+    "chi2_min": 1640.083100113694,
+    "criterion": "|Omega_m - 0.352| < 0.010",
+    "abs_diff": 4.645746965509234e-05,
+    "pass": true
+  },
+  "G3.3": {
+    "anchor_chain": "DES-SN5YR_fw0wacdm_SN.txt (polychord, weighted)",
+    "priors": "omega_m U[0.01,0.99], w0 U[-5,1], wa U[-20,10] (from chain header)",
+    "sampler": {
+      "nwalkers": 32,
+      "nsteps": 6000,
+      "burn": 1500,
+      "seed_name": "m3-g33-emcee",
+      "tau": [
+        49.8936577782245,
+        46.43094779114677,
+        50.089680210991666
+      ],
+      "runtime_s": 1104.0
+    },
+    "per_param": {
+      "omega_m": {
+        "mean_chain": 0.4949159432331898,
+        "sigma_chain": 0.04015108015164098,
+        "mean_pipeline": 0.4904149793416186,
+        "sigma_pipeline": 0.04116201714401905,
+        "pull_in_sigma_chain": 0.1121006925485484,
+        "pass": true
+      },
+      "w": {
+        "mean_chain": -0.31647405073077484,
+        "sigma_chain": 0.29617192408679643,
+        "mean_pipeline": -0.3355122966786632,
+        "sigma_pipeline": 0.32447262011469524,
+        "pull_in_sigma_chain": 0.06428106244908285,
+        "pass": true
+      },
+      "wa": {
+        "mean_chain": -9.427163338364915,
+        "sigma_chain": 3.776616475815461,
+        "mean_pipeline": -9.230801948889937,
+        "sigma_pipeline": 4.059007245108254,
+        "pull_in_sigma_chain": 0.05199399799593867,
+        "pass": true
+      }
+    },
+    "pass": true,
+    "diagnostic_like_vs_official": {
+      "mean_delta": 6028.773459018158,
+      "std_delta": 36696.868796464594,
+      "max_abs_delta": 337803.3936090487,
+      "n_points": 91
+    }
+  },
+  "G3.4": {
+    "sample": "Union3 (22 spline nodes)",
+    "structural": "22 nodes, SPD covariance (validated by the loader)",
+    "omega_m_pipeline": 0.3559244055702143,
+    "chi2_min": 23.95789013623825,
+    "n_nodes": 22,
+    "pass": true
+  }
+}

@@ -19,6 +19,9 @@ from desi_w0wa_refit.cmb import (
     CMB_PRIOR_MEAN,
     CMBCompressedPrior,
     DESIParams,
+    comoving_distance_fast_mpc,
+    sound_horizon_at_z_fast_mpc,
+    sound_horizon_at_z_mpc,
     sound_horizon_drag_aubourg_mpc,
     sound_horizon_drag_desi_eq2_mpc,
     z_star_hu_sugiyama,
@@ -112,6 +115,25 @@ def test_prior_constants_equal_pinned_official_yaml() -> None:
     assert numbers[3:12] == flat_cov
     assert re.search(r"mnu:\s*\n\s*latex:[^\n]*\n\s*value: 0\.06\b", text)
     assert re.search(r"nnu:\s*\n\s*latex:[^\n]*\n\s*value: 3\.044\b", text)
+
+
+@pytest.mark.parametrize(
+    ("omega_m", "h", "w0", "wa"),
+    [(0.31, 0.68, -1.0, 0.0), (0.35, 0.62, -0.7, -1.2), (0.28, 0.74, -1.8, 1.5)],
+)
+def test_fast_integrators_match_adaptive_quad(
+    omega_m: float, h: float, w0: float, wa: float
+) -> None:
+    params = DESIParams(omega_m=omega_m, h=h, omega_b_h2=0.0222, w0=w0, wa=wa)
+    background = params.background()
+    z_star = z_star_hu_sugiyama(0.0222, params.omega_m_h2)
+    r_s_fast = sound_horizon_at_z_fast_mpc(background, 0.0222, z_star)
+    r_s_quad = sound_horizon_at_z_mpc(background, 0.0222, z_star)
+    assert abs(r_s_fast / r_s_quad - 1.0) < 1e-7
+    d_fast = comoving_distance_fast_mpc(background, z_star)
+    d_quad = background.comoving_distance_scalar_mpc(z_star)
+    assert abs(d_fast / d_quad - 1.0) < 1e-7
+    assert abs(params.theta_star() / (r_s_quad / d_quad) - 1.0) < 2e-7
 
 
 def test_desi_params_mapping_matches_official_yaml_formula() -> None:

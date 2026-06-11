@@ -32,7 +32,7 @@ from dataclasses import dataclass
 from typing import Final
 
 import numpy as np
-from scipy.integrate import quad
+from scipy.integrate import quad, simpson
 
 from desi_w0wa_refit.bao import FloatArray, validate_covariance
 from desi_w0wa_refit.cosmology import C_KM_S, Background
@@ -105,11 +105,51 @@ def sound_horizon_at_z_mpc(background: Background, omega_b_h2: float, z: float) 
     return value
 
 
-def theta_star(background: Background, omega_b_h2: float, omega_m_h2: float) -> float:
+def sound_horizon_at_z_fast_mpc(background: Background, omega_b_h2: float, z: float) -> float:
+    """Same integral as sound_horizon_at_z_mpc on a fixed vectorized grid.
+
+    Substitution a = x^2 regularizes the radiation-dominated end (the
+    integrand goes to zero linearly in x); fixed 4097-point Simpson is
+    deterministic and ~10x faster than adaptive quad. Cross-validated
+    against the quad version to < 1e-7 relative in the tests.
+    """
+    theta_27 = T_CMB_K / 2.7
+    x_max = math.sqrt(1.0 / (1.0 + z))
+    x = np.linspace(0.0, x_max, 4097)
+    z_prime = np.empty_like(x)
+    z_prime[0] = np.inf
+    z_prime[1:] = 1.0 / (x[1:] ** 2) - 1.0
+    integrand = np.zeros_like(x)
+    baryon_to_photon = 31.5 * omega_b_h2 * theta_27**-4 * 1.0e3 / z_prime[1:]
+    c_s = C_KM_S / np.sqrt(3.0 * (1.0 + baryon_to_photon))
+    hubble = background.hubble_km_s_mpc(z_prime[1:])
+    integrand[1:] = 2.0 * c_s / (x[1:] ** 3 * hubble)
+    return float(simpson(integrand, x=x))
+
+
+def comoving_distance_fast_mpc(background: Background, z: float) -> float:
+    """D_C(z) on a fixed log(1+z) Simpson grid (high-z capable, fast).
+
+    Cross-validated against comoving_distance_scalar_mpc (adaptive quad)
+    to < 1e-7 relative in the tests.
+    """
+    u = np.linspace(0.0, math.log1p(z), 4097)
+    zp1 = np.exp(u)
+    integrand = zp1 * background.inv_efunc(zp1 - 1.0)
+    return float(simpson(integrand, x=u)) * C_KM_S / (100.0 * background.h)
+
+
+def theta_star(
+    background: Background, omega_b_h2: float, omega_m_h2: float, *, fast: bool = True
+) -> float:
     """theta_star = r_s(z_star) / D_M(z_star) (flat: D_M = D_C)."""
     z_star = z_star_hu_sugiyama(omega_b_h2, omega_m_h2)
-    r_s = sound_horizon_at_z_mpc(background, omega_b_h2, z_star)
-    d_m = background.comoving_distance_scalar_mpc(z_star)
+    if fast:
+        r_s = sound_horizon_at_z_fast_mpc(background, omega_b_h2, z_star)
+        d_m = comoving_distance_fast_mpc(background, z_star)
+    else:
+        r_s = sound_horizon_at_z_mpc(background, omega_b_h2, z_star)
+        d_m = background.comoving_distance_scalar_mpc(z_star)
     return r_s / d_m
 
 
