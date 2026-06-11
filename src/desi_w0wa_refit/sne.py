@@ -1,0 +1,208 @@
+"""Type Ia supernova samples and offset-marginalized chi-squared.
+
+Conventions extracted from the official sources (see RESULTS.md section 2
+and the pinned files in data_manifest.json, never from memory):
+
+- Offset marginalization [Goliath et al. 2001, astro-ph/0104009,
+  Eqs. (A9)-(A12)]: with d = mag - mu_model,
+  ``chi2_marg = a - b^2 / c`` where ``a = d^T C^-1 d``,
+  ``b = d^T C^-1 1`` and ``c = 1^T C^-1 1``.
+  This equals cobaya's PantheonPlus ``_marginalize_abs_mag`` projection
+  and differs from the official DES script
+  (``data/DES-SN5YR_SN_only_cosmosis_likelihood.py``) only by the
+  parameter-independent constant ``+ ln(c / 2 pi)``, exposed here as
+  ``offset_log_norm`` for absolute-chi2 comparisons.
+
+- Pantheon+ [cobaya ``sn.pantheonplus``; Brout et al. 2022,
+  arXiv:2202.04077]: columns m_b_corr / zHD / zHEL, cosmology cut
+  zHD > 0.01, covariance ``Pantheon+SH0ES_STAT+SYS.cov`` (first line
+  N = 1701, then N^2 values).
+
+- DES-SN5YR v1.2 [official SN_only_cosmosis_likelihood.py; cobaya
+  ``sn.desy5``]: columns MU / zHD / zHEL / MUERR_FINAL, no redshift cut,
+  total covariance = STAT+SYS.txt.gz + diag(MUERR_FINAL^2).
+
+- Union3 [cobaya ``sn.union3``; Rubin et al., arXiv:2311.12098]:
+  22 spline nodes, mb = distance modulus at arbitrary zero point,
+  zhel = zcmb, 22x22 magnitude covariance.
+
+The theory vector matching all three samples is
+``mu = 5 log10((1 + z_hel) * D_M(z_cmb) / 10 pc)`` (cobaya base SN class:
+``5 log10((1 + zhel) (1 + zcmb) D_A)``); any constant zero point is
+absorbed by the marginalized offset.
+"""
+
+from __future__ import annotations
+
+import gzip
+from dataclasses import dataclass, field
+from pathlib import Path
+
+import numpy as np
+from numpy.typing import NDArray
+from scipy.linalg import cho_factor, cho_solve
+
+from desi_w0wa_refit.bao import FloatArray, validate_covariance
+
+BoolArray = NDArray[np.bool_]
+
+
+def read_packed_covariance(path: Path) -> FloatArray:
+    """Read an N / N^2-values covariance file (gzip if suffix is .gz)."""
+    if path.suffix == ".gz":
+        with gzip.open(path, "rt", encoding="utf-8") as fh:
+            text = fh.read()
+    else:
+        text = path.read_text(encoding="utf-8")
+    tokens = text.split()
+    n = int(tokens[0])
+    values = np.asarray(tokens[1:], dtype=np.float64)
+    if values.size != n * n:
+        raise ValueError(f"{path}: expected {n * n} covariance values, found {values.size}")
+    return values.reshape(n, n)
+
+
+@dataclass(frozen=True)
+class SNSample:
+    """A supernova sample with validated covariance and offset marginalization."""
+
+    name: str
+    z_cmb: FloatArray
+    z_hel: FloatArray
+    mag: FloatArray
+    cov: FloatArray
+    survey_ids: FloatArray | None = None
+    _cho: tuple[FloatArray, bool] = field(repr=False, compare=False, default=(np.empty(0), False))
+    _cinv_one: FloatArray = field(repr=False, compare=False, default_factory=lambda: np.empty(0))
+    _one_cinv_one: float = field(repr=False, compare=False, default=0.0)
+
+    def __post_init__(self) -> None:
+        n = self.mag.size
+        if not (self.z_cmb.size == self.z_hel.size == n):
+            raise ValueError(
+                f"{self.name}: inconsistent lengths z_cmb={self.z_cmb.size}, "
+                f"z_hel={self.z_hel.size}, mag={n}"
+            )
+        if self.survey_ids is not None and self.survey_ids.size != n:
+            raise ValueError(f"{self.name}: survey_ids length {self.survey_ids.size} != {n}")
+        validate_covariance(self.cov, name=f"{self.name} covariance")
+        if self.cov.shape[0] != n:
+            raise ValueError(f"{self.name}: covariance dimension {self.cov.shape[0]} != {n}")
+        cho = cho_factor(self.cov, lower=True)
+        ones = np.ones(n, dtype=np.float64)
+        cinv_one = cho_solve(cho, ones)
+        object.__setattr__(self, "_cho", (np.asarray(cho[0]), cho[1]))
+        object.__setattr__(self, "_cinv_one", cinv_one)
+        object.__setattr__(self, "_one_cinv_one", float(ones @ cinv_one))
+
+    @property
+    def n_sne(self) -> int:
+        return self.mag.size
+
+    @property
+    def offset_log_norm(self) -> float:
+        """The constant ln(c / 2 pi) kept by the official DES convention."""
+        return float(np.log(self._one_cinv_one / (2.0 * np.pi)))
+
+    def chi2_marginalized(self, mu_model: FloatArray) -> float:
+        """Offset-marginalized chi-squared, a - b^2/c [Goliath A9-A12]."""
+        if mu_model.shape != self.mag.shape:
+            raise ValueError(
+                f"{self.name}: model shape {mu_model.shape} != data shape {self.mag.shape}"
+            )
+        if not np.isfinite(mu_model).all():
+            raise ValueError(f"{self.name}: model contains non-finite entries")
+        delta = self.mag - mu_model
+        a = float(delta @ cho_solve(self._cho, delta))
+        b = float(delta @ self._cinv_one)
+        return a - b * b / self._one_cinv_one
+
+    def subset(self, mask: BoolArray) -> SNSample:
+        """Sub-sample (data vector and covariance) selected by a boolean mask."""
+        if mask.shape != self.mag.shape:
+            raise ValueError(f"{self.name}: mask shape {mask.shape} != data shape {self.mag.shape}")
+        idx = np.flatnonzero(mask)
+        if idx.size == 0:
+            raise ValueError(f"{self.name}: mask selects no supernovae")
+        return SNSample(
+            name=self.name,
+            z_cmb=self.z_cmb[idx],
+            z_hel=self.z_hel[idx],
+            mag=self.mag[idx],
+            cov=self.cov[np.ix_(idx, idx)],
+            survey_ids=None if self.survey_ids is None else self.survey_ids[idx],
+        )
+
+
+def _read_named_columns(
+    path: Path, columns: tuple[str, ...], *, sep: str | None = None
+) -> dict[str, FloatArray]:
+    """Read whitespace- or sep-separated columns by header name."""
+    lines = path.read_text(encoding="utf-8").splitlines()
+    header = lines[0].removeprefix("#").strip()
+    names = [token.strip() for token in header.split(sep)]
+    try:
+        indices = {column: names.index(column) for column in columns}
+    except ValueError as exc:
+        raise ValueError(f"{path}: missing expected column in header {names!r}") from exc
+    rows = [line.split(sep) for line in lines[1:] if line.strip()]
+    out: dict[str, FloatArray] = {}
+    for column, index in indices.items():
+        out[column] = np.asarray([row[index] for row in rows], dtype=np.float64)
+    return out
+
+
+def load_pantheon_plus(dat_path: Path, cov_path: Path, *, z_min: float = 0.01) -> SNSample:
+    """Load Pantheon+ with the cosmology cut zHD > z_min (default 0.01).
+
+    The released STAT+SYS file carries last-printed-digit rounding
+    asymmetries (778 entries, max |C - C^T| = 3e-8 measured at first
+    download); it is symmetrized here under a hard 1e-7 guard. The
+    official consumers (cobaya, the DES script) never check symmetry.
+    """
+    cols = _read_named_columns(dat_path, ("zHD", "zHEL", "m_b_corr", "IDSURVEY"))
+    cov = read_packed_covariance(cov_path)
+    max_asymmetry = float(np.abs(cov - cov.T).max())
+    if max_asymmetry > 1e-7:
+        raise ValueError(
+            f"{cov_path}: asymmetry {max_asymmetry} exceeds the documented "
+            "release-rounding level (1e-7); investigate before symmetrizing"
+        )
+    cov = 0.5 * (cov + cov.T)
+    full = SNSample(
+        name="PantheonPlus",
+        z_cmb=cols["zHD"],
+        z_hel=cols["zHEL"],
+        mag=cols["m_b_corr"],
+        cov=cov,
+        survey_ids=cols["IDSURVEY"],
+    )
+    return full.subset(full.z_cmb > z_min)
+
+
+def load_des_sn5yr(hd_path: Path, cov_path: Path) -> SNSample:
+    """Load DES-SN5YR; total covariance = STAT+SYS + diag(MUERR_FINAL^2)."""
+    cols = _read_named_columns(hd_path, ("zHD", "zHEL", "MU", "MUERR_FINAL", "IDSURVEY"), sep=",")
+    cov = read_packed_covariance(cov_path)
+    cov = cov + np.diag(cols["MUERR_FINAL"] ** 2)
+    return SNSample(
+        name="DES-SN5YR",
+        z_cmb=cols["zHD"],
+        z_hel=cols["zHEL"],
+        mag=cols["MU"],
+        cov=cov,
+        survey_ids=cols["IDSURVEY"],
+    )
+
+
+def load_union3(lcparam_path: Path, cov_path: Path) -> SNSample:
+    """Load Union3 (22 spline nodes, zhel = zcmb, arbitrary zero point)."""
+    cols = _read_named_columns(lcparam_path, ("zcmb", "zhel", "mb"))
+    cov = read_packed_covariance(cov_path)
+    return SNSample(
+        name="Union3",
+        z_cmb=cols["zcmb"],
+        z_hel=cols["zhel"],
+        mag=cols["mb"],
+        cov=cov,
+    )
