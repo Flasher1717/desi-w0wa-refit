@@ -264,3 +264,34 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   tableau brut §4 et le verdict G5.2 FAIL restent dans l'historique).
 - Fallback du GO non déclenché. Enchaînement M6 puis M7 (runners
   committés avant leurs runs : e8d5a9e).
+
+## 2026-06-11 — M6 : posteriors MCMC w0waCDM (5 bras, convergés)
+
+- emcee, seeds dérivés de 20260611, walkers en boule autour du MAP M5b,
+  convergence exigée (n_pas − burn) > 50τ. Première tentative : échec du
+  critère sur BAO+CMB (50τ = 9312 > 8000) → chaînes des bras CMB
+  allongées (22000/16000/20000/16000, burn 3000, commit da5257c AVANT la
+  relance) ; le critère lui-même n'a jamais bougé. Tous les bras
+  convergés (τ_max : 133/234/65/64/66).
+- Réplications (moyennes ± σ marginalisés vs publiés Table 5) :
+  BAO seul w0 = −0.476±0.262 (publié −0.48 +0.35/−0.17) ; BAO+CMB
+  w0 = −0.430±0.217, wa = −1.709±0.633 (margestats officiel compressé :
+  −0.43±0.22, −1.72±0.64 — réplication à la 2e décimale) ; bras +SNe
+  collent aux publiés full-CMB à ±0.01 sur w0. Détails RESULTS.md §7.
+- Artefacts committés : results/m6_mcmc.json, chaînes aplaties
+  results/chains/*.npz, corner plots results/figures/m6_corner_*.png.
+
+## 2026-06-11 — M7 : profil de sensibilité low-z (terminé) — STOP fin M7
+
+- Coupures P5 (closes au GO M1), pipeline P8, baselines M5b, métrique
+  figée, SHA256 des sous-échantillons consignés (déviation documentée :
+  hash au premier run M7 plutôt qu'au download M2).
+- Résultat saillant : la préférence du bras DES-SN5YR s'effondre sans le
+  low-z externe (3.84σ → 1.46σ pour z > 0.1 ; 1.54σ pour DES pur), avec
+  des best-fits (w0, wa) quasi inchangés — c'est le pouvoir contraignant
+  qui disparaît ; l'exclusion ciblée CfA+CSP (Foundation conservé) ne
+  coûte que −0.23σ ; z > 0.025 strictement neutre (aucune SN DES sous
+  0.025). Pantheon+ robuste (2.28 → 2.01/2.20/2.15σ). Contrôle interne
+  C-c(P+) ≡ C-a(P+) exact. Tableaux complets : RESULTS.md §8.
+- STOP fin M7 présenté à Téo (rapport complet). Prochain jalon : M8
+  (RESULTS final, limites) après GO.

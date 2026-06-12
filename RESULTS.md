@@ -433,7 +433,38 @@ dégrade que le canal CMB.
 ΔAIC/ΔBIC (k = 2 ; n = points du bras) : BAO −0.65/+0.48 ; BAO+CMB
 −4.02/−2.48 ; +P+ −3.57/+7.19 ; +Union3 −9.79/−6.52 ; +DES −13.98/−2.94.
 
-## §7 — M7 : profil de sensibilité low-z (coupures P5, CLOSES au GO M1)
+## §7 — M6 : posteriors MCMC w0waCDM (emcee, pipeline P8)
+
+Réglages committés avant les runs (P7) ; convergence exigée
+(n_pas − burn) > 50τ partout — la première tentative a échoué ce
+critère sur BAO+CMB (50τ = 9312 > 8000) et les chaînes des bras CMB ont
+été allongées (le critère n'a jamais bougé) ; seeds dérivés de
+20260611 ; walkers initialisés en boule autour du MAP M5b. Artefacts :
+results/m6_mcmc.json, results/chains/*.npz (aplaties, thin τ/2),
+results/figures/m6_corner_*.png.
+
+Moyennes marginalisées ± écart-type vs publiés [Table 5 ; full CMB chez
+DESI sauf BAO seul ; BAO+CMB comparé au margestats officiel compressé] :
+
+| Bras | w0 | w0 publié | wa | wa publié | d((w0,wa), ΛCDM) eucl. / Mahal. |
+|---|---|---|---|---|---|
+| BAO seul | −0.476 ± 0.262 | −0.48 +0.35/−0.17 | −1.660 ± 0.963 | < −1.34 (68 %) | 2.84 / 3.20 |
+| BAO+CMB | −0.430 ± 0.217 | −0.43 ± 0.22 (officiel compressé) | −1.709 ± 0.633 | −1.72 ± 0.64 | 1.74 / 2.60 |
+| +Pantheon+ | −0.848 ± 0.056 | −0.838 ± 0.055 | −0.552 ± 0.220 | −0.62 +0.22/−0.19 | 0.54 / 2.65 |
+| +Union3 | −0.675 ± 0.090 | −0.667 ± 0.088 | −1.041 ± 0.310 | −1.09 +0.31/−0.27 | 1.04 / 3.50 |
+| +DES-SN5YR | −0.761 ± 0.058 | −0.752 ± 0.057 | −0.806 ± 0.239 | −0.86 +0.23/−0.20 | 0.81 / 4.09 |
+
+Constats : (i) le posterior BAO+CMB compressé reproduit le margestats
+officiel à la 2e décimale sur les deux paramètres ET leurs largeurs ;
+(ii) sur les bras +SNe, malgré le CMB compressé, les moyennes et σ
+marginalisés de (w0, wa) collent aux publiés full-CMB à ±0.01 près sur
+w0 (l'effet de compression dégrade le Δχ²_MAP, pas sensiblement les
+marges de w0/wa) ; (iii) la distance du MAP à (−1, 0) est donnée en
+euclidien et en Mahalanobis 2D (covariance marginale (w0, wa) de la
+chaîne) — métrique distincte de la convention Nσ d'Eq. (22), rapportée
+à titre descriptif (SPEC M6).
+
+## §8 — M7 : profil de sensibilité low-z (coupures P5, CLOSES au GO M1)
 
 Pipeline P8, mêmes moteur et nombres de départs que M5b ; baselines =
 bras complets de §6 ; métrique de tableau FIGÉE (P5) ; SHA256 de chaque

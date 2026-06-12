@@ -5,50 +5,47 @@
 
 ## Jalon en cours
 
-STOP fin M5 atteint — EN ATTENTE DU GO DE TÉO. M3, M4, M5 exécutés
-d'une traite (GO du 2026-06-11). Gates M3 : 4/4 PASS. Gates M5 : 5/6
-PASS, G5.2 ÉCHOUÉ avec cause auditée et attribuée (biais θ* HS96,
-limitation pré-enregistrée P2) — voir RESULTS.md §4-§5 et MILESTONES.
+STOP fin M7 atteint — EN ATTENTE DU GO DE TÉO pour M8 (RESULTS.md final :
+méthodo, tableaux, limites, « ce que ça ne montre pas »). M3→M7 exécutés
+le 2026-06-11 (GO M3→M5 d'une traite, puis GO P8/M6/M7 après l'audit
+G5.2).
 
-## Fait
+## Fait (2026-06-11, sessions M3-M7)
 
-- 2026-06-11 : M0-M2 (voir MILESTONES). M3 complet : données SNe
-  épinglées (P+ c447f0f, DES v1.2 95cf14c, Union3 61d9643), sne.py,
-  gates G3.1-G3.4 tous PASS (Ωm P+ 0.3316/0.334 ; DES 0.3520/0.352 ;
-  G3.3 pulls ≤ 0.11σ_chaîne ; Union3 22 nœuds). M4 complet :
-  cosmology.py (CPL fermé vs intégral < 1e-12, oracles astropy < 1e-6),
-  cmb.py (r_d Aubourg 146.855 vs 147.05 = 0.13 % ; prior P1 = yaml
-  officiel exact). M5 complet : moteur committé avant runs, 10 fits,
-  résultats results/m5_fits.json.
-- 2026-06-11 : AUDIT G5.2 (ultracode, 5 sondes, results/audit/) :
-  aucun bug ; minimiseur parfait ; cause = θ* analytique bas de ~0.1 %
-  (−5σ prior) vs θ* CAMB officiel ; diagnostic : prior décalé du biais
-  → 2.27σ (fenêtre [2.1, 2.7]). Chaînes officielles DESI épinglées au
-  manifest (audit pointwise par colonnes chi2__*).
-
-## Décision attendue de Téo (STOP M5)
-
-Sort de G5.2 avant M6 :
-(a) accepter en limitation documentée (pipeline gelé, G5.2 rapporté
-    échoué-avec-attribution) ;
-(b) pré-enregistrer un amendement θ* (correction calibrée transparente
-    OU θ* via CAMB — attention : CLASS/CAMB listés out-of-scope au SPEC) ;
-(c) autre instruction.
+- M3 : likelihoods SNe + gates G3.1-G3.4 tous PASS.
+- M4 : modèles (CPL < 1e-12, oracles astropy < 1e-6) + prior CMB compressé.
+- M5 (brut) : 5/6 gates, G5.2 ÉCHOUÉ → audit ultracode 5 sondes : cause
+  = biais θ* analytique HS96 (~−5σ prior), limitation pré-enregistrée
+  P2, aucun bug (minimiseur parfait, constantes exactes, BAO innocenté).
+- P8 (GO Téo, option b) : correction calibrée κ_r = 1.000279376,
+  κ_θ = 1.001314308 (chaînes officielles épinglées, scatter résiduel
+  7.6e-6), committée avant re-run.
+- M5b : 6/6 gates verts. G5.2b : Δχ² = −8.023 vs −8.0 publié (2.363σ).
+  Effet compression : −0.52/−0.51/−0.36σ vs −0.7σ DESI.
+- M6 : 5 posteriors MCMC convergés (50τ) ; BAO+CMB réplique le
+  margestats officiel à la 2e décimale ; corner plots + chaînes commitées.
+- M7 : profil low-z — DES s'effondre sans z < 0.1 (3.84 → 1.46σ),
+  Pantheon+ robuste (2.28 → 2.01σ) ; CfA+CSP seul : −0.23σ.
+- RESULTS.md §3-§8 ; MILESTONES à jour ; results/*.json + audit + figures
+  committés. JAMAIS pushé (pas de GO push).
 
 ## Rappels critiques pour la suite
 
-- JAMAIS de push sans GO explicite. M6 (MCMC) : nwalkers/longueurs à
-  committer AVANT les runs (P7) ; convergence ≥ 50·τ ; seeds dérivés de
-  20260611. M7 : coupures CLOSES (P5), métrique de tableau figée.
-- Les fits M5 sont déterministes et re-exécutables :
-  `uv run python scripts/run_m5_fits.py` (~25 min) ;
-  gates M3 : `uv run python scripts/run_m3_gates.py` (~12 min, emcee).
-- uv s'invoque via `python -m uv` sur cette machine (uv.exe pas dans PATH).
-- Suite : 100+ tests verts, ruff/pyright stricts zéro erreur, CI verte
-  attendue (matrice sans data/ → ancrages auto-skip).
+- M8 : limites à documenter — CMB compressé (effet mesuré), P8 (statut
+  amendement calibré assumé, transparence totale), Union3 format
+  posterior-spline (Kim 2412.14181), covariance P+ (Keeley 2024),
+  z* HS96 (raffinement futur : CAMB, hors périmètre v1), Dovekie 3.2σ
+  (contexte, jamais ancrage). AUCUNE conclusion « l'énergie noire
+  évolue/n'évolue pas » — reproductibilité + profil de sensibilité
+  uniquement.
+- M9 (publication) : UNIQUEMENT après GO de push explicite ; tag v1.0.0,
+  CI verte, release factuelle zéro adjectif.
+- uv s'invoque via `python -m uv` sur cette machine (uv.exe hors PATH).
+- Runs reproductibles : run_m5_fits.py (~25 min), run_m6_mcmc.py (~3 h),
+  run_m7_cuts.py (~1 h), calibrate_p8.py (~5 min), run_m3_gates.py (~12 min).
 
-## Prochain pas concret (après le GO)
+## Prochain pas concret (après le GO M8)
 
 1. Rituel d'ouverture (SPEC + PROGRESS + git log -10 + pytest).
-2. Selon décision G5.2 : amendement pré-enregistré committé avant tout
-   nouveau run, OU passage direct à M6 (MCMC + corner plots).
+2. M8 : rédaction RESULTS.md final (méthodo complète, tableaux, limites,
+   out-of-scope), revue de cohérence interne, puis STOP avant M9.
