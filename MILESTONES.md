@@ -358,3 +358,18 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   main) ; ordre imposé : push → CI verte matrice complète → tag v1.0.0
   → release factuelle zéro adjectif. Rien d'autre ne change — ni
   chiffre, ni test.
+
+## 2026-06-11 — M9 : publication (terminé) — v1.0.0
+
+- Repo public créé et main poussé :
+  https://github.com/Flasher1717/desi-w0wa-refit
+- CI run 27392820293 : matrice complète VERTE (4/4 : ubuntu/windows ×
+  3.11/3.13) AVANT le tag. Annotation non bloquante consignée :
+  dépréciation Node 20 des actions checkout@v4 / setup-uv@v5 (bascule
+  forcée Node 24 le 2026-06-16) — maintenance future, hors v1.0.0.
+- Tag annoté v1.0.0 poussé ; release factuelle publiée :
+  https://github.com/Flasher1717/desi-w0wa-refit/releases/tag/v1.0.0
+  (contenu : 5 ancrages répliqués, profil M7 3.84→1.46σ / −0.23σ, effet
+  de compression mesuré, lien RESULTS.md au tag, renvoi §9-§10 et P8).
+- Projet v1 clos. Candidat v2 consigné : θ*/r_d par CAMB (rendrait P8
+  caduc, RESULTS.md §9.5).
