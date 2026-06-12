@@ -188,9 +188,22 @@ significativité réduite, best-fits (w0, wa) « far from ΛCDM ». Efstathiou
   nommées (CID, IDSURVEY, zHD/zCMB/zHEL, m_b_corr, …) ; 1701 lignes.
 - `Pantheon+SH0ES_STAT+SYS.cov` : première ligne = dimension (1701), puis
   N² valeurs (matrice pleine, lecture séquentielle).
-- Coupure cosmologie : zHD > 0.01 (→ 1590 SNe) ; les z < 0.01 ne servent
-  qu'au bras SH0ES. Réserve : phrase exacte à confirmer dans Scolnic et al.
-  2022 (arXiv:2112.03863) — fait partie du gate M3, pas bloquant pour M1.
+- Coupure cosmologie : zHD > 0.01 strict (→ 1590 SNe sur 1701) — réserve
+  M1 LEVÉE (M9), règle confirmée aux sources : cobaya `sn.pantheonplus`
+  (la likelihood « without SH0ES », celle de l'usage DESI) lit la colonne
+  zHD (mapping `file_cols ["m_b_corr", "zhd", "zhel"]` → `["mag", "zcmb",
+  "zhel"]`) et masque `zcmb > 0.01` ; règle identique dans la likelihood
+  officielle du release, `Pantheon+_only_cosmosis_likelihood.py`
+  (`ww = data['zHD'] > 0.01`, commit épinglé c447f0f) ; les calibrateurs
+  Céphéides y restent des SNe ordinaires. Le compte de 1580 (Keeley et
+  al. 2024) est celui du MODE SH0ES : la likelihood `Pantheon+SH0ES`
+  sélectionne `(zHD > 0.01) | IS_CALIBRATOR` et compare les calibrateurs
+  aux distances Céphéides, pas au modèle cosmologique — restent 1580 SNe
+  de diagramme de Hubble (1590 − 10 calibrateurs à zHD > 0.01 ; vérifié
+  sur le fichier épinglé : 77 calibrateurs au total, 10 au-dessus de la
+  coupure). NB : la chaîne « 1580 » n'apparaît pas dans Brout et al.
+  2022 (vérifié sur les textes arXiv et ApJ) — c'est le compte de Keeley
+  et al. 2024.
 - Ancrages publiés [Brout et al. 2022, arXiv:2202.04077, Table 3] :
   SN-alone FlatΛCDM Ωm = 0.334 ± 0.018 ; FlatwCDM (Ωm, w) =
   (0.309 +0.063/−0.069, −0.90 ± 0.14) ; Flatw0waCDM w0 = −0.93 ± 0.15,
