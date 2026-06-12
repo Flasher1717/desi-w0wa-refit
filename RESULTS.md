@@ -1,681 +1,690 @@
 # RESULTS — desi-w0wa-refit
 
-> Document final (M8, 2026-06-11). §0 : résumé exécutif. §1-2 : conventions
-> et formats extraits des sources (jalon M1), avec références précises
-> (papier, section, équation, table). §3 : décisions méthodologiques.
-> §4-§8 : résultats M5-M7. §9 : limites. §10 : ce que ce travail ne montre
-> pas. Extraction M1 : 7 sous-agents (un par source) + recoupement croisé +
-> contre-vérification adversariale des équations critiques du papier DESI
-> DR2 (Eq. 22, Eqs. 35-36, priors, Tables 5-6) : 6/6 claims confirmés
-> chiffre par chiffre, Eqs. (35)-(36) sur LaTeX brut. Traçabilité : chaque
-> chiffre porteur de ce document est recoupé contre les enregistrements
-> committés results/*.json par un test permanent
-> (tests/test_results_traceability.py).
+> Final document (M8, 2026-06-11; translated to English at M9 — the original
+> French working document is kept as RESULTS.fr.md, with identical section
+> numbering). §0: executive summary. §1-2: conventions and formats extracted
+> from the sources (milestone M1), with precise references (paper, section,
+> equation, table). §3: methodological decisions. §4-§8: M5-M7 results.
+> §9: limitations. §10: what this work does NOT show. M1 extraction: 7
+> subagents (one per source) + cross-checking + adversarial counter-checks of
+> the critical equations of the DESI DR2 paper (Eq. 22, Eqs. 35-36, priors,
+> Tables 5-6): 6/6 claims confirmed digit by digit, Eqs. (35)-(36) against
+> the raw LaTeX. Traceability: every load-bearing figure in this document is
+> cross-checked against the committed run records results/*.json by a
+> permanent test (tests/test_results_traceability.py).
 
-## §0 — Résumé exécutif
+## §0 — Executive summary
 
-Reproduction indépendante pré-enregistrée de la préférence w0waCDM
-(DESI DR2 BAO + CMB compressé + SNe) avec un pipeline unique — gates
-chiffrés, seeds, priors et coupures committés avant chaque run — puis
-profil de sensibilité low-z pré-enregistré. Trois chiffres racontent
-l'ensemble :
+Pre-registered independent reproduction of the w0waCDM preference
+(DESI DR2 BAO + compressed CMB + SNe) with a single pipeline — numeric
+gates, seeds, priors and cuts committed before each run — followed by a
+pre-registered low-z sensitivity profile. Three numbers tell the whole
+story:
 
-1. **Les 5 ancrages publiés sont répliqués** (gates G5.1b-G5.5b + ordre
-   G5.6b : 6/6 verts, fenêtres pré-enregistrées P4) : Nσ = 1.66 / 2.36 /
-   2.28 / 3.29 / 3.84 pour BAO seul / +CMB / +Pantheon+ / +Union3 /
-   +DES-SN5YR, contre 1.7 / 2.4 / 2.8 / 3.8 / 4.2 publiés [Table 6].
-   L'ancrage BAO+CMB est exact (DESI publie 2.4σ avec la même
-   compression) : Δχ²_MAP = −8.023 vs −8.0 publié. Les bras +SNe sont
-   sous les publiés de −0.52 / −0.51 / −0.36σ — l'effet de la compression
-   CMB, du même ordre que le −0.7σ que DESI mesure lui-même (§6, §9.1).
-2. **Profil low-z du bras DES-SN5YR (M7)** : 3.84σ → 1.46σ une fois les
-   SNe z < 0.1 retirées (1.54σ pour DES pur), best-fits (w0, wa) peu
-   déplacés — MAIS l'exclusion ciblée des relevés historiques CfA+CSP
-   (Foundation conservé) ne coûte que −0.23σ. Lecture pré-enregistrée
-   (§8) : dans notre profil, la sensibilité vient du retrait de tout le
-   levier z < 0.1, pas spécifiquement des relevés historiques.
-3. **Le bras Pantheon+ est robuste aux mêmes coupures** : 2.28σ → 2.01σ
+1. **The 5 published anchors are replicated** (gates G5.1b-G5.5b +
+   ordering G5.6b: 6/6 green, pre-registered windows P4): Nσ = 1.66 /
+   2.36 / 2.28 / 3.29 / 3.84 for BAO alone / +CMB / +Pantheon+ / +Union3 /
+   +DES-SN5YR, against the published 1.7 / 2.4 / 2.8 / 3.8 / 4.2
+   [Table 6]. The BAO+CMB anchor is exact (DESI publishes 2.4σ with the
+   same compression): Δχ²_MAP = −8.023 vs the published −8.0. The +SNe
+   arms sit below the published values by −0.52 / −0.51 / −0.36σ — the
+   effect of the CMB compression, of the same order as the −0.7σ DESI
+   measures itself (§6, §9.1).
+2. **Low-z profile of the DES-SN5YR arm (M7)**: 3.84σ → 1.46σ once the
+   z < 0.1 SNe are removed (1.54σ for DES-only), with the (w0, wa)
+   best fits barely moving — BUT the targeted exclusion of the historical
+   CfA+CSP surveys (Foundation kept) costs only −0.23σ. Pre-registered
+   reading (§8): in our profile, the sensitivity comes from removing the
+   entire z < 0.1 lever arm, not specifically the historical surveys.
+3. **The Pantheon+ arm is robust to the same cuts**: 2.28σ → 2.01σ
    (z > 0.1), −0.08σ (CfA+CSP), −0.13σ (z > 0.025) (§8).
 
-Ces chiffres se lisent avec les limites du §9 (CMB compressé, amendement
-calibré P8, Union3, covariance Pantheon+, Dovekie) et le périmètre
-négatif du §10 — en particulier : ce travail ne tranche pas entre énergie
-noire évolutive et systématiques SNe, et ne teste aucune calibration
-photométrique.
+These numbers must be read together with the limitations of §9
+(compressed CMB, calibrated P8 amendment, Union3, Pantheon+ covariance,
+Dovekie) and the negative scope of §10 — in particular: this work does
+not adjudicate between evolving dark energy and SNe systematics, and it
+tests no photometric calibration.
 
-## §1 — Conventions DESI DR2 (arXiv:2503.14738v3, publié PRD 112, 083515)
+## §1 — DESI DR2 conventions (arXiv:2503.14738v3, published PRD 112, 083515)
 
-### 1.1 Convention de significativité (« la » convention σ du projet)
+### 1.1 Significance convention (THE σ convention of this project)
 
-- Statistique : `Δχ²_MAP ≡ −2Δln L`, évaluée aux points de **maximum a
-  posteriori** de chaque modèle (best-fit affiné par iminuit en partant des
-  points MAP des chaînes MCMC) [Section V].
-- Conversion en σ : ΛCDM étant imbriqué dans w0waCDM en (w0, wa) = (−1, 0),
-  Wilks ⇒ Δχ²_MAP ~ χ²(2 dof) sous H0. Le « Nσ » publié est défini par
-  CDF_χ²(Δχ²_MAP | 2 dof) = P(|X| < N) pour X ~ N(0,1) [Eq. (22), préambule
-  Section VII ; légende Table 6 : « significance levels given 2 extra free
-  parameters »].
-- Le papier rapporte aussi Δ(DIC) [Table 6] — nous rapporterons ΔAIC/ΔBIC en
-  complément (objectif SPEC), sans prétendre répliquer le DIC.
+- Statistic: `Δχ²_MAP ≡ −2Δln L`, evaluated at the **maximum a
+  posteriori** points of each model (best fit refined with iminuit
+  starting from the MAP points of the MCMC chains) [Section V].
+- Conversion to σ: ΛCDM being nested in w0waCDM at (w0, wa) = (−1, 0),
+  Wilks ⇒ Δχ²_MAP ~ χ²(2 dof) under H0. The published "Nσ" is defined by
+  CDF_χ²(Δχ²_MAP | 2 dof) = P(|X| < N) for X ~ N(0,1) [Eq. (22), preamble
+  of Section VII; Table 6 caption: "significance levels given 2 extra
+  free parameters"].
+- The paper also reports Δ(DIC) [Table 6] — we report ΔAIC/ΔBIC as a
+  complement (SPEC objective), without claiming to replicate the DIC.
 
-### 1.2 Priors (hérités de DESI DR1, arXiv:2404.03002 Table 2)
+### 1.2 Priors (inherited from DESI DR1, arXiv:2404.03002 Table 2)
 
-« Prior ranges on all sampled parameters match those given in Table 2 of
-[DESI 2024 VI] » [Section V]. Pour notre espace de paramètres :
+"Prior ranges on all sampled parameters match those given in Table 2 of
+[DESI 2024 VI]" [Section V]. For our parameter space:
 
-| Paramètre | Prior | Source |
+| Parameter | Prior | Source |
 |---|---|---|
-| w0 | U[−3, 1] | 2404.03002 Table 2 ; répété Section VII de 2503.14738 |
-| wa | U[−3, 2], avec w0 + wa < 0 | idem (domination de matière à haut z) |
+| w0 | U[−3, 1] | 2404.03002 Table 2; repeated in Section VII of 2503.14738 |
+| wa | U[−3, 2], with w0 + wa < 0 | idem (matter domination at high z) |
 | Ωm | U[0.01, 0.99] | 2404.03002 Table 2 |
-| h·rd | U[10, 1000] Mpc (fits « background-only ») | 2404.03002 Table 2 |
-| H0 | U[20, 100] km/s/Mpc (si calibration externe) | 2404.03002 Table 2 |
+| h·rd | U[10, 1000] Mpc ("background-only" fits) | 2404.03002 Table 2 |
+| H0 | U[20, 100] km/s/Mpc (with external calibration) | 2404.03002 Table 2 |
 
-### 1.3 Traitement de r_d
+### 1.3 Treatment of r_d
 
-- BAO seul : **pas de calcul de r_d** — échantillonnage direct de (Ωm, h·rd) ;
-  r_d est absorbé dans le paramètre libre h·rd [Section V].
-- BAO calibré (BBN/CMB) : échantillonnage de (H0, ωb…), r_d calculé par le
-  code Boltzmann (CAMB via Cobaya) [Section V]. Aucune formule de fitting
-  pour r_d n'est utilisée par DESI. Prior BBN : ωb = 0.02218 ± 0.00055
-  [Eq. (14), Section IV.1 ; Schöneberg 2024, arXiv:2401.15054].
-- Conséquence pour nous (Boltzmann out-of-scope) : voir choix CMB §2.5 — le
-  bras BAO-seul est exact (h·rd libre) ; les bras avec CMB nécessitent une
-  formule de fitting publiée pour r_d (et z*, r_s(z*)), décision au GO M1.
+- BAO alone: **no r_d computation** — direct sampling of (Ωm, h·rd);
+  r_d is absorbed into the free parameter h·rd [Section V].
+- Calibrated BAO (BBN/CMB): sampling of (H0, ωb…), r_d computed by the
+  Boltzmann code (CAMB via Cobaya) [Section V]. DESI uses no fitting
+  formula for r_d. BBN prior: ωb = 0.02218 ± 0.00055
+  [Eq. (14), Section IV.1; Schöneberg 2024, arXiv:2401.15054].
+- Consequence for us (Boltzmann out of scope): see the CMB choice in
+  §2.5 — the BAO-only arm is exact (h·rd free); the CMB arms require a
+  published fitting formula for r_d (and z*, r_s(z*)), decided at the
+  M1 GO.
 
-### 1.4 « CMB » au sens DESI DR2
+### 1.4 "CMB" in the DESI DR2 sense
 
-- Baseline publiée : Planck TT/TE/EE (SimAll + Commander ℓ<30, CamSpec PR4
-  ℓ≥30) + lensing Planck+ACT DR6 [Section IV.2]. C'est du full CMB —
-  hors de notre périmètre (SPEC).
-- **Alternative compressée publiée par DESI eux-mêmes** : prior gaussien
-  corrélé sur (θ*, ωb, ωbc), « more model-independent », Appendix A :
-  - moyennes (θ*, ωb, ωbc) = (0.01041, 0.02223, 0.14208) [Eq. (35)] ;
+- Published baseline: Planck TT/TE/EE (SimAll + Commander ℓ<30, CamSpec
+  PR4 ℓ≥30) + Planck+ACT DR6 lensing [Section IV.2]. That is full CMB —
+  outside our scope (SPEC).
+- **Compressed alternative published by DESI themselves**: correlated
+  Gaussian prior on (θ*, ωb, ωbc), "more model-independent",
+  Appendix A:
+  - means (θ*, ωb, ωbc) = (0.01041, 0.02223, 0.14208) [Eq. (35)];
   - covariance C = 10⁻⁹ ×
     [[0.006621, 0.12444, −1.1929],
      [0.12444, 21.344, −94.001],
-     [−1.1929, −94.001, 1488.4]] [Eq. (36)] ;
-  - fondement méthodologique : Lemos & Lewis 2023 (arXiv:2302.12911).
-  - Vérification adversariale (second agent, lecture du LaTeX brut via
-    alttext) : Eqs. (35)-(36) confirmées entrée par entrée, signes et
-    exposant compris ; ordre (θ*, ωb, ωbc) confirmé ; c'est bien θ*
-    (≈ 0.0104 rad), pas 100θ*.
-  - **Caveat de précision — RÉSOLU** : le papier imprime θ* = 0.01041
-    (5 décimales) alors que σ(θ*) ≈ 2.6×10⁻⁶. La valeur complète a été
-    trouvée dans les produits officiels DESI DR2 (yaml Cobaya des chaînes
-    publiées, data.desi.lbl.gov, contre-vérifiée sur deux fichiers
-    indépendants) : moyennes (0.01041027, 0.02223208, 0.14207901) et
-    covariance complète — voir PREREGISTRATION.md P1, épinglage SHA256
-    en M2.
-  - **Piège** : le papier contient aussi un prior θ*-SEUL distinct
-    (100θ* = 1.04110 ± 0.00053, largeur gonflée ~75 %) — à ne jamais
-    confondre avec le prior 3D compressé utilisé ici.
-- Point décisif : la ligne « DESI+(θ*, ωb, ωbc)_CMB » figure dans la
-  Table 6 publiée (Δχ²_MAP = −8.0, 2.4σ) → ancrage EXACT de notre pipeline
-  compressé pour la combinaison BAO+CMB, sans approximation de notre part.
+     [−1.1929, −94.001, 1488.4]] [Eq. (36)];
+  - methodological grounding: Lemos & Lewis 2023 (arXiv:2302.12911).
+  - Adversarial verification (second agent, reading the raw LaTeX via
+    alttext): Eqs. (35)-(36) confirmed entry by entry, signs and
+    exponent included; ordering (θ*, ωb, ωbc) confirmed; it is indeed θ*
+    (≈ 0.0104 rad), not 100θ*.
+  - **Precision caveat — RESOLVED**: the paper prints θ* = 0.01041
+    (5 decimals) while σ(θ*) ≈ 2.6×10⁻⁶. The full-precision value was
+    found in the official DESI DR2 products (Cobaya yaml of the
+    published chains, data.desi.lbl.gov, cross-checked on two
+    independent files): means (0.01041027, 0.02223208, 0.14207901) and
+    the full covariance — see PREREGISTRATION.md P1, SHA256 pinning
+    at M2.
+  - **Trap**: the paper also contains a distinct θ*-ONLY prior
+    (100θ* = 1.04110 ± 0.00053, width inflated by ~75 %) — never to be
+    confused with the 3D compressed prior used here.
+- Decisive point: the line "DESI+(θ*, ωb, ωbc)_CMB" appears in the
+  published Table 6 (Δχ²_MAP = −8.0, 2.4σ) → an EXACT anchor for our
+  compressed pipeline on the BAO+CMB combination, with no approximation
+  on our side.
 
-### 1.5 Valeurs publiées à répliquer (ancrages M5)
+### 1.5 Published values to replicate (M5 anchors)
 
-Δχ²_MAP / significativité [Table 6] et posteriors (moyennes marginalisées ±
-68 % [Table 5]) :
+Δχ²_MAP / significance [Table 6] and posteriors (marginalized means ±
+68 % [Table 5]):
 
-| Combinaison | Δχ²_MAP | σ | w0 | wa |
+| Combination | Δχ²_MAP | σ | w0 | wa |
 |---|---|---|---|---|
-| DESI seul | −4.7 | 1.7σ | −0.48 +0.35/−0.17 | < −1.34 (68 %) |
+| DESI alone | −4.7 | 1.7σ | −0.48 +0.35/−0.17 | < −1.34 (68 %) |
 | DESI+(θ*,ωb,ωbc)_CMB | −8.0 | 2.4σ | — | — |
 | DESI+CMB (full) | −12.5 | 3.1σ | −0.42±0.21 | −1.75±0.58 |
 | DESI+CMB+Pantheon+ | −10.7 | 2.8σ | −0.838±0.055 | −0.62 +0.22/−0.19 |
 | DESI+CMB+Union3 | −17.4 | 3.8σ | −0.667±0.088 | −1.09 +0.31/−0.27 |
 | DESI+CMB+DESY5 | −21.0 | 4.2σ | −0.752±0.057 | −0.86 +0.23/−0.20 |
 
-Sans CMB [Table 6] : DESI+Pantheon+ 1.7σ ; DESI+Union3 2.7σ ; DESI+DESY5
-3.3σ. (ΛCDM, contexte : tension BAO–CMB 2.3σ [Section VI].)
+Without CMB [Table 6]: DESI+Pantheon+ 1.7σ; DESI+Union3 2.7σ; DESI+DESY5
+3.3σ. (ΛCDM, context: BAO-CMB tension 2.3σ [Section VI].)
 
-### 1.6 Mesures BAO DR2 [Table 4, Section III.3]
+### 1.6 DR2 BAO measurements [Table 4, Section III.3]
 
-7 points effectifs : BGS z=0.295 (D_V/r_d) ; LRG1 z=0.510, LRG2 z=0.706,
-LRG3+ELG1 z=0.934, ELG2 z=1.321, QSO z=1.484, Lyα z=2.330 (D_M/r_d et
-D_H/r_d corrélés). Valeurs : voir §2.1 (fichiers bao_data) — concordance
-vérifiée chiffre à chiffre entre Table 4 et les fichiers (recoupement
-croisé : deux agents, deux sources indépendantes).
+7 effective points: BGS z=0.295 (D_V/r_d); LRG1 z=0.510, LRG2 z=0.706,
+LRG3+ELG1 z=0.934, ELG2 z=1.321, QSO z=1.484, Lyα z=2.330 (correlated
+D_M/r_d and D_H/r_d). Values: see §2.1 (bao_data files) — agreement
+verified digit by digit between Table 4 and the files (cross-check: two
+agents, two independent sources).
 
-### 1.7 Formules pré-recombinaison et convention neutrinos
+### 1.7 Pre-recombination formulas and neutrino convention
 
-- Le papier fournit sa propre formule d'échelle pour r_d [Section I,
-  Eq. (2)] : r_d = 147.05 Mpc · (ω_b/0.02236)^−0.13 · (ω_bc/0.1432)^−0.23 ·
-  (Neff/3.04)^−0.1, « scaled to the best-fit values from Planck ».
-- Formule de fitting principale du pipeline : Aubourg et al. 2015
-  [arXiv:1411.1074, Eq. (16), précision documentée 0.021 %] ; z* pour θ* :
-  Hu & Sugiyama 1996 [astro-ph/9510117, App. E, Eq. (E-1)]. Détails,
-  constantes verbatim et limitations : PREREGISTRATION.md P2.
-- Neutrinos baseline [Section V + chain.input.yaml officiels] :
-  Σmν = 0.06 eV (un état massif), Neff = 3.044 ; Ωm inclut les neutrinos
-  non relativistes ; ωbc = ωb + ωc les exclut [Section I, Eq. (6)].
+- The paper provides its own scaling formula for r_d [Section I,
+  Eq. (2)]: r_d = 147.05 Mpc · (ω_b/0.02236)^−0.13 · (ω_bc/0.1432)^−0.23 ·
+  (Neff/3.04)^−0.1, "scaled to the best-fit values from Planck".
+- Main fitting formula of our pipeline: Aubourg et al. 2015
+  [arXiv:1411.1074, Eq. (16), documented precision 0.021 %]; z* for θ*:
+  Hu & Sugiyama 1996 [astro-ph/9510117, App. E, Eq. (E-1)]. Details,
+  verbatim constants and limitations: PREREGISTRATION.md P2.
+- Baseline neutrinos [Section V + official chain.input.yaml]:
+  Σmν = 0.06 eV (one massive state), Neff = 3.044; Ωm includes
+  non-relativistic neutrinos; ωbc = ωb + ωc excludes them [Section I,
+  Eq. (6)].
 
-### 1.8 Le test low-z fait par DESI eux-mêmes
+### 1.8 The low-z test done by DESI themselves
 
-« The constraining power of SNe in measuring the equation of state comes
+"The constraining power of SNe in measuring the equation of state comes
 primarily from the comparison of low-redshift (z<0.1) and high redshift
-(z>0.1) supernovae » [Section VII.3]. DESI teste l'exclusion des SNe z<0.1
-de DESY5 [Figure 14, panneau central] : incertitudes élargies,
-significativité réduite, best-fits (w0, wa) « far from ΛCDM ». Efstathiou
-[arXiv:2408.07175] cité, ainsi que la réponse Vincenzi et al.
+(z>0.1) supernovae" [Section VII.3]. DESI tests the exclusion of the
+z<0.1 SNe from DESY5 [Figure 14, central panel]: enlarged uncertainties,
+reduced significance, (w0, wa) best fits "far from ΛCDM". Efstathiou
+[arXiv:2408.07175] is cited, as is the response by Vincenzi et al.
 [arXiv:2501.06664] [Section VII.3].
 
-## §2 — Données, formats, et littérature critique
+## §2 — Data, formats, and the critical literature
 
-### 2.1 BAO : CobayaSampler/bao_data, dossier desi_bao_dr2/
+### 2.1 BAO: CobayaSampler/bao_data, folder desi_bao_dr2/
 
-- 16 fichiers, 8 paires `*_mean.txt` / `*_cov.txt` (fichier ALL_GCcomb =
-  les 13 points concaténés + covariance 13×13 bloc-diagonale ; blocs
-  vérifiés identiques aux fichiers par traceur).
-- Format mean : 3 colonnes `z valeur observable` (DV_over_rs, DM_over_rs,
-  DH_over_rs), 1 ligne de commentaire. **Piège vérifié : pour Lyα (z=2.33),
-  l'ordre est DH puis DM, inversé par rapport aux autres tranches.**
-- Format cov : matrice pleine en texte, ordre = ordre des lignes du mean.
-- Likelihood de référence (cobaya `bao.desi_dr2`, classe `desi_bao_all`) :
-  gaussienne pure, logp = −0.5·xᵀC⁻¹x, x = théorie − mesure ; `rs_fid: 1`
-  (données déjà en unités de r_d) [cobaya base_classes/bao.py +
-  desi_bao_all.yaml, verbatim vérifié].
-- Épinglage : le dossier provient d'un unique commit
-  `b7b8a36e9bccb063081f811f323cada21ab5fbdd` (2025-03-20) = tag **v2.6** ;
-  master actuel (`bb0c1c9…`) strictement identique. URLs raw épinglées sur
-  v2.6 ; `+` encodé `%2B`. SHA256 calculés au download (M2).
+- 16 files, 8 pairs `*_mean.txt` / `*_cov.txt` (the ALL_GCcomb file =
+  the 13 concatenated points + block-diagonal 13×13 covariance; blocks
+  verified identical to the per-tracer files).
+- Mean format: 3 columns `z value observable` (DV_over_rs, DM_over_rs,
+  DH_over_rs), 1 comment line. **Verified trap: for Lyα (z=2.33), the
+  order is DH then DM, inverted with respect to the other slices.**
+- Cov format: full matrix as text, ordering = the mean file's row order.
+- Reference likelihood (cobaya `bao.desi_dr2`, class `desi_bao_all`):
+  pure Gaussian, logp = −0.5·xᵀC⁻¹x, x = theory − measurement;
+  `rs_fid: 1` (data already in r_d units) [cobaya base_classes/bao.py +
+  desi_bao_all.yaml, verified verbatim].
+- Pinning: the folder comes from a single commit
+  `b7b8a36e9bccb063081f811f323cada21ab5fbdd` (2025-03-20) = tag **v2.6**;
+  current master (`bb0c1c9…`) strictly identical. Raw URLs pinned on
+  v2.6; `+` encoded `%2B`. SHA256 computed at download time (M2).
 
-### 2.2 SNe Pantheon+ (PantheonPlusSH0ES/DataRelease, maîtrisé en P0)
+### 2.2 Pantheon+ SNe (PantheonPlusSH0ES/DataRelease, mastered in P0)
 
-- `Pantheon+_Data/4_DISTANCES_AND_COVAR/Pantheon+SH0ES.dat` : 47 colonnes
-  nommées (CID, IDSURVEY, zHD/zCMB/zHEL, m_b_corr, …) ; 1701 lignes.
-- `Pantheon+SH0ES_STAT+SYS.cov` : première ligne = dimension (1701), puis
-  N² valeurs (matrice pleine, lecture séquentielle).
-- Coupure cosmologie : zHD > 0.01 strict (→ 1590 SNe sur 1701) — réserve
-  M1 LEVÉE (M9), règle confirmée aux sources : cobaya `sn.pantheonplus`
-  (la likelihood « without SH0ES », celle de l'usage DESI) lit la colonne
-  zHD (mapping `file_cols ["m_b_corr", "zhd", "zhel"]` → `["mag", "zcmb",
-  "zhel"]`) et masque `zcmb > 0.01` ; règle identique dans la likelihood
-  officielle du release, `Pantheon+_only_cosmosis_likelihood.py`
-  (`ww = data['zHD'] > 0.01`, commit épinglé c447f0f) ; les calibrateurs
-  Céphéides y restent des SNe ordinaires. Le compte de 1580 (Keeley et
-  al. 2024) est celui du MODE SH0ES : la likelihood `Pantheon+SH0ES`
-  sélectionne `(zHD > 0.01) | IS_CALIBRATOR` et compare les calibrateurs
-  aux distances Céphéides, pas au modèle cosmologique — restent 1580 SNe
-  de diagramme de Hubble (1590 − 10 calibrateurs à zHD > 0.01 ; vérifié
-  sur le fichier épinglé : 77 calibrateurs au total, 10 au-dessus de la
-  coupure). NB : la chaîne « 1580 » n'apparaît pas dans Brout et al.
-  2022 (vérifié sur les textes arXiv et ApJ) — c'est le compte de Keeley
-  et al. 2024.
-- Ancrages publiés [Brout et al. 2022, arXiv:2202.04077, Table 3] :
-  SN-alone FlatΛCDM Ωm = 0.334 ± 0.018 ; FlatwCDM (Ωm, w) =
-  (0.309 +0.063/−0.069, −0.90 ± 0.14) ; Flatw0waCDM w0 = −0.93 ± 0.15,
+- `Pantheon+_Data/4_DISTANCES_AND_COVAR/Pantheon+SH0ES.dat`: 47 named
+  columns (CID, IDSURVEY, zHD/zCMB/zHEL, m_b_corr, …); 1701 rows.
+- `Pantheon+SH0ES_STAT+SYS.cov`: first line = dimension (1701), then
+  N² values (full matrix, sequential read).
+- Cosmology cut: strict zHD > 0.01 (→ 1590 of 1701 SNe) — M1
+  reservation CLOSED (M9), rule confirmed at the sources: cobaya
+  `sn.pantheonplus` (the "without SH0ES" likelihood, i.e. the DESI
+  usage) reads the zHD column (mapping `file_cols ["m_b_corr", "zhd",
+  "zhel"]` → `["mag", "zcmb", "zhel"]`) and masks `zcmb > 0.01`;
+  identical rule in the official release likelihood,
+  `Pantheon+_only_cosmosis_likelihood.py` (`ww = data['zHD'] > 0.01`,
+  pinned commit c447f0f); Cepheid-host calibrators remain ordinary SNe
+  there. The 1580 count (Keeley et al. 2024) is the SH0ES-MODE count:
+  the `Pantheon+SH0ES` likelihood selects `(zHD > 0.01) | IS_CALIBRATOR`
+  and compares the calibrators to the Cepheid distances, not to the
+  cosmological model — leaving 1580 Hubble-diagram SNe (1590 − 10
+  calibrators at zHD > 0.01; verified on the pinned file: 77 calibrators
+  in total, 10 above the cut). NB: the string "1580" does not appear in
+  Brout et al. 2022 (checked on the arXiv and ApJ texts) — it is the
+  count of Keeley et al. 2024.
+- Published anchors [Brout et al. 2022, arXiv:2202.04077, Table 3]:
+  SN-alone FlatΛCDM Ωm = 0.334 ± 0.018; FlatwCDM (Ωm, w) =
+  (0.309 +0.063/−0.069, −0.90 ± 0.14); Flatw0waCDM w0 = −0.93 ± 0.15,
   wa = −0.1 +0.9/−2.0.
-- Littérature : Keeley, Shafieloo & L'Huillier [arXiv:2212.07917, publié
-  Universe 2024] — χ²_ΛCDM = 1387.10 pour 1580 points, >3.9σ trop bas sur
-  10 000 mocks ⇒ erreurs Pantheon+ surestimées d'~7 % [Sec. 2, Fig. 1].
-  Aucun effet chiffré publié sur la préférence w0wa. → limitation M8, pas
-  de correction de notre part (zéro tuning).
+- Literature: Keeley, Shafieloo & L'Huillier [arXiv:2212.07917,
+  published Universe 2024] — χ²_ΛCDM = 1387.10 for 1580 points, >3.9σ
+  too low against 10 000 mocks ⇒ Pantheon+ errors overestimated by ~7 %
+  [Sec. 2, Fig. 1]. No published number for the effect on the w0wa
+  preference. → M8 limitation, no correction on our side (zero tuning).
 
-### 2.3 SNe DES-SN5YR (des-science/DES-SN5YR + Zenodo 12720778)
+### 2.3 DES-SN5YR SNe (des-science/DES-SN5YR + Zenodo 12720778)
 
-- **Épinglage critique : tag v1.2 (commit `95cf14c8e057ef3c2d6bf72ae22cf0d5
-  ee796e1c`)** = état du papier 2024 (arXiv:2401.02929). La branche main est
-  passée à la ré-analyse « Dovekie » (Popovic et al. 2026, arXiv:2511.07517)
-  — fichiers différents (1820 SNe). Zenodo : DES-SN5YR-1.2.zip (1.53 Go,
-  MD5 publié `9019a6ddc569553bc323e9e1b68a55bf` ; SHA256 calculé par nous).
-- `4_DISTANCES_COVMAT/DES-SN5YR_HD.csv` : CSV, 1829 SNe (1635 DES IDSURVEY=10
-  + 194 low-z : CfA 61-66, FOUND 150), colonnes CID, IDSURVEY, zCMB, zHD,
-  zHEL, MU, MUERR_FINAL (MU calibré H0=70).
-- `STAT+SYS.txt.gz` : 1ʳᵉ ligne = N (1829), puis N² valeurs UNE PAR LIGNE
-  (matrice pleine). **Piège vérifié : STATONLY est ~zéro ; la covariance
-  totale = STAT+SYS + diag(MUERR_FINAL²)** [README 4_DISTANCES_COVMAT +
-  `5_COSMOLOGY/SN_only_cosmosis_likelihood.py` : `C[i,i] += err²`].
-- Likelihood officielle : marginalisation analytique de l'offset M
-  (dégénéré avec H0), χ² = Δμᵀ C⁻¹ Δμ modifié [papier Section 3, Eq. 5 ;
-  script officiel] — même machinerie que notre MarginalizedChi2 (P0).
-- Chaînes officielles (ancrage exact M3) : `5_COSMOLOGY/chains/fw0wacdm/`
-  etc., format CosmoSIS, colonnes omega_m, h0, w, wa, supernova_params--m,
-  prior, like, post, **weight** (polychord pondéré) ; variantes SN,
-  SN+planck, ×2 samplers.
-- Best-fits publiés [arXiv:2401.02929, Table 2] : SN-alone FlatΛCDM
-  Ωm = 0.352 ± 0.017 ; FlatwCDM (0.264 +0.074/−0.096, −0.80 +0.14/−0.16) ;
-  Flatw0waCDM SN-alone (Ωm, w0, wa) = (0.495, −0.36, −8.8) — posterior très
-  dégénéré, l'ancrage SN-alone se fera contre les chaînes, pas ce point.
+- **Critical pinning: tag v1.2 (commit `95cf14c8e057ef3c2d6bf72ae22cf0d5
+  ee796e1c`)** = the state of the 2024 paper (arXiv:2401.02929). The main
+  branch has moved to the "Dovekie" re-analysis (Popovic et al. 2026,
+  arXiv:2511.07517) — different files (1820 SNe). Zenodo:
+  DES-SN5YR-1.2.zip (1.53 GB, published MD5
+  `9019a6ddc569553bc323e9e1b68a55bf`; SHA256 computed by us).
+- `4_DISTANCES_COVMAT/DES-SN5YR_HD.csv`: CSV, 1829 SNe (1635 DES
+  IDSURVEY=10 + 194 low-z: CfA 61-66, FOUND 150), columns CID, IDSURVEY,
+  zCMB, zHD, zHEL, MU, MUERR_FINAL (MU calibrated to H0=70).
+- `STAT+SYS.txt.gz`: 1st line = N (1829), then N² values ONE PER LINE
+  (full matrix). **Verified trap: STATONLY is ~zero; the total
+  covariance = STAT+SYS + diag(MUERR_FINAL²)** [README 4_DISTANCES_COVMAT
+  + `5_COSMOLOGY/SN_only_cosmosis_likelihood.py`: `C[i,i] += err²`].
+- Official likelihood: analytic marginalization of the offset M
+  (degenerate with H0), χ² = Δμᵀ C⁻¹ Δμ modified [paper Section 3,
+  Eq. 5; official script] — the same machinery as our MarginalizedChi2
+  (P0).
+- Official chains (exact M3 anchor): `5_COSMOLOGY/chains/fw0wacdm/`
+  etc., CosmoSIS format, columns omega_m, h0, w, wa,
+  supernova_params--m, prior, like, post, **weight** (weighted
+  polychord); SN and SN+planck variants, ×2 samplers.
+- Published best fits [arXiv:2401.02929, Table 2]: SN-alone FlatΛCDM
+  Ωm = 0.352 ± 0.017; FlatwCDM (0.264 +0.074/−0.096, −0.80 +0.14/−0.16);
+  Flatw0waCDM SN-alone (Ωm, w0, wa) = (0.495, −0.36, −8.8) — a highly
+  degenerate posterior; the SN-alone anchor is taken against the chains,
+  not this point.
 
-### 2.4 SNe Union3 (rubind/union3_release + cobaya sn_data) — VERDICT : faisable
+### 2.4 Union3 SNe (rubind/union3_release + cobaya sn_data) — VERDICT: feasible
 
-- Usage DESI réplicable exactement : cobaya `sn.union3` lit
-  `sn_data/Union3/lcparam_full.txt` (22 nœuds, bin00-bin21, z = 0.05 à
-  2.26226, colonne mb = module de distance à zéro arbitraire) +
-  `mag_covmat.txt` (22×22), offset marginalisé (`use_abs_mag: False`).
-- Sources redondantes : repo rubind/union3_release (Zenodo 14090777) —
-  FITS `mu_mat_union3_cosmo=2_mu.fits` (équivalent, covariance inverse) +
-  chaînes de posterior complètes (`all_samples_union3_cosmo=2.npz`).
-- Critique du format [Kim, arXiv:2412.14181] : le produit publié est un
-  POSTERIOR spline (22 nœuds) dont le prior implicite n'est pas plat en
-  (Ωm, w0, wa) [Sec. 3] ; DESI l'utilise tel quel comme likelihood sans
-  diviser par le prior [Sec. 5] ; effet jugé « inconsequential » par Kim
-  lui-même. → Nous répliquons l'usage DESI (objectif = reproduction) et
-  documentons cette limite en M8.
-- Décision (SPEC « best-effort ») : Union3 INCLUS, traitement identique à
-  l'usage DESI via les fichiers cobaya sn_data.
+- Exactly replicable DESI usage: cobaya `sn.union3` reads
+  `sn_data/Union3/lcparam_full.txt` (22 nodes, bin00-bin21, z = 0.05 to
+  2.26226, column mb = distance modulus with an arbitrary zero point) +
+  `mag_covmat.txt` (22×22), marginalized offset (`use_abs_mag: False`).
+- Redundant sources: repo rubind/union3_release (Zenodo 14090777) — FITS
+  `mu_mat_union3_cosmo=2_mu.fits` (equivalent, inverse covariance) +
+  full posterior chains (`all_samples_union3_cosmo=2.npz`).
+- Critique of the format [Kim, arXiv:2412.14181]: the published product
+  is a spline POSTERIOR (22 nodes) whose implicit prior is not flat in
+  (Ωm, w0, wa) [Sec. 3]; DESI uses it as-is as a likelihood without
+  dividing by the prior [Sec. 5]; effect judged "inconsequential" by Kim
+  himself. → We replicate the DESI usage (the objective is
+  reproduction) and document this limitation in M8.
+- Decision (SPEC "best-effort"): Union3 INCLUDED, treated identically to
+  the DESI usage via the cobaya sn_data files.
 
-### 2.5 Compression CMB — options sourcées (décision au GO M1)
+### 2.5 CMB compression — sourced options (decision at the M1 GO)
 
-- **Option A (proposée) : la compression de DESI eux-mêmes** — prior
-  gaussien (θ*, ωb, ωbc), Eqs. (35)-(36) de 2503.14738 Appendix A (§1.4).
-  Avantages : (i) c'est LA version publiée par la collaboration dont on
-  reproduit le résultat ; (ii) ancrage exact publié (2.4σ, Table 6) ;
-  (iii) validée comme quasi indépendante de la physique tardive
-  [Lemos & Lewis 2023]. Coût : θ* et la conversion (ωb, ωbc) → r_d
-  exigent des formules de fitting pré-recombinaison publiées (r_s(z_drag),
-  z*, r_s(z*)) — à extraire de leur source au GO (candidates : formules
-  d'Aubourg et al. 2015 / Hu & Sugiyama 1996, références exactes à épingler
-  avant M2, jamais de mémoire).
-- Option B : priors de distance classiques (R, l_A, ωb, n_s), Planck 2018
-  TT,TE,EE+lowE [Chen, Huang & Wang, arXiv:1808.05724, Table 1, Eqs. (1)-(2)] :
-  R = 1.7502 ± 0.0046, l_A = 301.471 ± 0.089, ωb = 0.02236 ± 0.00015,
-  n_s = 0.9649 ± 0.0043 + matrice de corrélation publiée. Avantages :
-  standard historique, valeurs verbatim complètes. Inconvénients : pas la
-  compression de DESI, pas d'ancrage publié dans Table 6, même besoin de
-  formules pré-recombinaison.
-- Limitation (les deux options) : nos σ des combos avec SNe différeront des
-  publiés (full CMB). Écart attendu, mesuré par DESI : 2.4σ (compressé) vs
-  3.1σ (full) sur DESI+CMB — à intégrer dans les gates M5.
+- **Option A (proposed): DESI's own compression** — Gaussian prior on
+  (θ*, ωb, ωbc), Eqs. (35)-(36) of 2503.14738 Appendix A (§1.4).
+  Advantages: (i) it is THE version published by the very collaboration
+  whose result we reproduce; (ii) exact published anchor (2.4σ,
+  Table 6); (iii) validated as nearly independent of late-time physics
+  [Lemos & Lewis 2023]. Cost: θ* and the conversion (ωb, ωbc) → r_d
+  require published pre-recombination fitting formulas (r_s(z_drag),
+  z*, r_s(z*)) — to be extracted from their sources at the GO
+  (candidates: Aubourg et al. 2015 / Hu & Sugiyama 1996 formulas, exact
+  references pinned before M2, never from memory).
+- Option B: classical distance priors (R, l_A, ωb, n_s), Planck 2018
+  TT,TE,EE+lowE [Chen, Huang & Wang, arXiv:1808.05724, Table 1,
+  Eqs. (1)-(2)]: R = 1.7502 ± 0.0046, l_A = 301.471 ± 0.089,
+  ωb = 0.02236 ± 0.00015, n_s = 0.9649 ± 0.0043 + published correlation
+  matrix. Advantages: the historical standard, complete verbatim values.
+  Drawbacks: not DESI's compression, no published anchor in Table 6,
+  same need for pre-recombination formulas.
+- Limitation (both options): our σ for the SNe combinations will differ
+  from the published ones (full CMB there). Expected gap, measured by
+  DESI: 2.4σ (compressed) vs 3.1σ (full) on DESI+CMB — folded into the
+  M5 gates.
 
-### 2.6 Coupures low-z des critiques (base du pré-enregistrement M7)
+### 2.6 The critics' low-z cuts (basis of the M7 pre-registration)
 
-- Efstathiou [arXiv:2408.07175] : fenêtre 0.02 ≤ zHD ≤ 1.2 [Sec. 2] ;
-  offset low-z/high-z ~0.04 mag sur les SNe communes DES5Y/Pantheon+
-  (Foundation −0.051±0.007 ; low-z combiné −0.0482±0.0057 [Sec. 3,
-  Table 1]) ; en soustrayant 0.04 mag au low-z de DES5Y, la préférence
-  w0wa devient non significative (Δχ² ~2.5) [Sec. 3, Fig. 5].
-- Huang, Cai & Wang [arXiv:2502.04212] : sous-échantillons low-z en cause
-  CSP (8), CfA (68), Foundation (118) vs 1635 DES high-z ; discordance
-  ~0.043 mag d'intercept [Sec. III.2] ; significativités CMB+DESI+DESY5
-  3.5-3.7σ → ~1.5-1.6σ après correction [Tables 1-2].
-- Réponse DES [Popovic et al., arXiv:2511.07517, MNRAS 2026] : recalibration
-  complète (Dovekie, ancrage naines blanches DA), bug F99 corrigé (~0.01
-  mag), poids systématiques corrigés (somme 0.81 → 1) [Sec. 5, App. A].
-  Résultat : préférence réduite 4.2σ → **3.2σ** (DES+CMB+DESI DR2)
-  [abstract ; w0 = −0.803±0.054, wa = −0.72±0.21]. Seule coupure : z > 0.025
-  (vitesses particulières) [Sec. 2.2] ; aucun test de variation z_min dans
-  ce papier.
-- Identification dans nos fichiers : Pantheon+ et DES-SN5YR partagent les
-  codes IDSURVEY (CSP=5 pour P+, CfA=61-66, Foundation=150, DES=10 ;
-  low-z divers P+ : 50, 51, 56, 57, 18). Coupures candidates M7 (à figer
-  au GO M1) : (a) z > 0.1 (miroir DESI Fig. 14 et Efstathiou) ;
-  (b) exclusion par IDSURVEY des échantillons historiques (CfA+CSP) en
-  gardant Foundation ; (c) exclusion de tout le low-z externe (DES pur,
-  IDSURVEY=10 ; et P+ z>0.1) ; (d) contrôle : z > 0.025 (coupure Dovekie).
+- Efstathiou [arXiv:2408.07175]: window 0.02 ≤ zHD ≤ 1.2 [Sec. 2];
+  low-z/high-z offset ~0.04 mag on the SNe common to DES5Y/Pantheon+
+  (Foundation −0.051±0.007; combined low-z −0.0482±0.0057 [Sec. 3,
+  Table 1]); subtracting 0.04 mag from the DES5Y low-z makes the w0wa
+  preference non-significant (Δχ² ~2.5) [Sec. 3, Fig. 5].
+- Huang, Cai & Wang [arXiv:2502.04212]: low-z subsamples in question
+  CSP (8), CfA (68), Foundation (118) vs 1635 DES high-z; ~0.043 mag
+  intercept discordance [Sec. III.2]; CMB+DESI+DESY5 significances
+  3.5-3.7σ → ~1.5-1.6σ after correction [Tables 1-2].
+- DES response [Popovic et al., arXiv:2511.07517, MNRAS 2026]: full
+  recalibration (Dovekie, DA white-dwarf anchoring), F99 bug fixed
+  (~0.01 mag), systematics weights fixed (sum 0.81 → 1) [Sec. 5,
+  App. A]. Result: preference reduced 4.2σ → **3.2σ** (DES+CMB+DESI DR2)
+  [abstract; w0 = −0.803±0.054, wa = −0.72±0.21]. Only cut: z > 0.025
+  (peculiar velocities) [Sec. 2.2]; no z_min variation test in that
+  paper.
+- Identification in our files: Pantheon+ and DES-SN5YR share the
+  IDSURVEY codes (CSP=5 for P+, CfA=61-66, Foundation=150, DES=10;
+  miscellaneous P+ low-z: 50, 51, 56, 57, 18). Candidate M7 cuts (frozen
+  at the M1 GO): (a) z > 0.1 (mirror of DESI Fig. 14 and Efstathiou);
+  (b) exclusion by IDSURVEY of the historical samples (CfA+CSP) keeping
+  Foundation; (c) exclusion of all external low-z (pure DES,
+  IDSURVEY=10; and P+ z>0.1); (d) control: z > 0.025 (Dovekie cut).
 
-### 2.7 Divergences relevées entre sources (règle « STOP si divergence »)
+### 2.7 Divergences found between sources ("STOP on divergence" rule)
 
-Aucune divergence de convention bloquante. Trois écarts documentés, tous
-expliqués : (i) main du repo DES ≠ papier 2024 → résolu par épinglage v1.2 ;
-(ii) significativité DESY5 4.2σ (DR2) vs 3.2σ (Dovekie 2026) → deux
-releases différentes, nous répliquons DR2/v1.2 et citons Dovekie en
-contexte ; (iii) valeurs de compression CMB de 2509.21491 (App. C) ≠
-Eqs. (35)-(36) → variantes de datasets (P-ACT vs baseline DESI), nous
-utilisons les Eqs. (35)-(36) si Option A retenue.
+No blocking convention divergence. Three documented discrepancies, all
+explained: (i) the DES repo's main ≠ 2024 paper → resolved by pinning
+v1.2; (ii) DESY5 significance 4.2σ (DR2) vs 3.2σ (Dovekie 2026) → two
+different releases, we replicate DR2/v1.2 and cite Dovekie as context;
+(iii) CMB compression values of 2509.21491 (App. C) ≠ Eqs. (35)-(36) →
+dataset variants (P-ACT vs DESI baseline), we use Eqs. (35)-(36) under
+Option A.
 
-## §3 — Décisions méthodologiques M3-M4 (documentées, aucune silencieuse)
+## §3 — M3-M4 methodological decisions (documented, none silent)
 
-1. **Symétrisation de la covariance Pantheon+** : le fichier STAT+SYS
-   publié porte des asymétries d'arrondi du dernier chiffre imprimé
-   (778 entrées sur 2 893 401, max |C−Cᵀ| = 3×10⁻⁸) ; symétrisé
-   ½(C+Cᵀ) sous garde-fou dur 10⁻⁷ (les consommateurs officiels ne
-   vérifient jamais la symétrie). Artefact de fichier, pas un choix
-   physique.
-2. **Priors G3.3** : extraits de l'entête de la chaîne officielle
-   épinglée (omega_m U[0.01,0.99], h0 U[0.3,1], w U[−5,1],
-   wa U[−20,10], m U[−1,1]) — le gate est évalué avec CES priors. Le
-   couple (m, h0) échantillonné par DES est remplacé par la
-   marginalisation analytique de l'offset (les deux ne contraignent que
-   la même combinaison ; effet de bord des bornes négligeable, posterior
-   d'offset très intérieur).
-3. **Modèle SN-only et BAO-only sans radiation** : E² = Ωm(1+z)³ +
-   (1−Ωm)f_DE — la paramétrisation background-only (Ωm, h·rd) de DESI ne
-   permet même pas de spécifier Ωr ; effet ~10⁻⁴ mag sur μ(z≤1.1),
-   négligeable devant les tolérances des gates (0.010 sur Ωm, 0.2σ).
-4. **Domaine du cross-check r_d** (Aubourg Eq. 16 vs DESI Eq. 2,
-   tolérance 0.3 %) : évalué sur ±5σ du prior gaussien CMB, seul domaine
-   où r_d est utilisé (le bras BAO-seul échantillonne h·rd librement).
-   Mesuré : 0.21 % à ±5σ ; les deux lois de puissance divergent loin du
-   point de calibration (0.70 % au coin arbitraire ωbc = 0.10).
-5. **Intégrateurs rapides** : r_s(z*) et D_M(z*) par Simpson sur grilles
-   fixes (substitutions a = x² et log(1+z)), validés < 10⁻⁷ relatif
-   contre quad adaptatif (test permanent).
-6. **Neutrinos** : secteur ν reflète astropy (Komatsu 2011 Eq. 26,
-   constantes identiques, oracles < 10⁻⁶ jusqu'à z = 1100) ; mapping
-   DESI officiel ωbc = Ωm h² − Σmν/93.14 (yaml épinglé, vérifié exact
-   sur les chaînes officielles à 9×10⁻⁹ près) ; ων d'Aubourg
-   (0.0107·Σmν) et de DESI (Σmν/93.14) chacun dans sa formule d'origine.
+1. **Symmetrization of the Pantheon+ covariance**: the published
+   STAT+SYS file carries last-printed-digit rounding asymmetries
+   (778 entries out of 2 893 401, max |C−Cᵀ| = 3×10⁻⁸); symmetrized
+   ½(C+Cᵀ) under a hard 10⁻⁷ guard (the official consumers never check
+   symmetry). A file artifact, not a physics choice.
+2. **G3.3 priors**: extracted from the header of the pinned official
+   chain (omega_m U[0.01,0.99], h0 U[0.3,1], w U[−5,1], wa U[−20,10],
+   m U[−1,1]) — the gate is evaluated with THESE priors. The (m, h0)
+   pair sampled by DES is replaced by the analytic marginalization of
+   the offset (both constrain only the same combination; boundary
+   effects negligible, the offset posterior is well interior).
+3. **SN-only and BAO-only model without radiation**: E² = Ωm(1+z)³ +
+   (1−Ωm)f_DE — DESI's background-only parametrization (Ωm, h·rd) does
+   not even allow specifying Ωr; effect ~10⁻⁴ mag on μ(z≤1.1),
+   negligible against the gate tolerances (0.010 on Ωm, 0.2σ).
+4. **Domain of the r_d cross-check** (Aubourg Eq. 16 vs DESI Eq. 2,
+   tolerance 0.3 %): evaluated on ±5σ of the Gaussian CMB prior, the
+   only domain where r_d is used (the BAO-only arm samples h·rd
+   freely). Measured: 0.21 % at ±5σ; the two power laws diverge far from
+   the calibration point (0.70 % at the arbitrary corner ωbc = 0.10).
+5. **Fast integrators**: r_s(z*) and D_M(z*) by Simpson on fixed grids
+   (substitutions a = x² and log(1+z)), validated < 10⁻⁷ relative
+   against adaptive quad (permanent test).
+6. **Neutrinos**: the ν sector mirrors astropy (Komatsu 2011 Eq. 26,
+   identical constants, oracles < 10⁻⁶ up to z = 1100); official DESI
+   mapping ωbc = Ωm h² − Σmν/93.14 (pinned yaml, verified exact on the
+   official chains to within 9×10⁻⁹); Aubourg's ων (0.0107·Σmν) and
+   DESI's (Σmν/93.14) each used inside its formula of origin.
 
-## §4 — Résultats M5 : fits des 5 combinaisons × 2 modèles (pipeline gelé)
+## §4 — M5 results: fits of the 5 combinations × 2 models (frozen pipeline)
 
-Best-fits MAP (Nelder-Mead multi-départs Sobol seedés, 24 ΛCDM /
-40 w0waCDM, committés avant les runs ; convergence vérifiée par audit :
-4 optimiseurs indépendants coïncident à 2×10⁻⁷, dispersion des départs
-~10⁻¹³). Convention σ : Δχ²_MAP → CDF χ²(2 dof) → équivalent gaussien
-[Eq. (22)] — la conversion reproduit les 5 paires publiées de la Table 6.
+MAP best fits (seeded Sobol multi-start Nelder-Mead, 24 ΛCDM /
+40 w0waCDM, committed before the runs; convergence verified by audit:
+4 independent optimizers agree to 2×10⁻⁷, start-point scatter ~10⁻¹³).
+σ convention: Δχ²_MAP → χ²(2 dof) CDF → Gaussian equivalent [Eq. (22)] —
+the conversion reproduces the 5 published pairs of Table 6.
 
-| Bras | n | χ²_ΛCDM | χ²_w0wa | Δχ²_MAP | Nσ | publié | fenêtre | gate |
+| Arm | n | χ²_ΛCDM | χ²_w0wa | Δχ²_MAP | Nσ | published | window | gate |
 |---|---|---|---|---|---|---|---|---|
-| BAO seul | 13 | 10.271 | 5.619 | −4.652 | **1.66** | 1.7 | [1.5, 1.9] | G5.1 PASS |
-| BAO+CMB | 16 | 12.761 | 6.784 | −5.977 | **1.96** | 2.4 (ancrage exact) | [2.1, 2.7] | G5.2 **FAIL** |
+| BAO alone | 13 | 10.271 | 5.619 | −4.652 | **1.66** | 1.7 | [1.5, 1.9] | G5.1 PASS |
+| BAO+CMB | 16 | 12.761 | 6.784 | −5.977 | **1.96** | 2.4 (exact anchor) | [2.1, 2.7] | G5.2 **FAIL** |
 | BAO+CMB+Pantheon+ | 1606 | 1418.52 | 1412.12 | −6.406 | **2.05** | 2.8 (full CMB) | [1.8, 3.1] | G5.3 PASS |
 | BAO+CMB+Union3 | 38 | 41.163 | 29.033 | −12.131 | **3.05** | 3.8 (full CMB) | [2.8, 4.1] | G5.4 PASS |
 | BAO+CMB+DES-SN5YR | 1845 | 1662.20 | 1645.74 | −16.456 | **3.65** | 4.2 (full CMB) | [3.2, 4.5] | G5.5 PASS |
 
-G5.6 (ordre) : 2.05 (P+) < 3.05 (Union3) < 3.65 (DESY5) — PASS.
+G5.6 (ordering): 2.05 (P+) < 3.05 (Union3) < 3.65 (DESY5) — PASS.
 
-ΔAIC = Δχ²_MAP + 4 ; ΔBIC = Δχ²_MAP + 2 ln n : BAO −0.65/+0.48 ;
-BAO+CMB −1.98/−0.43 ; +P+ −2.41/+8.36 ; +Union3 −8.13/−4.86 ;
-+DES −12.46/−1.42 → en BIC (plus punitif), seul Union3 garde une
-préférence nette pour w0waCDM ; rapporté en complément comme prévu.
+ΔAIC = Δχ²_MAP + 4; ΔBIC = Δχ²_MAP + 2 ln n: BAO −0.65/+0.48;
+BAO+CMB −1.98/−0.43; +P+ −2.41/+8.36; +Union3 −8.13/−4.86;
++DES −12.46/−1.42 → under BIC (more punitive), only Union3 keeps a clear
+preference for w0waCDM; reported as a complement, as planned.
 
-Repères de réplication exacte : BAO-seul ΛCDM (Ωm = 0.2975,
-h·rd = 101.54 Mpc) = valeurs publiées DESI DR2 chiffre pour chiffre ;
-best-fits w0 des bras SNe proches des publiés (P+ −0.864 vs −0.838 ;
-Union3 −0.704 vs −0.667 ; DES −0.778 vs −0.752).
+Exact-replication landmarks: BAO-only ΛCDM (Ωm = 0.2975,
+h·rd = 101.54 Mpc) = the published DESI DR2 values digit for digit; the
+SNe arms' w0 best fits are close to the published ones (P+ −0.864 vs
+−0.838; Union3 −0.704 vs −0.667; DES −0.778 vs −0.752).
 
-**Effet de compression mesuré (P4 / GO M1.2a)** — écart Nσ_pipeline −
-Nσ_publié sur les bras +SNe (full CMB chez DESI, compressé chez nous) :
-P+ **−0.75σ**, Union3 **−0.75σ**, DES **−0.55σ** — du même ordre que le
-−0.7σ que DESI mesure lui-même sur BAO+CMB (2.4σ compressé vs 3.1σ
-full). NB : cet « effet de compression » mesuré ici contient AUSSI le
-biais θ* identifié par l'audit (§5) ; la part purement compression vs
-part θ* n'est pas séparable sans refaire les fits avec un θ* exact.
+**Measured compression effect (P4 / GO M1.2a)** — gap Nσ_pipeline −
+Nσ_published on the +SNe arms (full CMB at DESI, compressed here):
+P+ **−0.75σ**, Union3 **−0.75σ**, DES **−0.55σ** — of the same order as
+the −0.7σ DESI measures itself on BAO+CMB (2.4σ compressed vs 3.1σ
+full). NB: this "compression effect" as measured here ALSO contains the
+θ* bias identified by the audit (§5); the purely-compression part and
+the θ* part cannot be separated without redoing the fits with an exact
+θ*.
 
-## §5 — Audit du gate G5.2 (pré-enregistré : échec ⇒ STOP, audit, jamais
-## de relâchement silencieux)
+## §5 — Audit of gate G5.2 (pre-registered: failure ⇒ STOP, audit, never
+## a silent relaxation)
 
-G5.2 est l'ancrage EXACT (DESI publie 2.4σ avec la MÊME compression).
-Audit en 5 sondes indépendantes (workflow multi-agents, scripts et
-sorties sous `results/audit/`) :
+G5.2 is the EXACT anchor (DESI publishes 2.4σ with the SAME
+compression). Audit with 5 independent probes (multi-agent workflow,
+scripts and outputs under `results/audit/`):
 
-- **Minimiseur hors de cause** (sonde C) : differential_evolution
-  seedé, Nelder-Mead (du best-fit M5 ET du point officiel), Powell —
-  tous convergent vers χ²_ΛCDM = 12.760649, χ²_w0wa = 6.783639
-  (écarts ≤ 2×10⁻⁷) ; dispersion des 24/40 départs ~10⁻¹³. Les warnings
-  inf−inf du simplexe sont cosmétiques.
-- **Conventions et constantes exactes** (sonde D) : HS96 (E-1), Aubourg
-  Eq. (16), EH98 Eq. (5), moyennes/covariance du prior, inflate_cov
-  false, mapping mnu/93.14 — tous vérifiés caractère par caractère
-  contre les sources et le yaml officiel. AUCUN bug de transcription.
-- **Bras BAO hors de cause** (sondes A, B) : notre χ²_BAO recalculé aux
-  points des chaînes officielles (colonnes chi2__BAO par point) coïncide
-  à +0.13/+0.24 près en moyenne, entièrement expliqué par r_d Aubourg
-  bas de −0.028 % (vs rdrag CAMB des chaînes, quasi constant,
-  σ ≈ 10⁻⁵ relatif) — effet différentiel < 0.05 sur Δχ².
-- **Cause identifiée : biais θ* du modèle HS96+EH98** (sondes A, D) :
-  notre θ* est systématiquement bas de −0.10 à −0.13 % (−4.7 à −5.3σ du
-  prior !), avec une dépendance résiduelle aux paramètres (scatter
-  0.033 %) ; notre χ²_CMB recalculé aux points des chaînes officielles
-  est gonflé de +30 à +34 en moyenne. La likelihood officielle calcule
-  θ* avec CAMB 1.5.4 (recombinaison complète) ; HS96 est précis au
-  pourcent — 40× la largeur du prior. C'est EXACTEMENT la limitation
-  pré-enregistrée P2, qui désignait G5.2 comme sa borne empirique.
-- **Attribution quantifiée** (sonde E, diagnostic — PAS une correction) :
-  en décalant la moyenne θ* du prior par le biais mesuré (−1.013×10⁻⁵),
-  les MÊMES fits donnent Δχ²_MAP = −7.544 → 2.27σ (dans la fenêtre
-  [2.1, 2.7] ; 77 % de l'écart récupéré), et le best-fit w0waCDM rejoint
-  le margestats officiel (h 0.639 vs 0.637 ; w0 −0.461 vs −0.43±0.22 ;
-  wa −1.590 vs −1.72±0.64). Le résidu (~23 %) est cohérent avec la
-  dépendance paramétrique du biais + r_d (0.028 %) + arrondi de
-  l'ancrage publié.
-- **Validation croisée de l'ancrage** (sonde A) : reconstruit depuis les
-  chaînes officielles elles-mêmes (min de chi2__BAO+chi2__CMB_compressed),
-  Δχ²_MAP officiel = −7.965 ≈ −8.0 publié.
+- **Minimizer cleared** (probe C): seeded differential_evolution,
+  Nelder-Mead (from the M5 best fit AND from the official point),
+  Powell — all converge to χ²_ΛCDM = 12.760649, χ²_w0wa = 6.783639
+  (deviations ≤ 2×10⁻⁷); scatter of the 24/40 starts ~10⁻¹³. The
+  simplex's inf−inf warnings are cosmetic.
+- **Exact conventions and constants** (probe D): HS96 (E-1), Aubourg
+  Eq. (16), EH98 Eq. (5), prior means/covariance, inflate_cov false,
+  mnu/93.14 mapping — all verified character by character against the
+  sources and the official yaml. NO transcription bug.
+- **BAO arm cleared** (probes A, B): our χ²_BAO recomputed at the
+  official chains' points (per-point chi2__BAO columns) agrees to
+  +0.13/+0.24 on average, fully explained by Aubourg's r_d being low by
+  −0.028 % (vs the chains' CAMB rdrag, near-constant, σ ≈ 10⁻⁵
+  relative) — differential effect < 0.05 on Δχ².
+- **Cause identified: θ* bias of the HS96+EH98 model** (probes A, D):
+  our θ* is systematically low by −0.10 to −0.13 % (−4.7 to −5.3σ of
+  the prior!), with a residual parameter dependence (scatter 0.033 %);
+  our χ²_CMB recomputed at the official chains' points is inflated by
+  +30 to +34 on average. The official likelihood computes θ* with CAMB
+  1.5.4 (full recombination); HS96 is percent-level accurate — 40× the
+  prior width. This is EXACTLY the pre-registered limitation P2, which
+  designated G5.2 as its empirical bound.
+- **Quantified attribution** (probe E, a diagnostic — NOT a
+  correction): shifting the prior's θ* mean by the measured bias
+  (−1.013×10⁻⁵), the SAME fits give Δχ²_MAP = −7.544 → 2.27σ (inside
+  the [2.1, 2.7] window; 77 % of the gap recovered), and the w0waCDM
+  best fit joins the official margestats (h 0.639 vs 0.637; w0 −0.461
+  vs −0.43±0.22; wa −1.590 vs −1.72±0.64). The residue (~23 %) is
+  consistent with the bias's parameter dependence + r_d (0.028 %) +
+  rounding of the published anchor.
+- **Cross-validation of the anchor** (probe A): reconstructed from the
+  official chains themselves (min of chi2__BAO+chi2__CMB_compressed),
+  the official Δχ²_MAP = −7.965 ≈ the published −8.0.
 
-**Statut** : G5.2 reste FORMELLEMENT ÉCHOUÉ avec le pipeline gelé —
-aucun recalibrage silencieux (P2/GO M1.2b). La cause est attribuée, avec
-mécanisme et quantification, à la fidélité du θ* analytique (HS96+EH98)
-face à σ(θ*)/θ* = 2.5×10⁻⁴, pas à un bug. Toute remédiation (θ* CAMB,
-correction calibrée et pré-enregistrée, ou acceptation en limitation)
-est une décision méthodologique qui requiert un GO explicite.
+**Status**: G5.2 remains FORMALLY FAILED with the frozen pipeline — no
+silent recalibration (P2/GO M1.2b). The cause is attributed, with
+mechanism and quantification, to the fidelity of the analytic θ*
+(HS96+EH98) against σ(θ*)/θ* = 2.5×10⁻⁴, not to a bug. Any remediation
+(CAMB θ*, a calibrated pre-registered correction, or acceptance as a
+limitation) is a methodological decision requiring an explicit GO.
 
-→ Décision de Téo (GO du 2026-06-11) : amendement calibré P8
-(PREREGISTRATION.md P8 — transparence totale : décidé APRÈS l'audit,
-même statut que la recalibration Keeley du P0). Voir §6.
+→ Téo's decision (GO of 2026-06-11): calibrated amendment P8
+(PREREGISTRATION.md P8 — full transparency: decided AFTER the audit,
+same status as the P0 project's Keeley recalibration). See §6.
 
-## §6 — Résultats M5 corrigés P8 (gates G5.xb, mêmes fenêtres)
+## §6 — P8-corrected M5 results (gates G5.xb, same windows)
 
-Amendement P8 : deux constantes multiplicatives sur les sorties
-analytiques des bras CMB, calibrées sur les chaînes officielles
-épinglées — κ_r = 1.000279376 (r_d Aubourg), κ_θ = 1.001314308 (θ*).
-Le scatter résiduel post-correction (7.6×10⁻⁶ ≈ 0.03σ_prior) montre
-qu'une constante capture la quasi-totalité du biais ; rien d'autre n'a
-changé (vérifiable : seuls les points d'entrée `DESIParams.r_drag_mpc`
-et `DESIParams.theta_star` appliquent κ). Le tableau brut (§4) reste le
-résultat du pipeline purement analytique.
+P8 amendment: two multiplicative constants on the analytic outputs of
+the CMB arms, calibrated on the pinned official chains —
+κ_r = 1.000279376 (Aubourg r_d), κ_θ = 1.001314308 (θ*). The
+post-correction residual scatter (7.6×10⁻⁶ ≈ 0.03σ_prior) shows a
+constant captures nearly all of the bias; nothing else changed
+(verifiable: only the entry points `DESIParams.r_drag_mpc` and
+`DESIParams.theta_star` apply κ). The raw table (§4) remains the output
+of the purely analytic pipeline.
 
-| Bras | χ²_ΛCDM | χ²_w0wa | Δχ²_MAP | Nσ | publié | fenêtre | gate |
+| Arm | χ²_ΛCDM | χ²_w0wa | Δχ²_MAP | Nσ | published | window | gate |
 |---|---|---|---|---|---|---|---|
-| BAO seul | 10.271 | 5.619 | −4.652 | **1.66** | 1.7 | [1.5, 1.9] | G5.1b PASS |
-| BAO+CMB | 15.151 | 7.129 | **−8.023** | **2.36** | 2.4 / −8.0 (ancrage exact) | [2.1, 2.7] | G5.2b PASS |
+| BAO alone | 10.271 | 5.619 | −4.652 | **1.66** | 1.7 | [1.5, 1.9] | G5.1b PASS |
+| BAO+CMB | 15.151 | 7.129 | **−8.023** | **2.36** | 2.4 / −8.0 (exact anchor) | [2.1, 2.7] | G5.2b PASS |
 | BAO+CMB+Pantheon+ | 1420.95 | 1413.37 | −7.574 | **2.28** | 2.8 (full CMB) | [1.8, 3.1] | G5.3b PASS |
 | BAO+CMB+Union3 | 43.584 | 29.790 | −13.794 | **3.29** | 3.8 (full CMB) | [2.8, 4.1] | G5.4b PASS |
 | BAO+CMB+DES-SN5YR | 1664.65 | 1646.67 | −17.984 | **3.84** | 4.2 (full CMB) | [3.2, 4.5] | G5.5b PASS |
 
-G5.6b (ordre) : 2.28 (P+) < 3.29 (Union3) < 3.84 (DESY5) — PASS.
-**6/6 gates verts.** Le bras BAO seul est identique au §4 (P8 ne le
-touche pas, comme déclaré).
+G5.6b (ordering): 2.28 (P+) < 3.29 (Union3) < 3.84 (DESY5) — PASS.
+**6/6 gates green.** The BAO-only arm is identical to §4 (P8 does not
+touch it, as declared).
 
-Points de réplication frappants :
-- G5.2b : Δχ²_MAP = −8.023 vs −8.0 publié ; best-fit w0waCDM
-  (Ωm = 0.3509, h = 0.6372, w0 = −0.445, wa = −1.645) vs margestats
-  officiel (0.353, 0.637, −0.43 ± 0.22, −1.72 ± 0.64) ; best-fit ΛCDM
-  χ² = 15.151 vs 15.145 reconstruit des chaînes officielles.
-- Bras SNe, best-fits (w0, wa) vs publiés [Table 5] : P+ (−0.853, −0.52)
-  vs (−0.838, −0.62) ; Union3 (−0.686, −0.99) vs (−0.667, −1.09) ;
+Striking replication points:
+- G5.2b: Δχ²_MAP = −8.023 vs the published −8.0; w0waCDM best fit
+  (Ωm = 0.3509, h = 0.6372, w0 = −0.445, wa = −1.645) vs the official
+  margestats (0.353, 0.637, −0.43 ± 0.22, −1.72 ± 0.64); ΛCDM best fit
+  χ² = 15.151 vs 15.145 reconstructed from the official chains.
+- SNe arms, (w0, wa) best fits vs published [Table 5]: P+ (−0.853,
+  −0.52) vs (−0.838, −0.62); Union3 (−0.686, −0.99) vs (−0.667, −1.09);
   DES (−0.766, −0.78) vs (−0.752, −0.86).
 
-**Effet de compression re-mesuré proprement (post-P8)** —
-Nσ_pipeline − Nσ_publié(full CMB) : P+ **−0.52σ**, Union3 **−0.51σ**,
-DES **−0.36σ**, à comparer au **−0.7σ** que DESI mesure sur BAO+CMB
-(2.4σ compressé vs 3.1σ full). L'effet est systématiquement
-atténuateur et du même ordre ; il est plus faible sur les bras où les
-SNe dominent l'information sur (w0, wa) — attendu, la compression ne
-dégrade que le canal CMB.
+**Compression effect re-measured cleanly (post-P8)** —
+Nσ_pipeline − Nσ_published(full CMB): P+ **−0.52σ**, Union3 **−0.51σ**,
+DES **−0.36σ**, to be compared with the **−0.7σ** DESI measures on
+BAO+CMB (2.4σ compressed vs 3.1σ full). The effect is systematically
+attenuating and of the same order; it is smaller on the arms where the
+SNe dominate the (w0, wa) information — expected, the compression only
+degrades the CMB channel.
 
-ΔAIC/ΔBIC (k = 2 ; n = points du bras) : BAO −0.65/+0.48 ; BAO+CMB
-−4.02/−2.48 ; +P+ −3.57/+7.19 ; +Union3 −9.79/−6.52 ; +DES −13.98/−2.94.
+ΔAIC/ΔBIC (k = 2; n = the arm's data points): BAO −0.65/+0.48; BAO+CMB
+−4.02/−2.48; +P+ −3.57/+7.19; +Union3 −9.79/−6.52; +DES −13.98/−2.94.
 
-## §7 — M6 : posteriors MCMC w0waCDM (emcee, pipeline P8)
+## §7 — M6: w0waCDM MCMC posteriors (emcee, P8 pipeline)
 
-Réglages committés avant les runs (P7) ; convergence exigée
-(n_pas − burn) > 50τ partout — la première tentative a échoué ce
-critère sur BAO+CMB (50τ = 9312 > 8000) et les chaînes des bras CMB ont
-été allongées (le critère n'a jamais bougé) ; seeds dérivés de
-20260611 ; walkers initialisés en boule autour du MAP M5b. Artefacts :
-results/m6_mcmc.json, results/chains/*.npz (aplaties, thin τ/2),
+Settings committed before the runs (P7); convergence required
+(n_steps − burn) > 50τ everywhere — the first attempt failed this
+criterion on BAO+CMB (50τ = 9312 > 8000) and the CMB arms' chains were
+lengthened (the criterion itself never moved); seeds derived from
+20260611; walkers initialized in a ball around the M5b MAP. Artifacts:
+results/m6_mcmc.json, results/chains/*.npz (flattened, thinned τ/2),
 results/figures/m6_corner_*.png.
 
-Moyennes marginalisées ± écart-type vs publiés [Table 5 ; full CMB chez
-DESI sauf BAO seul ; BAO+CMB comparé au margestats officiel compressé] :
+Marginalized means ± standard deviation vs published [Table 5; full CMB
+at DESI except BAO alone; BAO+CMB compared to the official compressed
+margestats]:
 
-| Bras | w0 | w0 publié | wa | wa publié | d((w0,wa), ΛCDM) eucl. / Mahal. |
+| Arm | w0 | w0 published | wa | wa published | d((w0,wa), ΛCDM) eucl. / Mahal. |
 |---|---|---|---|---|---|
-| BAO seul | −0.476 ± 0.262 | −0.48 +0.35/−0.17 | −1.660 ± 0.963 | < −1.34 (68 %) | 2.84 / 3.20 |
-| BAO+CMB | −0.430 ± 0.217 | −0.43 ± 0.22 (officiel compressé) | −1.709 ± 0.633 | −1.72 ± 0.64 | 1.74 / 2.60 |
+| BAO alone | −0.476 ± 0.262 | −0.48 +0.35/−0.17 | −1.660 ± 0.963 | < −1.34 (68 %) | 2.84 / 3.20 |
+| BAO+CMB | −0.430 ± 0.217 | −0.43 ± 0.22 (official compressed) | −1.709 ± 0.633 | −1.72 ± 0.64 | 1.74 / 2.60 |
 | +Pantheon+ | −0.848 ± 0.056 | −0.838 ± 0.055 | −0.552 ± 0.220 | −0.62 +0.22/−0.19 | 0.54 / 2.65 |
 | +Union3 | −0.675 ± 0.090 | −0.667 ± 0.088 | −1.041 ± 0.310 | −1.09 +0.31/−0.27 | 1.04 / 3.50 |
 | +DES-SN5YR | −0.761 ± 0.058 | −0.752 ± 0.057 | −0.806 ± 0.239 | −0.86 +0.23/−0.20 | 0.81 / 4.09 |
 
-Constats : (i) le posterior BAO+CMB compressé reproduit le margestats
-officiel à la 2e décimale sur les deux paramètres ET leurs largeurs ;
-(ii) sur les bras +SNe, malgré le CMB compressé, les moyennes et σ
-marginalisés de (w0, wa) collent aux publiés full-CMB à ±0.01 près sur
-w0 (l'effet de compression dégrade le Δχ²_MAP, pas sensiblement les
-marges de w0/wa) ; (iii) la distance du MAP à (−1, 0) est donnée en
-euclidien et en Mahalanobis 2D (covariance marginale (w0, wa) de la
-chaîne) — métrique distincte de la convention Nσ d'Eq. (22), rapportée
-à titre descriptif (SPEC M6).
+Findings: (i) the compressed BAO+CMB posterior reproduces the official
+margestats to the 2nd decimal on both parameters AND their widths;
+(ii) on the +SNe arms, despite the compressed CMB, the marginalized
+(w0, wa) means and σ match the published full-CMB values to ±0.01 on w0
+(the compression effect degrades the Δχ²_MAP, not appreciably the w0/wa
+margins); (iii) the distance of the MAP to (−1, 0) is given in Euclidean
+and in 2D Mahalanobis form (marginal (w0, wa) covariance of the chain) —
+a metric distinct from the Eq. (22) Nσ convention, reported
+descriptively (SPEC M6).
 
-## §8 — M7 : profil de sensibilité low-z (coupures P5, CLOSES au GO M1)
+## §8 — M7: low-z sensitivity profile (P5 cuts, CLOSED at the M1 GO)
 
-Pipeline P8, mêmes moteur et nombres de départs que M5b ; baselines =
-bras complets de §6 ; métrique de tableau FIGÉE (P5) ; SHA256 de chaque
-sous-échantillon consigné dans results/m7_cuts.json. Coupures :
-C-a z > 0.1 ; C-b exclusion CfA (IDSURVEY 61-66) + CSP (5), Foundation
-(150) et low-z divers P+ conservés ; C-c DES pur (IDSURVEY = 10) / P+
-z > 0.1 ; C-d z > 0.025 (contrôle Dovekie).
+P8 pipeline, same engine and numbers of starts as M5b; baselines = the
+full arms of §6; table metric FROZEN (P5); SHA256 of each subsample
+recorded in results/m7_cuts.json. Cuts: C-a z > 0.1; C-b exclusion of
+CfA (IDSURVEY 61-66) + CSP (5), Foundation (150) and miscellaneous P+
+low-z kept; C-c pure DES (IDSURVEY = 10) / P+ z > 0.1; C-d z > 0.025
+(Dovekie control).
 
-**BAO+CMB+Pantheon+** (baseline : N = 1590, Δχ²_MAP = −7.574, 2.279σ,
-w0 = −0.853, wa = −0.522) :
+**BAO+CMB+Pantheon+** (baseline: N = 1590, Δχ²_MAP = −7.574, 2.279σ,
+w0 = −0.853, wa = −0.522):
 
-| Coupure | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | Δw0 | Δwa |
+| Cut | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | Δw0 | Δwa |
 |---|---|---|---|---|---|---|---|---|
 | C-a | 960 | −6.247 | 2.014 | −0.265 | −0.780 | −0.715 | +0.073 | −0.193 |
 | C-b | 1357 | −7.155 | 2.198 | −0.081 | −0.845 | −0.544 | +0.008 | −0.021 |
 | C-c | 960 | −6.247 | 2.014 | −0.265 | −0.780 | −0.715 | +0.073 | −0.193 |
 | C-d | 1322 | −6.921 | 2.152 | −0.127 | −0.852 | −0.522 | +0.001 | −0.000 |
 
-**BAO+CMB+DES-SN5YR** (baseline : N = 1829, Δχ²_MAP = −17.984, 3.837σ,
-w0 = −0.766, wa = −0.778) :
+**BAO+CMB+DES-SN5YR** (baseline: N = 1829, Δχ²_MAP = −17.984, 3.837σ,
+w0 = −0.766, wa = −0.778):
 
-| Coupure | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | Δw0 | Δwa |
+| Cut | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | Δw0 | Δwa |
 |---|---|---|---|---|---|---|---|---|
 | C-a | 1632 | −3.887 | 1.464 | **−2.373** | −0.818 | −0.616 | −0.052 | +0.162 |
 | C-b | 1753 | −16.160 | 3.607 | −0.230 | −0.755 | −0.806 | +0.011 | −0.028 |
 | C-c | 1635 | −4.184 | 1.540 | **−2.297** | −0.811 | −0.639 | −0.045 | +0.139 |
 | C-d | 1829 | −17.984 | 3.837 | ±0.000 | −0.766 | −0.778 | −0.000 | +0.000 |
 
-Lecture factuelle (aucune conclusion physique au-delà du profil) :
+Factual reading (no physics conclusion beyond the profile):
 
-- Le bras DES-SN5YR perd l'essentiel de sa préférence dès que les SNe
-  z < 0.1 (ou tout le low-z externe) sont retirées : 3.84σ → 1.46-1.54σ
-  — miroir quantitatif du test de DESI (Fig. 14, « incertitudes
-  élargies, significativité réduite ») et du mécanisme pointé par
-  Efstathiou : les best-fits (w0, wa) bougent PEU (Δw0 ≈ −0.05,
-  Δwa ≈ +0.15), c'est le pouvoir contraignant qui s'effondre.
-- En revanche, l'exclusion ciblée des échantillons historiques
-  (CfA + CSP, Foundation conservé — le test de 2502.04212) ne coûte que
-  −0.23σ : dans NOTRE profil, la sensibilité vient du retrait de tout
-  le levier z < 0.1, pas spécifiquement des relevés historiques.
-- La coupure Dovekie z > 0.025 est strictement neutre pour DES (aucune
-  SN du release sous z = 0.025 — cohérence vérifiée, ΔNσ = 0 exact).
-- Le bras Pantheon+ est robuste : 2.28σ → 2.01σ (z > 0.1), −0.08σ
-  (CfA+CSP), −0.13σ (z > 0.025). Contrôle interne : C-c(P+) ≡ C-a(P+)
-  chiffre pour chiffre, comme attendu par construction.
+- The DES-SN5YR arm loses most of its preference as soon as the z < 0.1
+  SNe (or all external low-z) are removed: 3.84σ → 1.46-1.54σ — a
+  quantitative mirror of DESI's own test (Fig. 14, "enlarged
+  uncertainties, reduced significance") and of the mechanism pointed
+  out by Efstathiou: the (w0, wa) best fits move LITTLE (Δw0 ≈ −0.05,
+  Δwa ≈ +0.15), it is the constraining power that collapses.
+- By contrast, the targeted exclusion of the historical samples
+  (CfA + CSP, Foundation kept — the test of 2502.04212) costs only
+  −0.23σ: in OUR profile, the sensitivity comes from removing the
+  entire z < 0.1 lever arm, not specifically the historical surveys.
+- The Dovekie cut z > 0.025 is strictly neutral for DES (no SN of the
+  release below z = 0.025 — consistency verified, ΔNσ = 0 exactly).
+- The Pantheon+ arm is robust: 2.28σ → 2.01σ (z > 0.1), −0.08σ
+  (CfA+CSP), −0.13σ (z > 0.025). Internal control: C-c(P+) ≡ C-a(P+)
+  digit for digit, as expected by construction.
 
-## §9 — Limites (M8)
+## §9 — Limitations (M8)
 
-Les décisions méthodologiques ponctuelles (symétrisation de la covariance
-Pantheon+, radiation omise dans les fonds SN/BAO-only, domaines des
-cross-checks) sont documentées en §3 ; les six limites structurantes sont
-celles-ci.
+The pointwise methodological decisions (Pantheon+ covariance
+symmetrization, radiation omitted from the SN/BAO-only backgrounds,
+cross-check domains) are documented in §3; the six structural
+limitations are these.
 
-### 9.1 CMB compressé vs full CMB — effet mesuré
+### 9.1 Compressed CMB vs full CMB — a measured effect
 
-DESI combine ses BAO avec une likelihood CMB complète (Planck PR4 + ACT
-lensing) ; notre pipeline utilise la compression gaussienne
-(θ*, ωb, ωbc) publiée par DESI eux-mêmes [Appendix A] (SPEC : pas de code
-de Boltzmann). L'effet n'est pas estimé, il est mesuré, et il a un étalon
-publié : sur BAO+CMB, DESI rapporte 2.4σ (compressé) contre 3.1σ (full),
-soit −0.7σ.
+DESI combines its BAO with a full CMB likelihood (Planck PR4 + ACT
+lensing); our pipeline uses the Gaussian compression (θ*, ωb, ωbc)
+published by DESI themselves [Appendix A] (SPEC: no Boltzmann code).
+The effect is not estimated, it is measured, and it has a published
+yardstick: on BAO+CMB, DESI reports 2.4σ (compressed) against 3.1σ
+(full), i.e. −0.7σ.
 
-| Bras | Nσ pipeline (compressé, P8) | Nσ publié | référence publiée | écart |
+| Arm | Nσ pipeline (compressed, P8) | Nσ published | published reference | gap |
 |---|---|---|---|---|
-| BAO+CMB | 2.36 | 2.4 | compressé (ancrage exact) | −0.04σ |
-| BAO+CMB | — | 3.1 | full CMB (non répliqué) | −0.7σ mesuré par DESI |
+| BAO+CMB | 2.36 | 2.4 | compressed (exact anchor) | −0.04σ |
+| BAO+CMB | — | 3.1 | full CMB (not replicated) | −0.7σ measured by DESI |
 | BAO+CMB+Pantheon+ | 2.28 | 2.8 | full CMB | −0.52σ |
 | BAO+CMB+Union3 | 3.29 | 3.8 | full CMB | −0.51σ |
 | BAO+CMB+DES-SN5YR | 3.84 | 4.2 | full CMB | −0.36σ |
 
-L'écart est systématiquement atténuateur, du même ordre que l'étalon
-DESI, et plus faible sur les bras où les SNe dominent l'information sur
-(w0, wa). Les moyennes et largeurs marginalisées de (w0, wa) (M6, §7)
-collent en revanche aux publiées full-CMB à ±0.01 sur w0 : la
-compression dégrade le Δχ²_MAP, pas sensiblement les posteriors. Nos Nσ
-se comparent donc aux titres full-CMB publiés uniquement à travers cet
-écart documenté.
+The gap is systematically attenuating, of the same order as the DESI
+yardstick, and smaller on the arms where the SNe dominate the (w0, wa)
+information. The marginalized (w0, wa) means and widths (M6, §7), on
+the other hand, match the published full-CMB values to ±0.01 on w0: the
+compression degrades the Δχ²_MAP, not appreciably the posteriors. Our
+Nσ therefore compare to the published full-CMB headline numbers only
+through this documented gap.
 
-### 9.2 Amendement calibré P8 — statut assumé
+### 9.2 The calibrated P8 amendment — status owned
 
-- Le pipeline purement analytique (Aubourg Eq. 16 + HS96 + EH98) a échoué
-  le gate d'ancrage exact G5.2 (1.96σ, fenêtre [2.1, 2.7]). L'audit
-  pré-enregistré (§5, 5 sondes, artefacts results/audit/) attribue
-  l'écart au biais du θ* analytique (−0.10 à −0.13 % ≈ −5σ du prior,
-  HS96 étant précis au pourcent face à σ(θ*)/θ* = 2.5×10⁻⁴) — aucun bug.
-- La correction (P8) : deux constantes multiplicatives
-  κ_r = 1.000279376 et κ_θ = 1.001314308, calibrées sur les chaînes
-  officielles DESI épinglées, committées AVANT le re-run, indépendantes
-  des données SNe, du modèle et des coupures M7. Scatter résiduel
-  7.6×10⁻⁶ (≈ 0.03σ_prior) : une constante capture la quasi-totalité du
-  biais.
-- Ce N'EST PAS un pré-enregistrement aveugle : décidé APRÈS l'échec de
-  G5.2 et son audit (même statut assumé que la recalibration Keeley du
-  projet P0). Le tableau brut (§4) et l'échec formel de G5.2 restent
-  dans l'historique ; rien n'est écrasé.
-- Incident documenté pendant la calibration : l'assignation naïve de
-  racine (« racine la plus proche de la valeur brute » en inversant la
-  quadratique chi2__CMB_compressed) sous-estimait κ_θ d'environ 0.02 %
-  (systématique de racine basse) ; identifié et remplacé par une
-  itération à point fixe AVANT le commit des constantes
+- The purely analytic pipeline (Aubourg Eq. 16 + HS96 + EH98) failed
+  the exact-anchor gate G5.2 (1.96σ, window [2.1, 2.7]). The
+  pre-registered audit (§5, 5 probes, artifacts in results/audit/)
+  attributes the gap to the analytic θ* bias (−0.10 to −0.13 % ≈ −5σ of
+  the prior, HS96 being percent-level accurate against
+  σ(θ*)/θ* = 2.5×10⁻⁴) — no bug.
+- The correction (P8): two multiplicative constants
+  κ_r = 1.000279376 and κ_θ = 1.001314308, calibrated on the pinned
+  official DESI chains, committed BEFORE the re-run, independent of the
+  SNe data, of the model and of the M7 cuts. Residual scatter 7.6×10⁻⁶
+  (≈ 0.03σ_prior): a constant captures nearly all of the bias.
+- This is NOT a blind pre-registration: it was decided AFTER the G5.2
+  failure and its audit (the same owned status as the P0 project's
+  Keeley recalibration). The raw table (§4) and the formal G5.2 failure
+  remain in the record; nothing is overwritten.
+- Incident documented during the calibration: the naive root assignment
+  ("the root closest to our raw value" when inverting the
+  chi2__CMB_compressed quadratic) underestimated κ_θ by about 0.02 %
+  (a low-root systematic); identified and replaced by a fixed-point
+  iteration BEFORE the constants were committed
   [MILESTONES 2026-06-11, scripts/calibrate_p8.py,
   results/calibration_p8.json].
 
-### 9.3 Union3 : produit posterior-spline (Kim 2024)
+### 9.3 Union3: a posterior-spline product (Kim 2024)
 
-Le produit public Union3 utilisé par DESI (et donc par nous) est un
-posterior binné sur 22 nœuds spline, pas une likelihood par SN ; son
-prior implicite n'est pas plat en (Ωm, w0, wa) et DESI l'emploie tel quel
-comme likelihood [Kim, arXiv:2412.14181, Secs. 3 et 5 — effet jugé
-« inconsequential » par Kim lui-même]. Nous répliquons exactement l'usage
-DESI (fichiers cobaya sn_data) ; le bras Union3 hérite de cette
-construction et n'a pas d'équivalent par-SN testable ici (aucune coupure
-M7 possible sur ce bras, d'ailleurs).
+The public Union3 product used by DESI (and therefore by us) is a
+posterior binned on 22 spline nodes, not a per-SN likelihood; its
+implicit prior is not flat in (Ωm, w0, wa) and DESI uses it as-is as a
+likelihood [Kim, arXiv:2412.14181, Secs. 3 and 5 — an effect judged
+"inconsequential" by Kim himself]. We replicate the DESI usage exactly
+(cobaya sn_data files); the Union3 arm inherits this construction and
+has no testable per-SN equivalent here (no M7 cut is possible on this
+arm, incidentally).
 
-### 9.4 Covariance Pantheon+ (Keeley et al. 2024)
+### 9.4 Pantheon+ covariance (Keeley et al. 2024)
 
 Keeley, Shafieloo & L'Huillier [arXiv:2212.07917, Universe 2024]
-mesurent χ²_ΛCDM = 1387.10 pour 1580 points, plus bas que 10 000 mocks à
-> 3.9σ ⇒ erreurs Pantheon+ surestimées d'environ 7 %. Aucun effet chiffré
-publié sur la préférence w0wa ; conformément à la règle zéro tuning,
-aucune correction appliquée — nos résultats Pantheon+ (G5.3b, M6, M7)
-héritent de la covariance telle que publiée.
+measure χ²_ΛCDM = 1387.10 for 1580 points, lower than 10 000 mocks at
+> 3.9σ ⇒ Pantheon+ errors overestimated by about 7 %. No published
+number for the effect on the w0wa preference; in line with the
+zero-tuning rule, no correction is applied — our Pantheon+ results
+(G5.3b, M6, M7) inherit the covariance as published.
 
-### 9.5 θ*/z* analytiques → CAMB (raffinement futur)
+### 9.5 Analytic θ*/z* → CAMB (future refinement)
 
-La racine du biais corrigé par P8 est structurelle : z* de Hu & Sugiyama
-1996 est calibré au niveau du pourcent (pré-RECFAST), 40× la largeur du
-prior θ*. Le raffinement propre — calculer θ* (et r_d) avec CAMB,
-recombinaison complète, comme la likelihood officielle — est hors
-périmètre v1 (SPEC : pas de Boltzmann) ; c'est le premier candidat d'une
-v2, qui rendrait P8 caduc.
+The root of the bias corrected by P8 is structural: the Hu & Sugiyama
+1996 z* is calibrated at the percent level (pre-RECFAST), 40× the θ*
+prior width. The clean refinement — computing θ* (and r_d) with CAMB,
+full recombination, like the official likelihood — is outside the v1
+scope (SPEC: no Boltzmann); it is the first candidate for a v2, which
+would make P8 obsolete.
 
-### 9.6 Dovekie : le terrain a déjà bougé (contexte, jamais un ancrage)
+### 9.6 Dovekie: the ground has already shifted (context, never an anchor)
 
-Nous répliquons l'ère DR2 par décision pré-enregistrée (GO M1 :
-« ancrages = ère DR2 exclusivement ») : DES-SN5YR épinglé au tag v1.2
-(état du papier 2024), ancrages = Tables 5-6 de arXiv:2503.14738. Depuis,
-DES a publié sa propre recalibration (Dovekie, Popovic et al. 2026,
-arXiv:2511.07517) : bug F99 corrigé, poids systématiques corrigés,
-préférence réduite de 4.2σ à **3.2σ** sur DES+CMB+DESI DR2 — chez DES
-eux-mêmes. Nos chiffres DES-SN5YR (3.84σ baseline, profil M7) décrivent
-donc le release v1.2/DR2-era, pas l'état de l'art 2026.
+We replicate the DR2 era by pre-registered decision (M1 GO: "anchors =
+DR2 era exclusively"): DES-SN5YR pinned at tag v1.2 (the state of the
+2024 paper), anchors = Tables 5-6 of arXiv:2503.14738. Since then, DES
+has published its own recalibration (Dovekie, Popovic et al. 2026,
+arXiv:2511.07517): F99 bug fixed, systematics weights fixed, preference
+reduced from 4.2σ to **3.2σ** on DES+CMB+DESI DR2 — by DES themselves.
+Our DES-SN5YR numbers (3.84σ baseline, M7 profile) therefore describe
+the v1.2/DR2-era release, not the 2026 state of the art.
 
-## §10 — Ce que ce travail ne montre PAS
+## §10 — What this work does NOT show
 
-1. **Il ne tranche pas entre « énergie noire évolutive » et
-   « systématiques SNe »**. Un profil de sensibilité localise le levier
-   statistique ; il n'identifie pas de cause. Que la préférence du bras
-   DES s'effondre sans les SNe z < 0.1 est compatible à la fois avec une
-   systématique low-z et avec la perte de l'information réelle que ces
-   SNe apportent (DESI fait la même observation, Section VII.3).
-2. **Il ne teste aucune calibration photométrique**. Pas de refit de
-   calibration, pas d'examen des magnitudes ni des offsets
-   inter-relevés : l'offset ~0.04 mag d'Efstathiou [2408.07175] et la
-   discordance d'intercept de Huang et al. [2502.04212] ne sont ici ni
-   confirmés ni infirmés — notre C-b en teste seulement la conséquence
-   d'exclusion, pas le mécanisme.
-3. **Tout est conditionnel aux datasets DR2-era épinglés et à la
-   compression CMB documentée** : bao_data v2.6, Pantheon+ c447f0f,
-   DES-SN5YR v1.2, Union3 cobaya sn_data, prior CMB compressé DESI avec
-   amendement calibré P8 (§9.2). Aucune validité revendiquée pour
-   d'autres releases (Dovekie, §9.6), pour le full CMB (§9.1), ni pour
-   d'autres paramétrisations que CPL.
-4. **Aucune conclusion physique** au-delà de : la préférence publiée se
-   reproduit dans les fenêtres pré-enregistrées, et voici son profil de
-   sensibilité low-z (SPEC, out-of-scope).
+1. **It does not adjudicate between "evolving dark energy" and "SNe
+   systematics"**. A sensitivity profile locates the statistical lever
+   arm; it does not identify a cause. That the DES arm's preference
+   collapses without the z < 0.1 SNe is compatible both with a low-z
+   systematic and with the loss of the genuine information those SNe
+   carry (DESI makes the same observation, Section VII.3).
+2. **It tests no photometric calibration**. No calibration refit, no
+   examination of magnitudes or cross-survey offsets: Efstathiou's
+   ~0.04 mag offset [2408.07175] and the intercept discordance of Huang
+   et al. [2502.04212] are neither confirmed nor refuted here — our C-b
+   only tests the consequence of exclusion, not the mechanism.
+3. **Everything is conditional on the pinned DR2-era datasets and on
+   the documented CMB compression**: bao_data v2.6, Pantheon+ c447f0f,
+   DES-SN5YR v1.2, Union3 cobaya sn_data, DESI compressed CMB prior with
+   the calibrated P8 amendment (§9.2). No validity is claimed for other
+   releases (Dovekie, §9.6), for the full CMB (§9.1), or for
+   parametrizations other than CPL.
+4. **No physics conclusion** beyond: the published preference is
+   reproduced within the pre-registered windows, and here is its low-z
+   sensitivity profile (SPEC, out-of-scope).
