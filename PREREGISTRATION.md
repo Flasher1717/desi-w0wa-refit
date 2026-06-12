@@ -251,10 +251,12 @@ après coup ne sera présentée comme résultat principal.)
 
 ### P9.2 Méthode (réplique de Keeley Sec. 2, ambiguïtés tranchées ici)
 
-- Fiducial du tirage (PRIMAIRE, à la Keeley) : flat ΛCDM, Ωm = 0.3,
-  H0 = 70 km/s/Mpc (l'offset est profilé, H0 n'est qu'une convention
-  d'écriture) ; μ fiduciel évalué aux zHD des 1829 SNe par le code
-  cosmologique existant du pipeline (oracles M4).
+- Fiducial du tirage (PRIMAIRE, à la Keeley — décision GO M10.3 : la
+  fidélité à l'étalon prime, c'est une réplication de méthode) : flat
+  ΛCDM, Ωm = 0.3, H0 = 70 km/s/Mpc, MB = −19.0 (l'offset est profilé,
+  H0 et MB n'entrent que comme convention d'écriture) ; μ fiduciel
+  évalué aux zHD des 1829 SNe par le code cosmologique existant du
+  pipeline (oracles M4).
 - Mocks : mu_mock = mu_fid + L·ξ, ξ ~ N(0, I) — soit N(mu_fid, C_totale)
   [Keeley Sec. 2 : « random noise added... drawn from a multivariate
   Gaussian characterized by the covariance matrix »].
@@ -313,26 +315,28 @@ après coup ne sera présentée comme résultat principal.)
   complet pour calibrer le coût — ses χ² ne sont ni rapportés ni
   comparés au χ² réel.
 
-### P9.5 Gate d'ancrage du pipeline mock (proposition au GO M10)
+### P9.5 Gates d'ancrage du pipeline mock (RETENUS au GO M10.2)
 
 - G11.1 (synthétique) : covariance diagonale σ²I et modèle linéaire où
   la distribution de χ²_min est connue (χ², N−2 dof effectifs après
   profil) — le percentile empirique d'une valeur de référence doit
   tomber dans ±2 % du percentile analytique.
-- G11.2 (Keeley exact, optionnel — coût ~équivalent au run DES) :
-  re-dérouler le test complet sur Pantheon+ en configuration Keeley
-  (zHD > 0.01 ET IS_CALIBRATOR = 0, N = 1580 — le compte 1580 inclut
-  TOUJOURS la clause calibrateurs, cf. erratum P0 v1.1.1) ; gates :
-  χ²_min réel reproduit à |Δχ²| ≤ 1.0 de 1387.10 (gate P0) ET
-  k = 0 sur 10 000 mocks (résultat publié de Keeley). Si Téo refuse le
-  coût, G11.1 seul ancre le pipeline et G11.2 est consigné « non run ».
+- G11.2 (Keeley exact, RETENU — GO M10.2 : « sans étalon P+, le verdict
+  V1 sur DES serait inédit ET invérifiable ; avec lui, il est
+  étalonné ») : re-dérouler le test complet sur Pantheon+ en
+  configuration Keeley (zHD > 0.01 ET IS_CALIBRATOR = 0, N = 1580 —
+  le compte 1580 inclut TOUJOURS la clause calibrateurs, cf. erratum
+  P0 v1.1.1) ; gates : χ²_min réel reproduit à |Δχ²| ≤ 1.0 de 1387.10
+  (gate P0) ET p_P+ ≤ 0.0027 (cohérent avec le « 0/10 000 » publié de
+  Keeley). Seeds : derive_seed(f"m11-v1pp-mock-{i}").
 
 ## P10 — V2 : décomposition leave-one-group-out (M12)
 
 ### P10.1 Grille des groupes (CLOSE — aucune addition après les
 ### premiers chiffres ; tailles post-coupure de chargement zHD > 0.01)
 
-Bras BAO+CMB+Pantheon+ (baseline gelée N = 1590) — 5 groupes :
+Bras BAO+CMB+Pantheon+ (baseline gelée N = 1590) — 5 groupes
++ 1 ligne agrégée (AMENDEMENT GO M10.4, figé ici avant tout run) :
 
 | Groupe | IDSURVEY | N retiré | N restant |
 |---|---|---|---|
@@ -341,10 +345,24 @@ Bras BAO+CMB+Pantheon+ (baseline gelée N = 1590) — 5 groupes :
 | Foundation | 150 | 173 | 1417 |
 | misc low-z | 18, 50, 51, 56, 57 | 201 | 1389 |
 | DES (dans P+) | 10 | 203 | 1387 |
+| (agrégé) CfA+CSP | 61-66, 5 | 233 | 1357 |
 
 (SDSS 1, SNLS 4, PS1 15, HST 100/101/106 ne sont JAMAIS retirés —
 SPEC V2.1 ne nomme que les groupes ci-dessus ; dans le bloc low-z les
 4 premiers groupes le partitionnent exactement.)
+
+- RÉUTILISATION GELÉE (zéro nouveau fit, conforme « V2 réutilise le
+  pipeline et les baselines tels quels ») : la ligne agrégée CfA+CSP
+  du bras P+ est, par composition, EXACTEMENT le sous-échantillon C-b
+  de M7 (exclusion 61-66 + 5, Foundation conservé, N = 1357,
+  subset_sha256 eba5ac7c… consigné dans results/m7_cuts.json) ; idem
+  la ligne primaire CfA+CSP du bras DES = C-b DES de M7 (N = 1753).
+  Pour ces DEUX lignes, les colonnes de fit (Δχ²_MAP, Nσ, ΔNσ, w0, wa,
+  Δw0, Δwa) sont REPRISES TELLES QUELLES de results/m7_cuts.json (gelé,
+  fait foi) ; seules les colonnes σ_curv sont calculées, par pures
+  évaluations FD au MAP gelé `w0wa_params` de C-b (même statut que les
+  σ_curv des baselines, P10.3). Test de cohérence : le masque LOO
+  reproduit byte-à-byte le subset_sha256 consigné en M7.
 
 Bras BAO+CMB+DES-SN5YR (baseline gelée N = 1829) — 3 groupes primaires
 + 2 sous-lignes descriptives :
@@ -418,8 +436,14 @@ principal.)
   sortie UNIQUEMENT dans le nouveau results/m12_loo.json.
 - AUCUN fichier results/*.json de v1.0.0 n'est modifié ; non-régression
   (SPEC V2.1 [TESTS]) : les tests de traçabilité v1.0.0 restent verts.
-- Coût estimé (chronométrages M7) : 7 lignes primaires + 2 descriptives
-  = 18 fits ≈ 1.5-2 h.
+- Décompte (amendement GO M10.4) : lignes FRAÎCHES = 5 (P+ : CfA, CSP,
+  Foundation, misc low-z, DES-in-P+) + 4 (DES : Foundation, DES,
+  desc. CfA seul, desc. CSP seul) = 9 lignes × 2 modèles = 18 fits ;
+  les 2 lignes CfA+CSP (P+ agrégée, DES primaire) sont REPRISES de
+  m7_cuts.json (zéro fit). Correction d'arithmétique vs la version du
+  STOP M10 (qui annonçait « 7 lignes primaires + 2 descriptives =
+  18 fits » : c'était 8 + 2 = 20 ; l'amendement ramène bien à 18).
+- Coût estimé (chronométrages M7) : ≈ 1.5-2 h.
 
 ## P11 — V3 : SNe communes appariées (M13)
 
@@ -441,14 +465,23 @@ principal.)
 ### P11.2 Tier R — réplication Efstathiou Table 1 (gate d'ancrage,
 ### statut de non-aveuglement DÉCLARÉ)
 
-- TRANSPARENCE : la règle d'appariement d'Efstathiou n'est PAS énoncée
-  dans arXiv:2408.07175 ; elle a été rétro-ingéniérée en M10 (revue
-  croisée + vérification indépendante par script jetable), ce qui a
+- TRANSPARENCE (décision GO M10.1, même statut assumé que P8) : la
+  règle d'appariement d'Efstathiou n'est PAS énoncée dans
+  arXiv:2408.07175 ; elle a été rétro-ingéniérée en M10 (revue croisée
+  + vérification indépendante par script jetable), ce qui a
   nécessairement produit les chiffres de réplication AVANT ce
-  pré-enregistrement. G13.x est donc un gate de REPRODUCTIBILITÉ
-  PIPELINE sur des nombres connus au moment du gel (même statut assumé
-  que P8) — le contenu AVEUGLE de V3 est le Tier P (P11.3), dont la
-  statistique principale n'a PAS été calculée en M10.
+  pré-enregistrement. CE QUI A ÉTÉ VU en M10 : l'intégralité des
+  chiffres Tier R (comptes 145/118/14/27/18/3/7/187 ; moyennes de
+  groupe −0.0122…−0.0482 ; SEM ; différentiel −0.0360 ; max |Δz| ;
+  identités des non-appariées et des cross-survey). CE QUI N'A PAS ÉTÉ
+  CALCULÉ : toute quantité Tier P (P11.3) — aucun Δμ = MU_SH0ES −
+  MU_DES, aucune moyenne de groupe sous cette définition, ni S, ni
+  l'application de la règle des doublons. HONNÊTETÉ SUPPLÉMENTAIRE :
+  le Tier P n'est « aveugle » qu'au sens strict du non-calcul — sa
+  valeur attendue est fortement contrainte par les chiffres Tier R
+  déjà vus (statistiques étroitement corrélées sur ~les mêmes paires) ;
+  il ne sera pas présenté comme une prédiction indépendante. G13.x est
+  un gate de REPRODUCTIBILITÉ PIPELINE sur des nombres connus au gel.
 - Méthode (Efstathiou Sect. 3, Table 1 « tab:magfits ») : paires
   même-survey (clé normalisée + même IDSURVEY dans les deux releases) ;
   Δ_i = m_b_corr − (MU − 19.33) [Eq. 2 « equ:calib » ; la constante
@@ -468,9 +501,12 @@ principal.)
     « ~0.04 mag » du papier, quantité invariante de zéro).
   - SEM comparés aux valeurs CORRIGÉES (DES 0.0055, FOUND 0.0070,
     all low-z 0.0058) — les ±0.0006/±0.0007 imprimés de la Table 1
-    sont des typos décimales ×10 (démontré M10 : la convention SEM
-    reproduit exactement les 5 autres erreurs imprimées) ; documenté
-    en RESULTS.md §11, jamais utilisé comme cible.
+    sont d'apparentes typos décimales ×10 (démontré M10 : la
+    convention SEM reproduit exactement les 5 autres erreurs
+    imprimées) ; documenté en RESULTS.md §11 avec la démonstration
+    complète, formulé prudemment (« apparent decimal typos in the
+    printed uncertainties », décision GO M10.1), jamais utilisé comme
+    cible.
   - 1304442 INCLUS en Tier R (le N = 145 d'Efstathiou l'inclut).
 - Trois z_median de la Table 1 (CFA3S 0.037, CFA4P3 0.033, CSP 0.038)
   ne se recomputent ni sur zHD ni sur zCMB (nos valeurs : 0.034-0.035,
@@ -499,9 +535,14 @@ principal.)
   inverse-variance catalogue.
 - Incertitude SECONDAIRE pré-enregistrée : erreurs « covariance-aware »
   utilisant les sous-blocs appariés des covariances publiées des deux
-  releases ; LIMITATION EXPLICITE : la corrélation CROSS-release
-  (photométrie low-z partagée) est inconnue et NON modélisée — l'erreur
-  secondaire n'est pas une erreur jointe complète (RESULTS.md §11).
+  releases ; LIMITATION EXPLICITE (AMENDEMENT GO M10, A2) : les
+  corrélations INTER-release des Δμ (les deux compilations standardisent
+  largement les MÊMES courbes de lumière sources pour les communes) sont
+  inconnues et NON modélisées — les erreurs publiées des catalogues ne
+  sont donc PAS une mesure valide de l'incertitude des Δμ ; la
+  dispersion EMPIRIQUE des Δμ est LA mesure d'incertitude primaire du
+  Tier P, et l'erreur secondaire « covariance-aware » n'est pas une
+  erreur jointe complète (RESULTS.md §11).
 - EXCLUSION pré-enregistrée du Tier P primaire : 1304442 (zHD révisé
   entre releases : 0.22449 P+ vs 0.21711 DES, |Δz| = 0.0074 — μ non
   comparables à z fixé) ; ligne de sensibilité avec/sans rapportée.

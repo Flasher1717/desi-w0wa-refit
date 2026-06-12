@@ -425,3 +425,33 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
 - STOP M10 : AUCUN run M11-M13 effectué ; les seuls calculs sont
   l'extraction/appariement demandés par M10(b) et la vérification de la
   règle. Attente du GO de Téo (questions ouvertes listées en session).
+
+## 2026-06-12 — GO M10 de Téo : 5 décisions + 2 amendements, P9-P11 gelés
+
+- D1 : gate d'ancrage Efstathiou RETENU (G13.1-G13.3, tolérances du
+  STOP) ; P11.2 précise EXACTEMENT ce qui a été vu en M10 (tous les
+  chiffres Tier R) et ce qui ne l'a pas été (tout le Tier P) + caveat
+  d'honnêteté : le Tier P n'est aveugle qu'au sens du non-calcul, sa
+  valeur attendue étant contrainte par le Tier R. Typos SEM Table 1 :
+  documentées §11 avec démonstration, formulation prudente
+  (« apparent decimal typos »).
+- D2 : G11.2 (étalon Keeley sur Pantheon+, 10 000 mocks) RETENU,
+  gate p_P+ ≤ 0.0027 + |Δχ²| ≤ 1.0 de 1387.10.
+- D3 : fiducial V1 primaire = Keeley fixe (Ωm 0.3, H0 70, MB −19.0) ;
+  best-fit en secondaire non gating.
+- D4 + AMENDEMENT 1 : grille DES 3 primaires + 2 sous-lignes ; ajout
+  côté P+ d'une ligne AGRÉGÉE CfA+CSP. Mise en œuvre conforme
+  « résultats gelés » : les 2 lignes CfA+CSP (P+ agrégée N=1357, DES
+  primaire N=1753) sont par composition EXACTEMENT les C-b de M7 →
+  colonnes de fit REPRISES de results/m7_cuts.json (zéro nouveau fit),
+  σ_curv par évaluations FD au MAP gelé w0wa_params (vérifié présent
+  dans le JSON), test de cohérence sur subset_sha256. Décompte
+  corrigé : 9 lignes fraîches = 18 fits (la version STOP annonçait
+  « 7+2 = 18 », c'était 8+2 = 20 ; l'amendement ramène à 18).
+- D5 : doublons Tier P = même-survey > plus petite m_b_corr_err_DIAG >
+  tie-break IDSURVEY ; combinaison covariance en secondaire.
+- AMENDEMENT 2 : P11.3 explicite que les corrélations INTER-release
+  des Δμ ne sont pas modélisées et que la dispersion empirique des Δμ
+  est LA mesure d'incertitude primaire du Tier P.
+- Séquence accordée : M11 → M12 → M13 d'une traite, STOP fin M13
+  (rapport chiffré des 3 volets). P9-P11 GÈLENT à leurs premiers runs.
