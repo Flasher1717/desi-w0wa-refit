@@ -330,3 +330,31 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   tout vert à la fermeture (98 tests). JAMAIS pushé.
 - STOP fin M8 : relecture de RESULTS.md complet par Téo AVANT M9
   (release, tag et push attendent cette relecture).
+
+## 2026-06-11 — GO M9 conditionnel de Téo, conditions levées
+
+- Condition 1 — traduction anglaise intégrale de RESULTS.md et README
+  (public international) : faite, numérotation de sections et chiffres
+  identiques ; VF conservée en RESULTS.fr.md (note d'en-tête) ; les
+  8 tests de traçabilité re-exécutés verts post-traduction (98 tests au
+  total). Déviation documentée : la règle CLAUDE.md « docs *.md en
+  français » est levée par ce GO pour les deux documents publics ;
+  SPEC/MILESTONES/PROGRESS/PREREGISTRATION restent en français.
+- Condition 2 — réserve §2.2 (sélection Pantheon+) LEVÉE, aux sources :
+  cobaya `sn.pantheonplus` (likelihood « without SH0ES », l'usage DESI)
+  lit zHD et masque `> 0.01` ; identique dans
+  `Pantheon+_only_cosmosis_likelihood.py` du release épinglé c447f0f
+  (`ww = data['zHD'] > 0.01`), calibrateurs inclus comme SNe ordinaires
+  → 1590/1701 = notre implémentation exacte. Le 1580 (Keeley 2024) est
+  le compte du MODE SH0ES : masque `(zHD > 0.01) | IS_CALIBRATOR`,
+  calibrateurs comparés aux distances Céphéides → 1590 − 10 = 1580
+  (vérifié sur le fichier épinglé : 77 calibrateurs, 10 au-dessus de la
+  coupure). NB : « 1580 » n'apparaît pas dans Brout et al. 2022
+  (vérifié sur les textes arXiv et ApJ).
+- M9 engagé : repo public Flasher1717/desi-w0wa-refit, identité git
+  locale vérifiée (Téo Alletz <teo.alletz@gmail.com>), compte gh
+  basculé Kodiaquebec → Flasher1717 AVANT toute opération GitHub ;
+  branche master renommée main (la CI committée ne se déclenche que sur
+  main) ; ordre imposé : push → CI verte matrice complète → tag v1.0.0
+  → release factuelle zéro adjectif. Rien d'autre ne change — ni
+  chiffre, ni test.
