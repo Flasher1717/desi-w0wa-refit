@@ -104,18 +104,37 @@ class SNSample:
         """The constant ln(c / 2 pi) kept by the official DES convention."""
         return float(np.log(self._one_cinv_one / (2.0 * np.pi)))
 
+    @property
+    def cholesky_lower(self) -> FloatArray:
+        """Lower Cholesky factor L (L L^T = cov), the SAME factor the chi2
+        uses; mock noise draws are L @ xi [PREREGISTRATION.md P9.2]."""
+        return np.tril(self._cho[0])
+
     def chi2_marginalized(self, mu_model: FloatArray) -> float:
         """Offset-marginalized chi-squared, a - b^2/c [Goliath A9-A12]."""
+        return self.chi2_marginalized_with_mag(self.mag, mu_model)
+
+    def chi2_marginalized_with_mag(self, mag: FloatArray, mu_model: FloatArray) -> float:
+        """Same offset-profiled a - b^2/c for an alternative magnitude
+        vector (M11 mock draws use the identical code path as the real
+        data, PREREGISTRATION.md P9.2)."""
+        if mag.shape != self.mag.shape:
+            raise ValueError(f"{self.name}: mag shape {mag.shape} != data shape {self.mag.shape}")
         if mu_model.shape != self.mag.shape:
             raise ValueError(
                 f"{self.name}: model shape {mu_model.shape} != data shape {self.mag.shape}"
             )
         if not np.isfinite(mu_model).all():
             raise ValueError(f"{self.name}: model contains non-finite entries")
-        delta = self.mag - mu_model
+        delta = mag - mu_model
         a = float(delta @ cho_solve(self._cho, delta))
         b = float(delta @ self._cinv_one)
         return a - b * b / self._one_cinv_one
+
+    def profiled_offset(self, mag: FloatArray, mu_model: FloatArray) -> float:
+        """The analytically profiled additive offset b/c [Goliath eq. 21]."""
+        delta = mag - mu_model
+        return float((delta @ self._cinv_one) / self._one_cinv_one)
 
     def subset(self, mask: BoolArray) -> SNSample:
         """Sub-sample (data vector and covariance) selected by a boolean mask."""
@@ -152,15 +171,14 @@ def _read_named_columns(
     return out
 
 
-def load_pantheon_plus(dat_path: Path, cov_path: Path, *, z_min: float = 0.01) -> SNSample:
-    """Load Pantheon+ with the cosmology cut zHD > z_min (default 0.01).
+def _read_pantheon_plus_covariance(cov_path: Path) -> FloatArray:
+    """Read and symmetrize the released Pantheon+ STAT+SYS covariance.
 
-    The released STAT+SYS file carries last-printed-digit rounding
-    asymmetries (778 entries, max |C - C^T| = 3e-8 measured at first
-    download); it is symmetrized here under a hard 1e-7 guard. The
-    official consumers (cobaya, the DES script) never check symmetry.
+    The file carries last-printed-digit rounding asymmetries (778
+    entries, max |C - C^T| = 3e-8 measured at first download); it is
+    symmetrized here under a hard 1e-7 guard. The official consumers
+    (cobaya, the DES script) never check symmetry.
     """
-    cols = _read_named_columns(dat_path, ("zHD", "zHEL", "m_b_corr", "IDSURVEY"))
     cov = read_packed_covariance(cov_path)
     max_asymmetry = float(np.abs(cov - cov.T).max())
     if max_asymmetry > 1e-7:
@@ -168,16 +186,42 @@ def load_pantheon_plus(dat_path: Path, cov_path: Path, *, z_min: float = 0.01) -
             f"{cov_path}: asymmetry {max_asymmetry} exceeds the documented "
             "release-rounding level (1e-7); investigate before symmetrizing"
         )
-    cov = 0.5 * (cov + cov.T)
+    return 0.5 * (cov + cov.T)
+
+
+def load_pantheon_plus(dat_path: Path, cov_path: Path, *, z_min: float = 0.01) -> SNSample:
+    """Load Pantheon+ with the cosmology cut zHD > z_min (default 0.01)."""
+    cols = _read_named_columns(dat_path, ("zHD", "zHEL", "m_b_corr", "IDSURVEY"))
     full = SNSample(
         name="PantheonPlus",
         z_cmb=cols["zHD"],
         z_hel=cols["zHEL"],
         mag=cols["m_b_corr"],
-        cov=cov,
+        cov=_read_pantheon_plus_covariance(cov_path),
         survey_ids=cols["IDSURVEY"],
     )
     return full.subset(full.z_cmb > z_min)
+
+
+def load_pantheon_plus_keeley(dat_path: Path, cov_path: Path) -> SNSample:
+    """Load Pantheon+ in the Keeley/SH0ES-mode selection (N = 1580).
+
+    Selection: zHD > 0.01 AND IS_CALIBRATOR == 0 [Keeley et al.,
+    arXiv:2212.07917v3 Sec. 2]. The 1580 count always includes the
+    calibrator clause (P0 erratum v1.1.1; RESULTS.md section 2.2:
+    zHD > 0.01 alone gives 1590, minus the 10 calibrators above the
+    cut gives 1580). Used by the M11 G11.2 anchor run only.
+    """
+    cols = _read_named_columns(dat_path, ("zHD", "zHEL", "m_b_corr", "IDSURVEY", "IS_CALIBRATOR"))
+    full = SNSample(
+        name="PantheonPlus-Keeley",
+        z_cmb=cols["zHD"],
+        z_hel=cols["zHEL"],
+        mag=cols["m_b_corr"],
+        cov=_read_pantheon_plus_covariance(cov_path),
+        survey_ids=cols["IDSURVEY"],
+    )
+    return full.subset((full.z_cmb > 0.01) & (cols["IS_CALIBRATOR"] == 0.0))
 
 
 def load_des_sn5yr(hd_path: Path, cov_path: Path) -> SNSample:
