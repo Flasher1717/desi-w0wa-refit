@@ -5,11 +5,32 @@
 
 ## Jalon en cours
 
-AUCUN — M0→M9 terminés le 2026-06-11. v1.0.0 publiée :
-https://github.com/Flasher1717/desi-w0wa-refit/releases/tag/v1.0.0
-(CI matrice complète verte avant le tag). Projet en veille.
+**M10 — STOP atteint le 2026-06-12, EN ATTENTE DU GO de Téo.**
+Extension P2.1 ouverte (SPEC_V21.md committé, immuable ; jalons M10-M14).
+Extraction multi-agents + vérification faites ; PREREGISTRATION.md étendu
+(P9 V1-mocks, P10 V2-LOO, P11 V3-appariement) ; entrée MILESTONES.md M10.
+AUCUN run M11-M13 effectué. Prochain pas : GO M10 de Téo (questions
+ouvertes : gate G11.2 Keeley-P+ optionnel ~25-40 min de calcul ;
+fiducial primaire V1 = Keeley fixe Ωm 0.3 ; grille DES 3+2 ;
+règle doublons Tier P ; acceptation du statut non aveugle du gate
+Efstathiou Tier R) → puis M11 (V1), M12 (V2 ~1.5-2 h), M13 (V3, STOP
+rapport), M14 (§11 + v1.1.0 après GO push).
 
-## Récapitulatif v1.0.0
+## Acquis M10 (2026-06-12)
+
+- Règle d'appariement Efstathiou rétro-ingéniérée et vérifiée 2× :
+  paires même-survey → Table 1 reproduite au dernier chiffre
+  (332 paires, 145/118/14/27/18/3/7, all-low-z −0.0482, diff −0.0360) ;
+  typos ×10 démontrées sur 2 erreurs imprimées (vraies : 0.0055/0.0070).
+- Tier P : 335 objets communs ; exclusion pré-enregistrée 1304442
+  (zHD révisé) ; 4 absences réelles low-z ; 3 cross-survey CfA3K/CSP.
+- DES-SN5YR : pas d'IDSURVEY 61/62/18/50/51/56/57 ; CfA=63-66 (68),
+  CSP=5 (8), Foundation=150 (118), DES=10 (1635).
+- Keeley Sec. 2 extrait (fiducial fixe Ωm 0.3/H0 70, 10 000 mocks,
+  χ²_min refit (H0,Ωm,MB), 0/10⁴ → >3.9σ two-sided non énoncé) ;
+  P0 (C:\JJP-JANUS) : χ² réel répliqué 1387.099, AUCUN test mock.
+
+## Récapitulatif v1.0.0 (GELÉ)
 
 - M5b : 6/6 gates d'ancrage verts (BAO+CMB exact : Δχ² = −8.023 vs −8.0
   publié) ; pipeline brut et amendement calibré P8 tous deux au dossier.

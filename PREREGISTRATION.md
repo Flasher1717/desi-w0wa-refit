@@ -221,3 +221,301 @@ après coup ne sera présentée comme résultat principal.)
   constantes, STOP — bascule sur l'option (a) (limitation documentée),
   sans itération supplémentaire.
 - CAMB/CLASS restent hors périmètre v1 (raffinement futur mentionné en M8).
+
+---
+
+# Extension P2.1 (SPEC_V21.md) — P9-P11, committés au STOP M10
+
+> Rédigés en M10 (2026-06-12), AVANT tout run M11-M13, soumis au GO M10 de
+> Téo. Mêmes règles : chaque section gèle au premier run qui la concerne ;
+> toute déviation est documentée dans RESULTS.md. Sources extraites en M10
+> par revue multi-agents + vérification indépendante (MILESTONES.md,
+> entrée M10) : Keeley, Shafieloo & L'Huillier arXiv:2212.07917v3 Sec. 2 ;
+> Efstathiou arXiv:2408.07175v3 Sect. 2-3, Table 1 ; fichiers épinglés
+> data_manifest.json (les SHA256 existants font foi, DES-SN5YR tag v1.2).
+
+## P9 — V1 : Keeley-test sur la covariance DES-SN5YR (M11)
+
+### P9.1 Échantillon et covariance
+
+- Échantillon : les 1829 SNe de data/DES-SN5YR_HD.csv épinglé, SANS
+  coupure (zHD min = 0.0251 ; pas de calibrateurs dans cette release —
+  il n'existe pas d'analogue à la sélection « z > 0.01, hors SH0ES »
+  de Keeley, fait documenté, pas une décision).
+- Covariance : C_totale = STAT+SYS + diag(MUERR_FINAL²), exactement
+  telle que la construit `load_des_sn5yr()` (sne.py) — la MÊME matrice
+  pour le tirage du bruit ET pour le χ², même facteur de Cholesky
+  inférieur (caché) pour les deux usages (Keeley ne spécifie pas la
+  factorisation ; nous la fixons : Cholesky inférieur).
+- Colonne de redshift : zHD (même convention que tout le pipeline v1).
+
+### P9.2 Méthode (réplique de Keeley Sec. 2, ambiguïtés tranchées ici)
+
+- Fiducial du tirage (PRIMAIRE, à la Keeley) : flat ΛCDM, Ωm = 0.3,
+  H0 = 70 km/s/Mpc (l'offset est profilé, H0 n'est qu'une convention
+  d'écriture) ; μ fiduciel évalué aux zHD des 1829 SNe par le code
+  cosmologique existant du pipeline (oracles M4).
+- Mocks : mu_mock = mu_fid + L·ξ, ξ ~ N(0, I) — soit N(mu_fid, C_totale)
+  [Keeley Sec. 2 : « random noise added... drawn from a multivariate
+  Gaussian characterized by the covariance matrix »].
+- Par mock, refit ΛCDM : Ωm seul paramètre non linéaire, borné
+  [0.01, 1.0], `scipy.optimize.minimize_scalar` bounded, xatol = 1e-8
+  (configuration P0 validée à ~1e-8 contre la minimisation explicite de
+  l'offset) ; offset additif unique PROFILÉ analytiquement
+  (A − B²/E, Goliath 2001 eq. 21). Keeley « varie (H0, Ωm, MB) » sans
+  nommer de minimiseur ; H0-MB sont exactement dégénérés SN-only — le
+  profil analytique est l'implémentation que nous fixons. Le χ² cité
+  est le χ² PROFILÉ A − B²/E (PAS chi2_marginalized de sne.py, qui
+  ajoute le terme log-déterminant de la marginalisation Goliath
+  A9-A12 ; la constante ln-terme, identique pour données et mocks,
+  sera rapportée explicitement si elle apparaît dans un chiffre).
+- IDENTIQUE chemin de code pour le χ²_min des données réelles et celui
+  de chaque mock (symétrie que Keeley implique sans l'énoncer).
+- Politique d'échec : un mock dont l'optimiseur touche une borne Ωm ou
+  ne converge pas est flagué et compté ; si > 1 % des mocks sont
+  flagués, STOP audit avant toute interprétation.
+
+### P9.3 N, seeds, statistique et seuils
+
+- N_mocks = 10 000 (comme Keeley). Plancher de résolution déclaré :
+  p ≥ 1/10001.
+- Seeds : générateur numpy default_rng (PCG64) ; seed du mock i =
+  derive_seed(f"m11-v1-mock-{i}") depuis ROOT_SEED = 20260611 (schéma
+  P7 inchangé).
+- Statistique PRIMAIRE : p = (k+1)/(N+1), k = #{χ²_min,mock < χ²_min,réel},
+  queue BASSE one-sided (celle que Keeley teste). Rapportés en
+  complément : les deux conversions gaussiennes de p (one-sided et
+  two-sided, la two-sided étiquetée « comparaison Keeley » — son
+  « > 3.9σ » pour 0/10 000 correspond à la conversion two-sided,
+  convention qu'il n'énonce pas).
+- Seuils d'interprétation FIGÉS (pas de gate d'ancrage : personne n'a
+  publié ce test sur DES) : « χ² anormalement bas » si p < 0.0027
+  (équivalent 3σ two-sided) ; « compatible » si 0.0027 ≤ p ≤ 0.9973 ;
+  « queue haute anormale » sinon. Quel que soit le verdict : rapporté
+  tel quel, zéro correction (SPEC V2.1, M11).
+- Référence analytique en CONTEXTE (non gating) : χ²(N dof), N = 1829,
+  dof = N à la Keeley (sans soustraction des paramètres ajustés —
+  son choix, documenté comme tel).
+
+### P9.4 Livrables secondaires pré-enregistrés (non gating)
+
+- (a) Run répété avec fiducial au best-fit Ωm SN-only DES réel du
+  pipeline (le χ²_min est fiducial-indépendant dans la direction
+  linéaire profilée mais pas en Ωm — sensibilité quantifiée au lieu
+  d'être laissée en ambiguïté). Seeds : derive_seed(f"m11-v1b-mock-{i}").
+- (b) Variante excluant les 75 lignes MUERR_FINAL > 1 (poids BEAMS,
+  particularité DES sans analogue Pantheon+) — tirage et χ² sur la
+  sous-matrice 1754×1754. Seeds : derive_seed(f"m11-v1c-mock-{i}").
+- (c) Diagnostics descriptifs à la Keeley : std des résidus normalisés
+  du best-fit réel ; δ² soustrait de la diagonale tel que χ²_min = N.
+- Pilote technique : un run de chronométrage de 50 mocks (seeds du
+  stream primaire), déclaré NON scientifique, autorisé avant le run
+  complet pour calibrer le coût — ses χ² ne sont ni rapportés ni
+  comparés au χ² réel.
+
+### P9.5 Gate d'ancrage du pipeline mock (proposition au GO M10)
+
+- G11.1 (synthétique) : covariance diagonale σ²I et modèle linéaire où
+  la distribution de χ²_min est connue (χ², N−2 dof effectifs après
+  profil) — le percentile empirique d'une valeur de référence doit
+  tomber dans ±2 % du percentile analytique.
+- G11.2 (Keeley exact, optionnel — coût ~équivalent au run DES) :
+  re-dérouler le test complet sur Pantheon+ en configuration Keeley
+  (zHD > 0.01 ET IS_CALIBRATOR = 0, N = 1580 — le compte 1580 inclut
+  TOUJOURS la clause calibrateurs, cf. erratum P0 v1.1.1) ; gates :
+  χ²_min réel reproduit à |Δχ²| ≤ 1.0 de 1387.10 (gate P0) ET
+  k = 0 sur 10 000 mocks (résultat publié de Keeley). Si Téo refuse le
+  coût, G11.1 seul ancre le pipeline et G11.2 est consigné « non run ».
+
+## P10 — V2 : décomposition leave-one-group-out (M12)
+
+### P10.1 Grille des groupes (CLOSE — aucune addition après les
+### premiers chiffres ; tailles post-coupure de chargement zHD > 0.01)
+
+Bras BAO+CMB+Pantheon+ (baseline gelée N = 1590) — 5 groupes :
+
+| Groupe | IDSURVEY | N retiré | N restant |
+|---|---|---|---|
+| CfA | 61, 62, 63, 64, 65, 66 | 157 | 1433 |
+| CSP | 5 | 76 | 1514 |
+| Foundation | 150 | 173 | 1417 |
+| misc low-z | 18, 50, 51, 56, 57 | 201 | 1389 |
+| DES (dans P+) | 10 | 203 | 1387 |
+
+(SDSS 1, SNLS 4, PS1 15, HST 100/101/106 ne sont JAMAIS retirés —
+SPEC V2.1 ne nomme que les groupes ci-dessus ; dans le bloc low-z les
+4 premiers groupes le partitionnent exactement.)
+
+Bras BAO+CMB+DES-SN5YR (baseline gelée N = 1829) — 3 groupes primaires
++ 2 sous-lignes descriptives :
+
+| Groupe | IDSURVEY | N retiré | N restant |
+|---|---|---|---|
+| CfA+CSP | 5, 63, 64, 65, 66 | 76 | 1753 |
+| Foundation | 150 | 118 | 1711 |
+| DES | 10 | 1635 | 194 |
+| (desc.) CfA seul | 63, 64, 65, 66 | 68 | 1761 |
+| (desc.) CSP seul | 5 | 8 | 1821 |
+
+- Le fichier DES ne contient AUCUN IDSURVEY 61/62 ni 18/50/51/56/57
+  (mesuré M10) : « même métrique pour les deux bras » = même MÉTRIQUE,
+  appartenances par bras tabulées ci-dessus. CfA+CSP fusionné en
+  primaire côté DES (miroir exact de l'exclusion C-b de M7) parce que
+  CSP-DES N = 8 produit un ΔNσ au niveau du bruit de reproductibilité
+  de l'optimiseur ; les deux sous-lignes restent rapportées avec
+  caveat petit-N explicite.
+- Les groupes sont identifiés par codes IDSURVEY entiers (les noms ne
+  figurent pas dans les CSV ; mapping standard SNANA cité en
+  RESULTS.md §11).
+
+### P10.2 Métrique (FIGÉE, un tableau par bras, même format)
+
+| Groupe retiré | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | Δw0 | Δwa | σ_curv(w0) | σ_curv(wa) | Δσ_curv(w0) | Δσ_curv(wa) |
+
+(baseline = bras complet GELÉ de results/m5_fits_corrected.json ;
+aucune statistique décidée après coup ne sera présentée comme résultat
+principal.)
+
+### P10.3 σ_curv : définition (nouvelle quantité dérivée)
+
+- Hessienne H de arm.chi2_w0wa par différences finies centrées
+  (stencil 4 points pour les termes croisés) au MAP, dans l'espace à
+  5 paramètres (Ωm, h, ωb h², w0, wa) ; F = H/2 ; C = 2 H⁻¹ ;
+  σ_curv(w0) = √C[w0,w0], σ_curv(wa) = √C[wa,wa].
+- Pas FIXES : δΩm = 1e-3, δh = 1e-3, δωbh² = 1e-4, δw0 = 1e-2,
+  δwa = 3e-2 — assez grands pour dominer le plancher de bruit
+  optimiseur (fatol 1e-10, reproductibilité ~1e-9), vérifiés contre
+  les bornes avant différenciation.
+- σ_curv des BASELINES : évaluations de χ² au MAP GELÉ lu dans
+  m5_fits_corrected.json — de pures évaluations, PAS un re-fit (le
+  gradient résiduel au point JSON-arrondi est documenté, jamais
+  re-optimisé).
+- Caveat pré-enregistré : σ_curv suppose un pic gaussien ; les
+  marginales m6 de wa sont asymétriques (P+ p16/p84 = −0.769/−0.333) —
+  σ_curv(wa) sous-estimera l'écart-type MCMC ; rapporté comme quantité
+  de courbure, jamais comme intervalle de posterior. Cohérence (non
+  gating) : comparaison aux σ m6 gelés (P+ : 0.0555/0.2205 ;
+  DES : 0.0584/0.2387).
+
+### P10.4 Politique boundary-MAP et lignes dégénérées
+
+- Si le MAP w0waCDM d'une ligne est à moins de 2 pas FD d'une borne de
+  la boîte de priors OU si |w0 + wa| < 0.05 (mur du prior dur
+  w0+wa < 0) : ligne flaguée « boundary MAP », σ_curv NON rapporté,
+  χ²/Δχ²/Nσ rapportés descriptivement. Cas attendu : la ligne
+  DES-retiré (N = 194, tout à z < 0.093, surface (w0, wa) plate).
+- Sous-matrice de covariance non définie-positive à la découpe :
+  la LIGNE avorte (consignée), pas le run.
+
+### P10.5 Implémentation et coût
+
+- Nouveau script scripts/run_m12_loo.py, clone du pattern
+  run_m7_cuts.py : subset par masque survey_ids, sample_hash (SHA256)
+  consigné AVANT tout fit, mêmes nombres de départs (24 ΛCDM /
+  40 w0waCDM), noms de runs « m12-<sample>-loo-<group>-<model> »
+  (streams de seeds FRAIS via derive_seed — zéro collision avec les
+  streams m5/m7 gelés), baselines lues de results/m5_fits_corrected.json,
+  sortie UNIQUEMENT dans le nouveau results/m12_loo.json.
+- AUCUN fichier results/*.json de v1.0.0 n'est modifié ; non-régression
+  (SPEC V2.1 [TESTS]) : les tests de traçabilité v1.0.0 restent verts.
+- Coût estimé (chronométrages M7) : 7 lignes primaires + 2 descriptives
+  = 18 fits ≈ 1.5-2 h.
+
+## P11 — V3 : SNe communes appariées (M13)
+
+### P11.1 Règle d'appariement (établie M10 depuis les fichiers réels)
+
+- CID lus comme STRINGS (49 CID Pantheon+ ont des zéros de tête) ;
+  normalisation : strip, lowercase, suppression du préfixe « sn »
+  UNIQUEMENT si suivi d'un chiffre (protège « SNF20080514-002 »,
+  fusionne l'incohérence interne P+ « 2016coj »/« SN2016coj ») ;
+  appariement par égalité exacte de la clé normalisée ; garde-fou
+  |zHD_PP − zHD_DES| < 0.01 par paire.
+- Comptes ÉPINGLÉS (mesurés M10, vérifiés deux fois indépendamment,
+  fixés en test pytest) : 335 objets communs (Tier P) ; 332 paires
+  même-survey (Tier R) ; 4 low-z DES sans contrepartie P+ (2001ay,
+  2004gc, 2007ob, 2007R — absences réelles, pas des écarts de
+  nommage) ; 3 objets Tier-P-seulement (2005hj, 2005ir, 2006ev — CfA3K
+  côté DES, courbes CSP-seulement côté P+).
+
+### P11.2 Tier R — réplication Efstathiou Table 1 (gate d'ancrage,
+### statut de non-aveuglement DÉCLARÉ)
+
+- TRANSPARENCE : la règle d'appariement d'Efstathiou n'est PAS énoncée
+  dans arXiv:2408.07175 ; elle a été rétro-ingéniérée en M10 (revue
+  croisée + vérification indépendante par script jetable), ce qui a
+  nécessairement produit les chiffres de réplication AVANT ce
+  pré-enregistrement. G13.x est donc un gate de REPRODUCTIBILITÉ
+  PIPELINE sur des nombres connus au moment du gel (même statut assumé
+  que P8) — le contenu AVEUGLE de V3 est le Tier P (P11.3), dont la
+  statistique principale n'a PAS été calculée en M10.
+- Méthode (Efstathiou Sect. 3, Table 1 « tab:magfits ») : paires
+  même-survey (clé normalisée + même IDSURVEY dans les deux releases) ;
+  Δ_i = m_b_corr − (MU − 19.33) [Eq. 2 « equ:calib » ; la constante
+  −19.33 est imprimée et sans effet sur tout différentiel] ; moyennes
+  NON pondérées par groupe (« giving each SN equal weight », Sect. 3) ;
+  erreurs = std(ddof=0)/√N (convention inférée, validée au dernier
+  chiffre imprimé sur 5 lignes de la Table 1).
+- Gates G13.1-G13.3 (tolérances justifiées par la reproduction au
+  dernier chiffre en M10) :
+  - G13.1 comptes exacts : 145 (DES), 118 (FOUND), 14 (CFA3S = IDSURVEY
+    63), 27 (CFA3K = 64), 18 (CFA4P2 = 65), 3 (CFA4P3 = 66), 7 (CSP = 5),
+    187 (all low-z).
+  - G13.2 moyennes de groupe à ±0.001 de : −0.0122, −0.0508, −0.0344,
+    −0.0616, −0.0547, +0.0285, +0.0037, −0.0482 (Table 1 ; CSP imprimé
+    +0.0036 et CFA4P3 imprimé 0.029 = arrondis).
+  - G13.3 différentiel (all low-z) − (DES) à ±0.002 de −0.0360 (le
+    « ~0.04 mag » du papier, quantité invariante de zéro).
+  - SEM comparés aux valeurs CORRIGÉES (DES 0.0055, FOUND 0.0070,
+    all low-z 0.0058) — les ±0.0006/±0.0007 imprimés de la Table 1
+    sont des typos décimales ×10 (démontré M10 : la convention SEM
+    reproduit exactement les 5 autres erreurs imprimées) ; documenté
+    en RESULTS.md §11, jamais utilisé comme cible.
+  - 1304442 INCLUS en Tier R (le N = 145 d'Efstathiou l'inclut).
+- Trois z_median de la Table 1 (CFA3S 0.037, CFA4P3 0.033, CSP 0.038)
+  ne se recomputent ni sur zHD ni sur zCMB (nos valeurs : 0.034-0.035,
+  0.039, 0.044) alors que les grandes lignes concordent — divergence
+  cosmétique NON GATING, consignée telle quelle.
+
+### P11.3 Tier P — analyse appariée principale (AVEUGLE : non calculée
+### en M10)
+
+- Ensemble : les 335 objets communs, UNE valeur de μ par objet et par
+  release. DES : MU (une ligne par objet). Pantheon+ : la ligne de
+  même IDSURVEY que la ligne DES si elle existe ; sinon priorité
+  déterministe : ligne de plus petite m_b_corr_err_DIAG, tie-break
+  IDSURVEY croissant. Variante secondaire pré-enregistrée :
+  combinaison inverse-variance des lignes dupliquées avec le
+  sous-bloc de covariance P+ publié.
+- Δμ_i = MU_SH0ES,i − MU_DES,i (modules de distance publiés ; tout
+  zéro de compilation s'annule dans la statistique différentielle).
+- Split low/high par échantillon source (comme Efstathiou, pas par
+  coupure z) : high-z = IDSURVEY_DES 10 ; low-z = le reste.
+- Statistique PRINCIPALE : S = mean(Δμ_i, low-z) − mean(Δμ_i, high-z),
+  moyennes NON pondérées ; incertitude PRIMAIRE = somme quadratique
+  des SEM empiriques (std(ddof=0)/√N) des deux groupes — cohérente
+  Tier R, et la dispersion par paire (~0.067 mag) est très inférieure
+  aux erreurs de catalogue, ce qui invaliderait des poids
+  inverse-variance catalogue.
+- Incertitude SECONDAIRE pré-enregistrée : erreurs « covariance-aware »
+  utilisant les sous-blocs appariés des covariances publiées des deux
+  releases ; LIMITATION EXPLICITE : la corrélation CROSS-release
+  (photométrie low-z partagée) est inconnue et NON modélisée — l'erreur
+  secondaire n'est pas une erreur jointe complète (RESULTS.md §11).
+- EXCLUSION pré-enregistrée du Tier P primaire : 1304442 (zHD révisé
+  entre releases : 0.22449 P+ vs 0.21711 DES, |Δz| = 0.0074 — μ non
+  comparables à z fixé) ; ligne de sensibilité avec/sans rapportée.
+  Aucune autre exclusion ; max MUERR_FINAL des 145 DES appariées =
+  0.2423 (aucun screening BEAMS nécessaire, mesuré M10).
+- Complément descriptif (non principal) : S recalculé avec
+  Δ_i du Tier R (m_b_corr-based) sur les 335 ; tableau par groupe
+  IDSURVEY au format Table 1 pour les deux définitions.
+
+### P11.4 Tests V3 (SPEC V2.1 [TESTS])
+
+- Appariement déterministe (ordre d'entrée indifférent) ; comptes 335 /
+  332 / 4 / 3 épinglés en pytest (requires_data) ; zéro doublon de clé
+  dans l'ensemble apparié ; auto-test : une SN appariée à elle-même
+  (mêmes μ) donne Δμ = 0 exactement ; le garde-fou |Δz| < 0.01 laisse
+  passer exactement 1304442 comme seul |Δz| > 0.003 (deuxième max
+  0.00207).

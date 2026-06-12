@@ -373,3 +373,55 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   de compression mesuré, lien RESULTS.md au tag, renvoi §9-§10 et P8).
 - Projet v1 clos. Candidat v2 consigné : θ*/r_d par CAMB (rendrait P8
   caduc, RESULTS.md §9.5).
+
+## 2026-06-12 — Ouverture P2.1 (SPEC_V21.md) + M10 : extraction et
+## pré-enregistrement (STOP, en attente du GO)
+
+- Rituel d'ouverture : 98 tests verts, repo propre sur v1.0.0, SPEC +
+  PREREGISTRATION + PROGRESS + git log relus. SPEC_V21.md committé
+  (copie intégrale immuable du prompt P2.1) ; jalons M10-M14 ajoutés,
+  append-only ; résultats v1.0.0 GELÉS.
+- M10 (effort ultracode) : revue multi-agents — 4 agents d'extraction
+  parallèles (Keeley arXiv:2212.07917v3 Sec. 2 + notes P0 C:\JJP-JANUS ;
+  Efstathiou arXiv:2408.07175v3 Sect. 2-3/Table 1 ; règle d'appariement
+  V3 sur les fichiers épinglés ; grille V2 + faisabilité sur le pipeline
+  local) + 1 agent de recoupement croisé, PUIS contre-vérification
+  indépendante par script jetable (non committé) des comptes
+  d'appariement et de la réplication Table 1. Anti-injection : aucun
+  contenu suspect dans les sources fetchées (consigné par les agents).
+- Découvertes M10 porteuses :
+  - La règle d'appariement d'Efstathiou (jamais énoncée dans le papier)
+    est rétro-ingéniérée et VÉRIFIÉE : paires même-survey (CID normalisé
+    + même IDSURVEY) → 332 paires, comptes Table 1 exacts
+    (145/118/14/27/18/3/7), toutes les moyennes reproduites au dernier
+    chiffre imprimé, différentiel low-z−DES = −0.0360.
+  - Les erreurs imprimées ±0.0006 (DES5Y) et ±0.0007 (FOUND) de la
+    Table 1 sont des typos décimales ×10 (les 5 autres erreurs
+    imprimées se reproduisent exactement avec SEM = std(ddof=0)/√N ;
+    valeurs vraies 0.0055 / 0.0070).
+  - Appariement objet (Tier P) : 335 objets communs ; 4 low-z DES
+    absents de P+ (2001ay, 2004gc, 2007ob, 2007R — absences réelles) ;
+    3 objets CfA3K-DES présents dans P+ en CSP seulement ; paire
+    1304442 à zHD révisé entre releases (|Δz| = 0.0074).
+  - DES-SN5YR ne contient AUCUN IDSURVEY 61/62 ni 18/50/51/56/57 ;
+    son CfA = 63-66 (68 SNe), CSP = 5 (8 SNe), Foundation = 150 (118).
+  - Keeley Sec. 2 : fiducial FIXE (Ωm 0.3, H0 70, MB −19.0), 10 000
+    mocks N(mu_fid, C_released), refit (H0, Ωm, MB) par mock, stat =
+    χ²_min, 0/10 000 sous 1387.10 → « > 3.9σ » (conversion two-sided
+    non énoncée). Conventions manquantes du papier tranchées en P9.
+- PREREGISTRATION.md étendu : P9 (V1 mocks DES : N = 10 000, seeds
+  derive_seed m11-v1*, p = (k+1)/(N+1) queue basse, seuil 0.0027,
+  secondaires non gating, gates G11.1 synthétique / G11.2 Keeley-P+
+  optionnel), P10 (V2 LOO : grilles closes 5 groupes P+ / 3+2 DES,
+  métrique figée + σ_curv Hessienne FD à pas fixes, politique
+  boundary-MAP, run_m12_loo.py → results/m12_loo.json), P11 (V3 :
+  règle d'appariement épinglée 335/332/4/3, Tier R = gate d'ancrage
+  Efstathiou NON AVEUGLE — déclaré, même statut assumé que P8 —,
+  Tier P = analyse principale aveugle Δμ = MU_SH0ES − MU_DES,
+  S = mean low-z − mean high-z, exclusion pré-enregistrée 1304442).
+- DÉCISION proposée au STOP (SPEC V2.1 : « à trancher au STOP M10 ») :
+  notre méthode réplique exactement celle d'Efstathiou → statut GATE
+  D'ANCRAGE retenu pour Tier R, avec non-aveuglement déclaré dans P11.2.
+- STOP M10 : AUCUN run M11-M13 effectué ; les seuls calculs sont
+  l'extraction/appariement demandés par M10(b) et la vérification de la
+  règle. Attente du GO de Téo (questions ouvertes listées en session).
