@@ -683,3 +683,276 @@ donc le release v1.2/DR2-era, pas l'état de l'art 2026.
 4. **Aucune conclusion physique** au-delà de : la préférence publiée se
    reproduit dans les fenêtres pré-enregistrées, et voici son profil de
    sensibilité low-z (SPEC, out-of-scope).
+
+## §11 — Extension v1.1 (P2.1) : trois chiffrages du paradoxe M7
+
+Motivation (SPEC_V21.md) : dans notre propre §8, la coupure z > 0.1
+retire 630 SNe du bras Pantheon+ pour −0.27σ, mais 197 SNe du bras DES
+pour −2.37σ — alors que les low-z des deux compilations sont largement
+les MÊMES objets physiques. Trois analyses pré-enregistrées (P9-P11,
+gelées avant leurs runs ; GO M10 consigné dans MILESTONES.md) chiffrent
+ce paradoxe sans en attribuer la cause. Chiffres de tête :
+
+1. **p = 6.0×10⁻⁴** — le χ² ΛCDM SN-only réel de DES-SN5YR est
+   anormalement BAS face à 10 000 mocks tirés de sa propre covariance
+   publiée (5/10 000 mocks en dessous), la méthode ayant d'abord été
+   ré-ancrée VERTE sur le résultat Pantheon+ publié de Keeley.
+2. **Foundation : −1.34σ (bras DES) vs +0.37σ (bras Pantheon+)** — le
+   retrait leave-one-group-out qui domine le bras DES l'affaiblit de
+   3.84σ à 2.50σ, tandis que le MÊME retrait sur le bras Pantheon+
+   RENFORCE la préférence. Le signe opposé entre les bras EST le
+   résultat.
+3. **S = −0.0358 ± 0.0080 mag** — pour les mêmes SNe physiques
+   présentes dans les deux catalogues, la différence appariée des
+   modules de distance (Pantheon+ − DES) est plus négative à bas z
+   qu'à haut z de 0.036 mag (la quantité d'Efstathiou, répliquée puis
+   confirmée en aveugle sur les colonnes MU publiées).
+
+### 11.1 V1 — test mock à la Keeley sur la covariance DES-SN5YR (M11)
+
+Méthode (P9, réplique de Keeley, Shafieloo & L'Huillier
+[arXiv:2212.07917v3, Sec. 2]) : 10 000 vecteurs de magnitudes mock
+tirés de N(μ_fid, C_totale) avec fiducial FIXE (flat ΛCDM, Ωm = 0.3,
+H0 = 70 ; offset profilé, donc H0/MB sont des conventions d'écriture),
+C_totale la covariance publiée exactement comme le pipeline v1 la
+construit ; par mock, le fit flat-ΛCDM est répété (Ωm scalaire borné,
+offset additif profilé analytiquement — Goliath éq. 21) ; chemin de
+code identique pour les données réelles ; statistique p = (k+1)/(N+1),
+queue basse one-sided, seuils de verdict gelés à 0.0027/0.9973.
+Seeds : schéma P7, streams m11-v1*-mock. Zéro fit flagué sur les
+quatre runs.
+
+**L'étalon d'abord (G11.2, Pantheon+ dans la sélection exacte de
+Keeley, zHD > 0.01 et sans calibrateurs SH0ES, N = 1580) :**
+
+| Quantité | Ce pipeline | Keeley publié |
+|---|---|---|
+| χ² best-fit réel | 1386.405 | 1387.10 (gate : \|Δ\| ≤ 1.0 — VERT) |
+| mocks sous le réel | k = 1 / 10 000 | 0 / 10 000 |
+| p (queue basse) | 2.0×10⁻⁴ | cité « > 3.9σ » (two-sided) |
+| std des résidus normalisés | 0.914 | 0.93 |
+| δ² pour χ²_min = N | +0.00219 | 0.002 |
+
+Les deux gates G11.2 verts (p ≤ 0.0027) : le pipeline mock reproduit
+l'anomalie Pantheon+ publiée. Le verdict DES n'est lu qu'ensuite.
+
+**DES-SN5YR (N = 1829, jamais publié) :**
+
+| Run | χ²_réel | k/10 000 | p | gaussien (one-sided / two-sided*) |
+|---|---|---|---|---|
+| V1 primaire (fid Ωm = 0.3) | 1640.083 | 5 | 6.0×10⁻⁴ | 3.24σ / 3.43σ |
+| V1b (fid Ωm = 0.352, non gating) | 1640.083 | 7 | 8.0×10⁻⁴ | 3.16σ / 3.35σ |
+| V1c (sans lignes MUERR_FINAL > 1, N = 1754, non gating) | 1639.389 | 287 | 0.0288 | 1.90σ / 2.19σ |
+
+(*two-sided = la convention de comparaison Keeley ; son « > 3.9σ »
+pour 0/10 000 lui correspond.) Distribution des mocks : moyenne
+1828.1, std 59.5 — le χ² réel est à 3.2 écarts-types mock sous la
+moyenne. Verdict pré-enregistré : **χ² anormalement bas**
+(p < 0.0027). Comme pré-enregistré (SPEC_V21 M11), c'est un résultat,
+pas un bug : aucune correction n'est appliquée nulle part.
+Diagnostics descriptifs (P9.4c) : std des résidus normalisés 0.904
+(erreurs surestimées d'environ 10 % dans la lecture de Keeley) ;
+soustraction diagonale uniforme δ² = +0.00207 pour ramener χ²_min à
+N = 1829 — tous deux remarquablement proches des valeurs Pantheon+ de
+Keeley (0.93, 0.002). L'atténuation V1c (p = 0.0288 sans les 75
+lignes sous-pondérées BEAMS, dont les MUERR_FINAL jusqu'à 449
+dominent la diagonale) est rapportée comme indice descriptif sur OÙ
+se loge le mou, pas comme une attribution (§11.5).
+
+### 11.2 V2 — décomposition leave-one-group-out (M12)
+
+Méthode (P10) : pour chaque groupe IDSURVEY pré-enregistré, les deux
+modèles sont refittés sur le bras sans ce groupe (même engin, 24/40
+départs, streams de seeds m12-* frais) ; les baselines sont les
+chiffres GELÉS du §6 ; les lignes CfA+CSP des deux bras sont par
+composition exactement les sous-échantillons C-b de M7 — leur SHA256
+a été reproduit byte-à-byte et leurs colonnes de fit sont reprises
+telles quelles de results/m7_cuts.json (zéro nouveau fit, GO M10).
+σ_curv = sigma de courbure d'une Hessienne FD centrée à pas fixes au
+MAP (P10.3 ; une quantité de courbure, PAS un intervalle de
+posterior — les marginales m6 de wa sont asymétriques et plus
+larges : le §7 donne σ(wa) ≈ 0.22/0.24).
+
+**BAO+CMB+Pantheon+** (baseline : N = 1590, 2.279σ, w0 = −0.853,
+wa = −0.522, σ_curv = 0.091/0.356) :
+
+| Groupe retiré | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | σ_curv(w0) | σ_curv(wa) |
+|---|---|---|---|---|---|---|---|---|
+| CfA (61-66) | 1433 | −7.429 | 2.251 | −0.028 | −0.845 | −0.541 | 0.107 | 0.406 |
+| CSP (5) | 1514 | −7.545 | 2.274 | −0.006 | −0.851 | −0.530 | 0.095 | 0.368 |
+| Foundation (150) | 1417 | −9.622 | 2.646 | **+0.367** | −0.824 | −0.595 | 0.102 | 0.391 |
+| misc low-z (18,50,51,56,57) | 1389 | −5.459 | 1.844 | −0.436 | −0.868 | −0.475 | 0.115 | 0.429 |
+| DES (10) | 1387 | −4.754 | 1.681 | −0.598 | −0.885 | −0.453 | 0.107 | 0.404 |
+| (agrégé) CfA+CSP [= C-b, repris] | 1357 | −7.155 | 2.198 | −0.081 | −0.845 | −0.544 | 0.114 | 0.430 |
+
+**BAO+CMB+DES-SN5YR** (baseline : N = 1829, 3.837σ, w0 = −0.766,
+wa = −0.778, σ_curv = 0.093/0.376) :
+
+| Groupe retiré | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | σ_curv(w0) | σ_curv(wa) |
+|---|---|---|---|---|---|---|---|---|
+| CfA+CSP (5,63-66) [= C-b, repris] | 1753 | −16.160 | 3.607 | −0.230 | −0.755 | −0.806 | 0.118 | 0.461 |
+| Foundation (150) | 1711 | −8.787 | 2.502 | **−1.335** | −0.792 | −0.699 | 0.304 | 1.092 |
+| DES (10) | 194 | −8.861 | 2.515 | −1.323 | −0.456 | −1.615 | retenu | retenu |
+| (desc.) CfA seul (63-66) | 1761 | −15.826 | 3.563 | −0.274 | −0.760 | −0.792 | 0.116 | 0.453 |
+| (desc.) CSP seul (5) | 1821 | −18.282 | 3.874 | +0.036 | −0.764 | −0.786 | 0.093 | 0.377 |
+
+(La ligne DES-retiré laisse 194 SNe, toutes à z < 0.093 : surface
+(w0, wa) dégénérée ; σ_curv est retenu selon la politique
+pré-enregistrée P10.4 — variance de courbure non positive au MAP,
+consigné tel quel. La ligne CSP seul porte le caveat petit-N
+pré-enregistré, N = 8 retirées.)
+
+Lecture factuelle : dans le bras DES, le levier low-z n'est PAS dans
+les échantillons historiques (CfA+CSP : −0.23σ, cohérent avec le C-b
+du §8) mais massivement dans **Foundation** (−1.34σ pour 118 SNe
+retirées, avec σ_curv(w0) qui triple : la contrainte elle-même se
+dégrade). Dans le bras Pantheon+, le même retrait de Foundation
+AUGMENTE la préférence de +0.37σ — les mêmes objets physiques tirent
+les deux compilations en sens opposés — tandis que le plus gros
+levier Pantheon+ est son sous-échantillon DES (−0.60σ). La question
+« d'où vient le levier » du SPEC_V21 V2 a donc une réponse nette, et
+elle pointe vers l'échantillon que V3 mesure directement.
+
+### 11.3 V3 — SNe communes appariées (M13)
+
+Règle d'appariement (P11.1, établie en M10 depuis les fichiers,
+épinglée en tests permanents) : CID en strings, strip/minuscules,
+suppression du préfixe « sn »+chiffre, égalité exacte des clés, garde
+|ΔzHD| < 0.01. Comptes épinglés : 335 objets communs ; 332 paires
+même-survey ; 4 SNe low-z DES réellement absentes de Pantheon+
+(2001ay, 2004gc, 2007ob, 2007R) ; 3 objets Tier-P-seulement (CfA3K
+côté DES, courbes CSP-seulement côté Pantheon+).
+
+**Tier R — réplication de la Table 1 d'Efstathiou [arXiv:2408.07175,
+Sect. 3]. DÉCLARATION DE NON-AVEUGLEMENT (P11.2) : le papier
+n'énonce pas sa règle d'appariement ; elle a été rétro-ingéniérée en
+M10, ce qui a nécessairement produit ces chiffres avant le gel du
+pré-enregistrement. G13.x est un gate de reproductibilité pipeline
+sur des nombres connus au gel (même statut assumé que P8). Ce qui n'a
+jamais été calculé en M10, c'est le Tier P ci-dessous.**
+Δ_i = m_b_corr − (MU − 19.33) [son éq. 2], moyennes de groupe non
+pondérées, SEM = std(ddof=0)/√N. Les 8 gates verts :
+
+| Échantillon | N (= Table 1) | moyenne Δ (Table 1) | SEM |
+|---|---|---|---|
+| DES5Y (haut-z) | 145 | −0.0122 (−0.0122) | 0.0055 |
+| Foundation | 118 | −0.0508 (−0.0508) | 0.0070 |
+| CfA3S | 14 | −0.0344 (−0.0344) | 0.0112 |
+| CfA3K | 27 | −0.0616 (−0.0616) | 0.0163 |
+| CfA4P2 | 18 | −0.0547 (−0.0547) | 0.0196 |
+| CfA4P3 | 3 | +0.0285 (0.029) | 0.0869 |
+| CSP | 7 | +0.0037 (+0.0036) | 0.0207 |
+| **All low-z** | **187** | **−0.0482 (−0.0482)** | **0.0058** |
+
+G13.3 : différentiel (all low-z) − (DES5Y) = **−0.0360** (cible
+−0.0360 ± 0.002) — l'offset « ~0.04 mag » d'Efstathiou, répliqué au
+quatrième chiffre depuis les deux seuls catalogues publics. Sa règle
+d'appariement non énoncée est donc identifiée : appariement
+même-survey (CID normalisé et même IDSURVEY dans les deux releases).
+
+Typos décimales apparentes dans les incertitudes imprimées : la
+Table 1 imprime ±0.0006 (DES5Y) et ±0.0007 (FOUND), incohérents à la
+fois avec le « −0.051 ± 0.007 » du texte et avec la convention SEM
+qui reproduit TOUTES les autres erreurs imprimées au dernier chiffre
+(CFA3S 0.0112≈0.0111, CFA3K 0.0163, CFA4P2 0.0196, CSP 0.0207,
+CFA4P3 0.0869 ≈ le 0.087 de sa Fig. 4) — nos valeurs correspondantes
+en sont exactement le décuple (0.0055, 0.0070). Elles sont traitées
+comme des typos de décalage décimal et jamais utilisées comme cibles
+de gate.
+
+**Tier P — l'analyse appariée principale aveugle (P11.3 ; calculée
+pour la première fois à ce run).** Une μ par objet et par release
+(ligne Pantheon+ même-survey quand elle existe — 332 sur 335 — sinon
+plus petite m_b_corr_err_DIAG : les 3 objets cross-survey),
+Δμ_i = MU_SH0ES − MU_DES, split par échantillon source (haut-z =
+survey DES, bas-z = le reste), exclusion pré-enregistrée de 1304442
+(son zHD a été révisé entre releases : 0.22449 vs 0.21711).
+
+| Quantité | Valeur |
+|---|---|
+| S = mean(Δμ, bas-z) − mean(Δμ, haut-z), 334 objets | **−0.0358** |
+| Incertitude PRIMAIRE (SEM empiriques en quadrature) | ±0.0080 |
+| Sensibilité : avec 1304442 (335 objets) | −0.0363 ± 0.0080 |
+| Incertitude SECONDAIRE (covariance-aware, voir ci-dessous) | ±0.0334 |
+| Descriptif : S sous la définition magnitude du Tier R (335) | −0.0363 |
+
+Les deux incertitudes diffèrent d'un facteur 4 et ne mesurent pas la
+même chose. La PRIMAIRE ±0.0080 est la dispersion empirique des
+différences par SN (la dispersion par paire, ~0.07 mag, est très
+inférieure aux incertitudes de catalogue parce que l'essentiel du
+budget d'erreur de chaque SN est COMMUN aux deux catalogues et
+s'annule dans la différence). La SECONDAIRE ±0.0334 applique les
+sous-blocs de covariance publiés de chaque release au vecteur de
+poids de S en IGNORANT la corrélation cross-release — elle compte
+deux fois tout ce qui est commun aux deux catalogues et constitue
+donc une borne supérieure conservatrice, rapportée par transparence,
+pas comme erreur primaire (amendement A2 du GO). La valeur centrale
+S ≈ −0.036 mag est robuste ; le sigma par lequel la diviser dépend
+d'un modèle d'erreur cross-release qui n'existe pas publiquement
+(§11.5).
+
+### 11.4 Cohérence des trois chiffrages
+
+Purement descriptif : V3 mesure, sur les mêmes objets physiques, un
+offset bas-z-vs-haut-z de −0.036 mag entre les deux compilations
+(porté en taille par Foundation, son plus grand échantillon low-z
+apparié : −0.051 mag) ; V2 localise le levier w0wa du bras DES
+précisément sur Foundation (−1.34σ), l'échantillon porteur de cet
+offset, avec le signe opposé sur le bras Pantheon+ ; V1 montre que la
+covariance DES, comme celle de Pantheon+ (Keeley), surestime la
+dispersion de ses propres résidus de Hubble (p = 6×10⁻⁴, ~10 %).
+Trois mesures indépendantes, une image cohérente d'OÙ vit le paradoxe
+du §8. Aucune ne dit POURQUOI (§11.6).
+
+### 11.5 Limites propres à cette extension
+
+- **Les corrélations cross-release ne sont pas modélisées.** Les SNe
+  communes partagent leur photométrie source entre les catalogues ;
+  aucune covariance jointe publique n'existe. La valeur centrale de S
+  n'en dépend pas, mais sa significativité formelle dépend de cette
+  structure de corrélation non modélisée : avec l'erreur empirique
+  (primaire) S/σ ≈ 4.5 ; avec l'erreur sans-corrélation-croisée
+  (secondaire, conservatrice) S/σ ≈ 1.1. Dit tel quel ; nous ne
+  tranchons pas au-delà des étiquettes primaire/secondaire
+  pré-enregistrées.
+- **V1c est un indice descriptif, pas une attribution.**
+  L'atténuation sans les 75 lignes sous-pondérées BEAMS dit que le
+  mou du χ² se concentre là où MUERR_FINAL est gonflé ; elle
+  n'identifie pas de mécanisme (BEAMS est conçu pour sous-pondérer
+  les contaminants probables d'un échantillon photométrique).
+- **Le terrain a déjà bougé (Dovekie, contexte seulement).** Tout le
+  §11 décrit les releases DR2-era ÉPINGLÉES (Pantheon+ c447f0f,
+  DES-SN5YR v1.2). La recalibration DES (arXiv:2511.07517) peut déjà
+  avoir modifié la calibration de Foundation et la préférence publiée
+  (4.2σ → 3.2σ, §9.6) ; aucun de ces chiffres n'est revendiqué pour
+  l'état post-Dovekie.
+- **σ_curv est une quantité de courbure** (hypothèse de pic gaussien,
+  caveat pré-enregistré P10.3) ; les marginales MCMC m6 (§7) restent
+  la référence posterior pour les baselines.
+- Le gate Tier R est non aveugle (déclaré ci-dessus et dans P11.2) ;
+  le contenu aveugle de V3 est le Tier P seul.
+
+### 11.6 Ce que le §11 ne montre PAS
+
+1. **Foundation-pivot ≠ Foundation-fautif.** V2 dit que l'évidence du
+   bras DES se concentre dans Foundation ; il ne dit pas que la
+   photométrie de Foundation, ses corrections de biais ou son usage
+   dans l'une ou l'autre compilation soit fautif. Un signal
+   cosmologique réel porté par le meilleur échantillon low-z
+   produirait la même table.
+2. **L'offset inter-compilations n'identifie pas la chaîne de
+   traitement qui le porte.** Δμ compare deux pipelines de bout en
+   bout (entraînement SALT2, calibration, corrections de biais,
+   BEAMS, construction de covariance) ; V3 mesure la différence, pas
+   quel côté (ni quelle étape) la produit — Efstathiou et la réponse
+   DES (contexte arXiv:2511.07517) divergent précisément là-dessus,
+   et rien ici n'arbitre.
+3. **Rien ici ne distingue « énergie noire évolutive » de
+   « systématiques SNe ».** Un χ² anormalement bas (V1) signifie que
+   la covariance surestime la dispersion résiduelle — il ne dit pas
+   que la préférence w0wa est fallacieuse. Un levier concentré sur un
+   échantillon (V2) et un offset inter-catalogues sur objets partagés
+   (V3) sont compatibles avec les deux lectures (le §10.1 s'applique
+   mot pour mot).
+4. Toutes les déclarations de périmètre négatif de v1.0.0 (§10)
+   restent valables inchangées.

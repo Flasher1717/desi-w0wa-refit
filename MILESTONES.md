@@ -531,3 +531,43 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   pytest 119 verts (non-régression v1.0.0 incluse).
 - STOP fin M13 : rapport chiffré des 3 volets présenté à Téo ;
   M14 (§11 + v1.1.0) attend son GO.
+
+## 2026-06-12 — Correction d'une entrée M13 (append-only)
+
+- L'entrée « M13 » ci-dessus écrit « Règle des doublons : 304
+  même-survey / 31 plus-petite-erreur ». C'est FAUX : ces nombres
+  venaient d'une note exploratoire M10 (objets à lignes P+ multiples).
+  Les compteurs MESURÉS du run (results/m13_pairs.json,
+  duplicate_rule_counts) sont : 332 paires résolues par la branche
+  même-survey, 3 par la branche plus-petite-erreur (les 3 objets
+  cross-survey 2005hj/2005ir/2006ev). Aucun chiffre scientifique
+  affecté ; le JSON a toujours fait foi.
+
+## 2026-06-12 — M14 : RESULTS §11 + préparation v1.1.0 (STOP avant push)
+
+- RESULTS.md §11 rédigé (EN) selon le GO M14 : 3 chiffres en tête
+  (p_DES = 6×10⁻⁴ étalonné par G11.2 vert ; Foundation −1.34σ/+0.37σ,
+  signe opposé entre bras = LE résultat ; S = −0.0358 ± 0.0080) ;
+  11.1 V1 avec l'étalon P+ AVANT le verdict DES ; 11.2 tableaux LOO
+  des deux bras au même format (σ_curv inclus, ligne DES-retiré
+  « withheld » P10.4) ; 11.3 Tier R/Tier P distincts, non-aveuglement
+  Tier R déclaré, les DEUX incertitudes de S avec explication de leur
+  facteur 4 (budget d'erreur commun annulé dans la différence vs
+  double comptage sans corrélation croisée) ; 11.4 cohérence
+  descriptive des 3 volets ; 11.5 limites (cross-release : « valeur
+  centrale robuste, significativité dépendante du traitement des
+  corrélations » dit tel quel, S/σ 4.5 vs 1.1 ; V1c indice descriptif ;
+  Dovekie « le terrain bouge » ; typos Table 1 « apparent decimal
+  typos » avec démonstration SEM complète) ; 11.6 ce que ça ne montre
+  pas (Foundation-pivot ≠ Foundation-fautif ; offset n'identifie pas
+  la chaîne de traitement ; rien ne tranche évolution vs
+  systématiques ; §10 inchangé).
+- Miroir RESULTS.fr.md §11 (mêmes chiffres, mêmes tableaux).
+- Traçabilité étendue : 4 nouveaux tests permanents (§11.1 mocks,
+  §11.2 LOO deux bras + lignes reprises pointant m7_cuts.json,
+  §11.3 Tier R et Tier P) — 123 tests verts. Le nouveau test a
+  immédiatement attrapé un écart d'arrondi dans le tableau §11.2
+  (w0_MAP P+/Foundation écrit −0.825, JSON → −0.824) : corrigé dans
+  les deux documents AVANT tout commit, le JSON fait foi.
+- STOP M14 : relecture du §11 complet par Téo ; le tag v1.1.0, la
+  release et le push n'auront lieu qu'après son GO de push explicite.

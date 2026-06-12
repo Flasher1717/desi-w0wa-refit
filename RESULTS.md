@@ -688,3 +688,265 @@ the v1.2/DR2-era release, not the 2026 state of the art.
 4. **No physics conclusion** beyond: the published preference is
    reproduced within the pre-registered windows, and here is its low-z
    sensitivity profile (SPEC, out-of-scope).
+
+## §11 — v1.1 extension (P2.1): three quantifications of the M7 paradox
+
+Motivation (SPEC_V21.md): in our own §8, the z > 0.1 cut removes 630
+SNe from the Pantheon+ arm for −0.27σ, but 197 SNe from the DES arm
+for −2.37σ — although the low-z SNe of both compilations are largely
+the same physical objects. Three pre-registered analyses (P9-P11,
+frozen before their runs; M10 GO recorded in MILESTONES.md) quantify
+this paradox without attributing its cause. Headline figures:
+
+1. **p = 6.0×10⁻⁴** — the real DES-SN5YR SN-only ΛCDM χ² is
+   anomalously LOW against 10 000 mocks drawn from its own released
+   covariance (5/10 000 mocks below it), with the method first
+   re-anchored GREEN on Keeley's published Pantheon+ result.
+2. **Foundation: −1.34σ (DES arm) vs +0.37σ (Pantheon+ arm)** — the
+   single leave-one-group-out removal that dominates the DES arm
+   *weakens* it from 3.84σ to 2.50σ, while the SAME removal on the
+   Pantheon+ arm *strengthens* the preference. The opposite sign
+   between arms is the result.
+3. **S = −0.0358 ± 0.0080 mag** — for the same physical SNe present in
+   both catalogues, the paired distance-modulus difference
+   (Pantheon+ − DES) is more negative at low z than at high z by
+   0.036 mag (the Efstathiou quantity, replicated then confirmed
+   blind on the published MU columns).
+
+### 11.1 V1 — Keeley-style mock test on the DES-SN5YR covariance (M11)
+
+Method (P9, replicating Keeley, Shafieloo & L'Huillier
+[arXiv:2212.07917v3, Sec. 2]): 10 000 mock magnitude vectors drawn
+from N(μ_fid, C_total) with a FIXED fiducial (flat ΛCDM, Ωm = 0.3,
+H0 = 70; offset profiled, so H0/MB are writing conventions), C_total
+the released covariance exactly as the v1 pipeline builds it; per
+mock, the flat-ΛCDM fit is repeated (Ωm bounded scalar, additive
+offset profiled analytically — Goliath eq. 21); identical code path
+for the real data; statistic p = (k+1)/(N+1), one-sided low tail,
+verdict thresholds frozen at 0.0027/0.9973. Seeds: P7 scheme, streams
+m11-v1*-mock. Zero flagged fits in all four runs.
+
+**Anchor first (G11.2, Pantheon+ in Keeley's exact selection,
+zHD > 0.01 and no SH0ES calibrators, N = 1580):**
+
+| Quantity | This pipeline | Keeley published |
+|---|---|---|
+| real best-fit χ² | 1386.405 | 1387.10 (gate: \|Δ\| ≤ 1.0 — PASS) |
+| mocks below real | k = 1 / 10 000 | 0 / 10 000 |
+| p (low tail) | 2.0×10⁻⁴ | quoted "> 3.9σ" (two-sided) |
+| normalized-residual std | 0.914 | 0.93 |
+| δ² for χ²_min = N | +0.00219 | 0.002 |
+
+Both G11.2 gates green (p ≤ 0.0027): the mock pipeline reproduces the
+published Pantheon+ anomaly. Only then is the DES verdict read.
+
+**DES-SN5YR (N = 1829, never published before):**
+
+| Run | χ²_real | k/10 000 | p | Gaussian (one-sided / two-sided*) |
+|---|---|---|---|---|
+| V1 primary (fid Ωm = 0.3) | 1640.083 | 5 | 6.0×10⁻⁴ | 3.24σ / 3.43σ |
+| V1b (fid Ωm = 0.352, non-gating) | 1640.083 | 7 | 8.0×10⁻⁴ | 3.16σ / 3.35σ |
+| V1c (no MUERR_FINAL > 1 rows, N = 1754, non-gating) | 1639.389 | 287 | 0.0288 | 1.90σ / 2.19σ |
+
+(*two-sided = the Keeley-comparison convention; his "> 3.9σ" for
+0/10 000 matches it.) Mock distribution: mean 1828.1, std 59.5 — the
+real χ² sits 3.2 mock standard deviations below the mean.
+Pre-registered verdict: **anomalously low χ²** (p < 0.0027). As
+pre-registered (SPEC_V21 M11), this is a result, not a bug: no
+correction is applied anywhere. Descriptive diagnostics (P9.4c):
+normalized-residual std 0.904 (errors overestimated by ~10% in the
+Keeley reading); uniform diagonal subtraction δ² = +0.00207 retunes
+χ²_min to N = 1829 — both strikingly close to Keeley's Pantheon+
+values (0.93, 0.002). The V1c attenuation (p = 0.0288 without the 75
+BEAMS-downweighted rows, whose MUERR_FINAL up to 449 dominate their
+diagonal) is reported as a descriptive clue about WHERE the slack
+sits, not as an attribution (§11.5).
+
+### 11.2 V2 — leave-one-group-out information decomposition (M12)
+
+Method (P10): for each pre-registered IDSURVEY group, both models are
+refit on the arm without that group (same engine, 24/40 starts, fresh
+m12-* seed streams); baselines are the FROZEN §6 numbers; the CfA+CSP
+rows of both arms are by composition exactly the M7 C-b subsamples —
+their subset SHA256 was reproduced byte-for-byte and their fit
+columns are reused verbatim from results/m7_cuts.json (zero new fit,
+M10 GO). σ_curv = curvature sigma from a fixed-step central FD
+Hessian at the MAP (P10.3; a curvature quantity, NOT a posterior
+interval — the m6 wa marginals are skewed and wider: §7 gives
+σ(wa) ≈ 0.22/0.24).
+
+**BAO+CMB+Pantheon+** (baseline: N = 1590, 2.279σ, w0 = −0.853,
+wa = −0.522, σ_curv = 0.091/0.356):
+
+| Group removed | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | σ_curv(w0) | σ_curv(wa) |
+|---|---|---|---|---|---|---|---|---|
+| CfA (61-66) | 1433 | −7.429 | 2.251 | −0.028 | −0.845 | −0.541 | 0.107 | 0.406 |
+| CSP (5) | 1514 | −7.545 | 2.274 | −0.006 | −0.851 | −0.530 | 0.095 | 0.368 |
+| Foundation (150) | 1417 | −9.622 | 2.646 | **+0.367** | −0.824 | −0.595 | 0.102 | 0.391 |
+| misc low-z (18,50,51,56,57) | 1389 | −5.459 | 1.844 | −0.436 | −0.868 | −0.475 | 0.115 | 0.429 |
+| DES (10) | 1387 | −4.754 | 1.681 | −0.598 | −0.885 | −0.453 | 0.107 | 0.404 |
+| (aggr.) CfA+CSP [= C-b, reused] | 1357 | −7.155 | 2.198 | −0.081 | −0.845 | −0.544 | 0.114 | 0.430 |
+
+**BAO+CMB+DES-SN5YR** (baseline: N = 1829, 3.837σ, w0 = −0.766,
+wa = −0.778, σ_curv = 0.093/0.376):
+
+| Group removed | N_SNe | Δχ²_MAP | Nσ | ΔNσ | w0_MAP | wa_MAP | σ_curv(w0) | σ_curv(wa) |
+|---|---|---|---|---|---|---|---|---|
+| CfA+CSP (5,63-66) [= C-b, reused] | 1753 | −16.160 | 3.607 | −0.230 | −0.755 | −0.806 | 0.118 | 0.461 |
+| Foundation (150) | 1711 | −8.787 | 2.502 | **−1.335** | −0.792 | −0.699 | 0.304 | 1.092 |
+| DES (10) | 194 | −8.861 | 2.515 | −1.323 | −0.456 | −1.615 | withheld | withheld |
+| (desc.) CfA only (63-66) | 1761 | −15.826 | 3.563 | −0.274 | −0.760 | −0.792 | 0.116 | 0.453 |
+| (desc.) CSP only (5) | 1821 | −18.282 | 3.874 | +0.036 | −0.764 | −0.786 | 0.093 | 0.377 |
+
+(The DES-removed row leaves 194 SNe, all at z < 0.093: a degenerate
+(w0, wa) surface; σ_curv is withheld under the pre-registered P10.4
+policy — non-positive curvature variance at the MAP, recorded as
+such. The CSP-only row carries the pre-registered small-N caveat,
+N = 8 removed.)
+
+Factual reading: in the DES arm, the low-z lever is NOT in the
+historical samples (CfA+CSP: −0.23σ, consistent with §8 C-b) but
+overwhelmingly in **Foundation** (−1.34σ for 118 SNe removed, with
+σ_curv(w0) tripling: the constraint itself degrades). In the
+Pantheon+ arm the same Foundation removal RAISES the preference by
++0.37σ — the same physical objects pull the two compilations in
+opposite directions — while the biggest Pantheon+ lever is its DES
+subsample (−0.60σ). The "where does the lever come from" question of
+SPEC_V21 V2 thus has a sharp answer, and it points at the one sample
+that V3 measures directly.
+
+### 11.3 V3 — paired common SNe (M13)
+
+Matching rule (P11.1, established in M10 from the files, pinned in
+permanent tests): CIDs as strings, strip/lowercase, "sn"+digit prefix
+drop, exact key equality, |ΔzHD| < 0.01 guard. Pinned counts: 335
+common objects; 332 same-survey pairs; 4 DES low-z SNe genuinely
+absent from Pantheon+ (2001ay, 2004gc, 2007ob, 2007R); 3
+Tier-P-only objects (CfA3K in DES, CSP-only light curves in
+Pantheon+).
+
+**Tier R — replication of Efstathiou's Table 1 [arXiv:2408.07175,
+Sect. 3]. NON-BLIND DISCLOSURE (P11.2): the paper does not state its
+matching rule; it was reverse-engineered in M10, which necessarily
+produced these numbers before the pre-registration froze. G13.x is a
+pipeline-reproducibility gate on numbers known at freeze (same owned
+status as P8). What was never computed in M10 is Tier P below.**
+Δ_i = m_b_corr − (MU − 19.33) [his Eq. 2], unweighted group means,
+SEM = std(ddof=0)/√N. All 8 gates green:
+
+| Sample | N (= Table 1) | mean Δ (Table 1) | SEM |
+|---|---|---|---|
+| DES5Y (high-z) | 145 | −0.0122 (−0.0122) | 0.0055 |
+| Foundation | 118 | −0.0508 (−0.0508) | 0.0070 |
+| CfA3S | 14 | −0.0344 (−0.0344) | 0.0112 |
+| CfA3K | 27 | −0.0616 (−0.0616) | 0.0163 |
+| CfA4P2 | 18 | −0.0547 (−0.0547) | 0.0196 |
+| CfA4P3 | 3 | +0.0285 (0.029) | 0.0869 |
+| CSP | 7 | +0.0037 (+0.0036) | 0.0207 |
+| **All low-z** | **187** | **−0.0482 (−0.0482)** | **0.0058** |
+
+G13.3: differential (all low-z) − (DES5Y) = **−0.0360** (target
+−0.0360 ± 0.002) — Efstathiou's "~0.04 mag" offset, replicated to the
+fourth digit from the two public catalogues alone. His unstated
+matching rule is therefore identified: same-survey pairing
+(normalized CID and same IDSURVEY in both releases).
+
+Apparent decimal typos in the printed uncertainties: Table 1 prints
+±0.0006 (DES5Y) and ±0.0007 (FOUND), inconsistent both with the
+in-text "−0.051 ± 0.007" and with the SEM convention that reproduces
+EVERY other printed error to its last digit (CFA3S 0.0112≈0.0111,
+CFA3K 0.0163, CFA4P2 0.0196, CSP 0.0207, CFA4P3 0.0869 ≈ the 0.087 of
+his Fig. 4) — our corresponding values are exactly 10× them (0.0055,
+0.0070). They are treated as decimal-shift typos and never used as
+gate targets.
+
+**Tier P — the blind primary paired analysis (P11.3; computed for the
+first time at this run).** One μ per object per release (same-survey
+Pantheon+ row when it exists — 332 of 335 — else smallest
+m_b_corr_err_DIAG: the 3 cross-survey objects), Δμ_i = MU_SH0ES −
+MU_DES, source-sample split (high-z = DES survey, low-z = the rest),
+pre-registered exclusion of 1304442 (its zHD was revised between
+releases: 0.22449 vs 0.21711).
+
+| Quantity | Value |
+|---|---|
+| S = mean(Δμ, low-z) − mean(Δμ, high-z), 334 objects | **−0.0358** |
+| PRIMARY uncertainty (empirical SEMs in quadrature) | ±0.0080 |
+| sensitivity: with 1304442 (335 objects) | −0.0363 ± 0.0080 |
+| SECONDARY uncertainty (covariance-aware, see below) | ±0.0334 |
+| descriptive: S under the Tier R magnitude definition (335) | −0.0363 |
+
+The two uncertainties differ by 4× and measure different things. The
+PRIMARY ±0.0080 is the empirical scatter of the per-SN differences
+(the per-pair dispersion, ~0.07 mag, is far below the catalogue
+uncertainties because most of each SN's error budget is COMMON to the
+two catalogues and cancels in the difference). The SECONDARY ±0.0334
+applies the released per-release covariance sub-blocks to the S
+weight vector and IGNORES the cross-release correlation — it
+double-counts everything common to both catalogues and is therefore
+a conservative upper bound, reported for transparency, not as the
+primary error (GO amendment A2). The central value S ≈ −0.036 mag is
+robust; which sigma to divide it by depends on a cross-release error
+model that does not publicly exist (§11.5).
+
+### 11.4 Coherence of the three quantifications
+
+Purely descriptive: V3 measures, on the same physical objects, a
+low-z-vs-high-z offset of −0.036 mag between the two compilations
+(driven in size by Foundation, its largest matched low-z sample:
+−0.051 mag); V2 locates the DES arm's w0wa lever precisely on
+Foundation (−1.34σ), the sample carrying that offset, with the
+opposite sign on the Pantheon+ arm; V1 shows the DES covariance,
+like Pantheon+'s (Keeley), overestimates the scatter of its own
+Hubble residuals (p = 6×10⁻⁴, ~10%). Three independent measurements,
+one consistent picture of WHERE the §8 paradox lives. None of them
+says WHY (§11.6).
+
+### 11.5 Limits specific to this extension
+
+- **Cross-release correlations are not modeled.** The common SNe
+  share source photometry between the catalogues; no public joint
+  covariance exists. The S central value is unaffected, but its
+  formal significance depends on that unmodeled correlation
+  structure: with the empirical (primary) error S/σ ≈ 4.5; with the
+  no-cross-correlation (secondary, conservative) error S/σ ≈ 1.1.
+  Said as-is; we do not choose between them beyond the pre-registered
+  primary/secondary labels.
+- **V1c is a descriptive clue, not an attribution.** The attenuation
+  without the 75 BEAMS-downweighted rows says the χ² slack
+  concentrates where MUERR_FINAL is inflated; it does not identify a
+  mechanism (BEAMS is designed to downweight likely contaminants in a
+  photometric sample).
+- **The ground has already shifted (Dovekie, context only).** All of
+  §11 describes the PINNED DR2-era releases (Pantheon+ c447f0f,
+  DES-SN5YR v1.2). The DES recalibration (arXiv:2511.07517) may
+  already have modified the Foundation calibration and the published
+  preference (4.2σ → 3.2σ, §9.6); none of these numbers is claimed
+  for the post-Dovekie state.
+- **σ_curv is a curvature quantity** (Gaussian-peak assumption,
+  pre-registered caveat P10.3); the m6 MCMC marginals (§7) remain the
+  posterior reference for the baselines.
+- The Tier R gate is non-blind (disclosed above and in P11.2); the
+  blind content of V3 is Tier P only.
+
+### 11.6 What §11 does NOT show
+
+1. **Foundation-pivot ≠ Foundation-at-fault.** V2 says the DES arm's
+   evidence concentrates in Foundation; it does not say Foundation's
+   photometry, its bias corrections, or its use in either compilation
+   is wrong. A genuine cosmological signal carried by the best low-z
+   sample would produce the same table.
+2. **The inter-compilation offset does not identify the processing
+   chain that carries it.** Δμ compares two end-to-end pipelines
+   (SALT2 training, calibration, bias corrections, BEAMS, covariance
+   construction); V3 measures the difference, not which side (or
+   which step) produces it — Efstathiou and the DES reply
+   (arXiv:2511.07517 context) disagree on precisely that point, and
+   nothing here arbitrates.
+3. **Nothing here distinguishes "evolving dark energy" from "SNe
+   systematics."** An anomalously low χ² (V1) means the covariance
+   overstates the residual scatter — it does not say the w0wa
+   preference is spurious. A lever concentrated on one sample (V2)
+   and an inter-catalogue offset on shared objects (V3) are
+   compatible with both readings (§10.1 applies verbatim).
+4. All v1.0.0 negative-scope statements (§10) carry over unchanged.

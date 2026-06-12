@@ -5,11 +5,12 @@
 
 ## Jalon en cours
 
-**STOP fin M13 atteint le 2026-06-12 — rapport des 3 volets présenté,
-EN ATTENTE DU GO de Téo pour M14** (RESULTS.md §11 EN + v1.1.0, push
-après GO explicite séparé). M10 (GO reçu, P9-P11 gelés), M11, M12, M13
-TERMINÉS — voir MILESTONES.md du 2026-06-12. JAMAIS pushé depuis
-v1.0.0 (commits locaux : 16ce76f, 40d03a5, a1d1f43, a53e968 + résultats).
+**M14 au STOP avant push (2026-06-12) — EN ATTENTE de la relecture du
+§11 par Téo puis de son GO DE PUSH explicite.** RESULTS.md §11 +
+miroir RESULTS.fr.md rédigés, traçabilité étendue (123 tests verts),
+texte de release v1.1.0 proposé en session. M10-M13 terminés. JAMAIS
+pushé depuis v1.0.0. Après GO : push main → CI verte → tag v1.1.0 →
+release factuelle.
 
 ## Acquis P2.1 (2026-06-12) — chiffres porteurs
 
