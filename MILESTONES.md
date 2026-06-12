@@ -295,3 +295,38 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   C-c(P+) ≡ C-a(P+) exact. Tableaux complets : RESULTS.md §8.
 - STOP fin M7 présenté à Téo (rapport complet). Prochain jalon : M8
   (RESULTS final, limites) après GO.
+
+## 2026-06-11 — M8 : RESULTS.md final (terminé) — STOP avant M9
+
+- GO M8 reçu avec exigences explicites (résumé exécutif 3 chiffres,
+  lecture M7 pré-enregistrée inchangée, limites complètes, périmètre
+  négatif, test de traçabilité).
+- §0 résumé exécutif : (1) 6/6 gates b verts, ancrage exact BAO+CMB
+  Δχ²_MAP = −8.023 vs −8.0 ; (2) profil M7 DES 3.84 → 1.46σ (z > 0.1)
+  MAIS −0.23σ pour CfA+CSP exclus ; (3) Pantheon+ robuste 2.28 → 2.01σ.
+  Lecture M7 reprise verbatim de §8 (« la sensibilité vient du retrait
+  de tout le levier z < 0.1, pas spécifiquement des relevés
+  historiques »), sans attribution causale.
+- §9 limites : effet de compression CMB (tableau, étalon −0.7σ DESI),
+  statut P8 (amendement calibré assumé, constantes, incident
+  d'assignation de racine), Union3 posterior-spline (Kim 2412.14181),
+  covariance Pantheon+ (Keeley 2024, zéro correction), z* HS96 → CAMB
+  (raffinement v2), Dovekie 4.2σ → 3.2σ (contexte, jamais un ancrage).
+- §10 « ce que ce travail ne montre PAS » : ne tranche pas énergie noire
+  évolutive vs systématiques ; ne teste aucune calibration
+  photométrique ; conditionnel aux datasets DR2-era épinglés et à la
+  compression documentée ; aucune conclusion physique.
+- Test de traçabilité permanent (tests/test_results_traceability.py,
+  8 tests) : chaque chiffre porteur de RESULTS.md (§0, §4, §6, §7, §8,
+  constantes P8) recomputé depuis results/*.json à l'arrondi affiché.
+- Le test a détecté 4 écarts d'arrondi dans le texte (les JSON committés,
+  inchangés, font foi) — corrigés dans RESULTS.md : §4 ΔBIC brut P+
+  +8.35 → +8.36 ; §4 effet de compression brut DES −0.56σ → −0.55σ
+  (l'entrée M5 de ce journal porte le −0.56 d'origine — append-only,
+  correction consignée ici) ; §6 χ²_ΛCDM DES 1664.66 → 1664.65 ;
+  §8 w0_MAP DES C-a −0.819 → −0.818. Aucun chiffre de gate ni aucune
+  conclusion affectés.
+- Rituels : 90 tests verts à l'ouverture ; ruff/format/pyright/pytest
+  tout vert à la fermeture (98 tests). JAMAIS pushé.
+- STOP fin M8 : relecture de RESULTS.md complet par Téo AVANT M9
+  (release, tag et push attendent cette relecture).
