@@ -571,3 +571,20 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   les deux documents AVANT tout commit, le JSON fait foi.
 - STOP M14 : relecture du §11 complet par Téo ; le tag v1.1.0, la
   release et le push n'auront lieu qu'après son GO de push explicite.
+
+## 2026-06-12 — M14 : publication (terminé) — v1.1.0
+
+- GO de push de Téo reçu (texte de release accepté tel quel, aucune
+  retouche aux résultats ni aux tests au moment de publier).
+- Compte gh vérifié Flasher1717 ; main poussé (67d5522..93c8dcc).
+- CI run 27443759397 : matrice complète VERTE (4/4 : ubuntu/windows ×
+  3.11/3.13) AVANT le tag. Annotations non bloquantes inchangées
+  (dépréciation Node 20 de checkout@v4 / setup-uv@v5, bascule forcée
+  2026-06-16 ; redirection windows-latest → windows-2025-vs2026) —
+  maintenance future, hors v1.1.0.
+- Tag annoté v1.1.0 poussé ; release factuelle publiée :
+  https://github.com/Flasher1717/desi-w0wa-refit/releases/tag/v1.1.0
+  (contenu : les 3 chiffres — p_DES = 6×10⁻⁴ avec étalon P+ vert,
+  Foundation −1.34σ/+0.37σ, S = −0.0358 ± 0.0080 — renvoi RESULTS.md
+  §11.5/§11.6, datasets épinglés inchangés).
+- Extension P2.1 (v1.1) CLOSE. Projet en veille.

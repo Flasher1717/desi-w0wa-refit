@@ -5,12 +5,27 @@
 
 ## Jalon en cours
 
-**M14 au STOP avant push (2026-06-12) — EN ATTENTE de la relecture du
-§11 par Téo puis de son GO DE PUSH explicite.** RESULTS.md §11 +
-miroir RESULTS.fr.md rédigés, traçabilité étendue (123 tests verts),
-texte de release v1.1.0 proposé en session. M10-M13 terminés. JAMAIS
-pushé depuis v1.0.0. Après GO : push main → CI verte → tag v1.1.0 →
-release factuelle.
+AUCUN — extension P2.1 (M10→M14) terminée le 2026-06-12. v1.1.0
+publiée : https://github.com/Flasher1717/desi-w0wa-refit/releases/tag/v1.1.0
+(CI matrice complète verte avant le tag). Projet en veille.
+
+## Récapitulatif v1.1.0 (P2.1)
+
+- M10 : extraction multi-agents + vérification indépendante ; P9-P11
+  pré-enregistrés, GO de Téo (5 décisions + 2 amendements) consigné.
+- M11 (V1) : Keeley-test inédit sur DES-SN5YR — p = 6.0×10⁻⁴
+  (« anormalement bas »), étalon Pantheon+ G11.2 vert (1386.405,
+  k = 1/10⁴) ; diagnostics 0.904 / δ² +0.00207.
+- M12 (V2) : LOO — DES : Foundation −1.335σ (3.84→2.50), CfA+CSP
+  −0.230σ, DES-removed −1.32σ (σ_curv retenu P10.4) ; P+ : Foundation
+  +0.367σ, DES-in-P+ −0.598σ. Lignes CfA+CSP reprises des C-b gelés
+  (hash reproduits).
+- M13 (V3) : Tier R 8/8 gates verts (Table 1 Efstathiou au dernier
+  chiffre, règle même-survey identifiée, typos SEM ×10 démontrées) ;
+  Tier P aveugle S = −0.0358 ± 0.0080 mag (334 objets ; secondaire
+  covariance-aware ±0.0334, cross-release non modélisé).
+- M14 : RESULTS.md §11 (EN) + miroir RESULTS.fr.md + traçabilité
+  étendue (123 tests) ; publication v1.1.0 après GO de push.
 
 ## Acquis P2.1 (2026-06-12) — chiffres porteurs
 
