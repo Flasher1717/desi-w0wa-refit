@@ -5,30 +5,26 @@
 
 ## Jalon en cours
 
-**M10 — STOP atteint le 2026-06-12, EN ATTENTE DU GO de Téo.**
-Extension P2.1 ouverte (SPEC_V21.md committé, immuable ; jalons M10-M14).
-Extraction multi-agents + vérification faites ; PREREGISTRATION.md étendu
-(P9 V1-mocks, P10 V2-LOO, P11 V3-appariement) ; entrée MILESTONES.md M10.
-AUCUN run M11-M13 effectué. Prochain pas : GO M10 de Téo (questions
-ouvertes : gate G11.2 Keeley-P+ optionnel ~25-40 min de calcul ;
-fiducial primaire V1 = Keeley fixe Ωm 0.3 ; grille DES 3+2 ;
-règle doublons Tier P ; acceptation du statut non aveugle du gate
-Efstathiou Tier R) → puis M11 (V1), M12 (V2 ~1.5-2 h), M13 (V3, STOP
-rapport), M14 (§11 + v1.1.0 après GO push).
+**STOP fin M13 atteint le 2026-06-12 — rapport des 3 volets présenté,
+EN ATTENTE DU GO de Téo pour M14** (RESULTS.md §11 EN + v1.1.0, push
+après GO explicite séparé). M10 (GO reçu, P9-P11 gelés), M11, M12, M13
+TERMINÉS — voir MILESTONES.md du 2026-06-12. JAMAIS pushé depuis
+v1.0.0 (commits locaux : 16ce76f, 40d03a5, a1d1f43, a53e968 + résultats).
 
-## Acquis M10 (2026-06-12)
+## Acquis P2.1 (2026-06-12) — chiffres porteurs
 
-- Règle d'appariement Efstathiou rétro-ingéniérée et vérifiée 2× :
-  paires même-survey → Table 1 reproduite au dernier chiffre
-  (332 paires, 145/118/14/27/18/3/7, all-low-z −0.0482, diff −0.0360) ;
-  typos ×10 démontrées sur 2 erreurs imprimées (vraies : 0.0055/0.0070).
-- Tier P : 335 objets communs ; exclusion pré-enregistrée 1304442
-  (zHD révisé) ; 4 absences réelles low-z ; 3 cross-survey CfA3K/CSP.
-- DES-SN5YR : pas d'IDSURVEY 61/62/18/50/51/56/57 ; CfA=63-66 (68),
-  CSP=5 (8), Foundation=150 (118), DES=10 (1635).
-- Keeley Sec. 2 extrait (fiducial fixe Ωm 0.3/H0 70, 10 000 mocks,
-  χ²_min refit (H0,Ωm,MB), 0/10⁴ → >3.9σ two-sided non énoncé) ;
-  P0 (C:\JJP-JANUS) : χ² réel répliqué 1387.099, AUCUN test mock.
+- V1 (M11) : G11.2 VERT (χ² P+ 1386.405, k=1/10⁴) ; DES PRIMAIRE :
+  χ² = 1640.08 (N=1829), k=5/10⁴, p=6e-4 → « anormalement bas »
+  (z₂ = 3.43σ) ; sans les 75 lignes BEAMS : p=0.0288 ; δ²_DES=+0.00207.
+- V2 (M12) : DES — Foundation −1.335σ (3.84→2.50, LE levier), CfA+CSP
+  −0.230σ, DES-removed −1.32σ (MAP dégénéré, σ_curv retenu P10.4) ;
+  P+ — Foundation +0.367σ (!), DES-in-P+ −0.598σ, misc −0.436σ,
+  CfA −0.028σ, CSP −0.006σ. Hash C-b reproduits, fits repris gelés.
+- V3 (M13) : Tier R 8/8 gates VERTS (Table 1 exacte) ; Tier P AVEUGLE :
+  S = −0.0358 ± 0.0080 mag (334 objets, SEM empirique primaire) ;
+  covariance-aware σ=0.0334 (cross-release non modélisé).
+- Mémo méthode : règle Efstathiou = paires même-survey ; comptes
+  épinglés 335/332/4/3 en pytest ; typos SEM Table 1 (0.0055/0.0070).
 
 ## Récapitulatif v1.0.0 (GELÉ)
 

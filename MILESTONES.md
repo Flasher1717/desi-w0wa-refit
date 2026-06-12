@@ -455,3 +455,79 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   est LA mesure d'incertitude primaire du Tier P.
 - Séquence accordée : M11 → M12 → M13 d'une traite, STOP fin M13
   (rapport chiffré des 3 volets). P9-P11 GÈLENT à leurs premiers runs.
+
+## 2026-06-12 — M11 : V1 Keeley-test sur DES-SN5YR (terminé)
+
+- Moteur committé AVANT les runs (a1d1f43) ; P9 gelé au premier run.
+- Pilote P9.4 : 50 mocks, chronométrage seul (0.18 s/mock), χ² jetés.
+- G11.1 (synthétique, pytest) : percentile empirique de la médiane
+  χ²(N−2) à < 2 % — VERT. G11.2 (étalon Keeley sur P+, N = 1580,
+  10 000 mocks) : χ²_réel = 1386.405 (|Δ| = 0.695 ≤ 1.0 de 1387.10),
+  k = 1/10 000, p = 2.0e-4 ≤ 0.0027 — VERT (Keeley publiait 0/10 000).
+- V1 PRIMAIRE (DES-SN5YR, N = 1829, fiducial Keeley Ωm = 0.3,
+  10 000 mocks N(mu_fid, C_totale)) : χ²_réel = 1640.083,
+  k = 5/10 000, p = 6.0e-4 → verdict pré-enregistré « χ² anormalement
+  bas » (z two-sided « convention Keeley » : 3.43σ ; mocks
+  mean = 1828.1, std = 59.5). PERSONNE n'avait publié ce test sur
+  DES : la covariance DES-SN5YR totale surestime les erreurs, comme
+  Pantheon+ chez Keeley. Rapporté tel quel, ZÉRO correction (SPEC V2.1).
+- Secondaires non gating : V1b (fiducial au best-fit Ωm = 0.3520) :
+  k = 7, p = 8.0e-4 — robuste au fiducial. V1c (sans les 75 lignes
+  MUERR_FINAL > 1) : χ²_réel = 1639.39, k = 287, p = 0.0288 —
+  l'anomalie s'atténue fortement sans les lignes BEAMS-downweightées.
+- Diagnostics descriptifs : std résidus normalisés 0.904 (DES) /
+  0.914 (P+ ; Keeley 0.93) ; δ² = +0.002065 (DES) / +0.002185 (P+ ;
+  Keeley 0.002). 0 mock flagué sur les 4 runs.
+- results/m11_pilot.json + results/m11_mocks.json (χ² des 10 000 mocks
+  inclus, arrondis 1e-4, reproductibles par seed).
+
+## 2026-06-12 — M12 : V2 leave-one-group-out (terminé)
+
+- Runner committé AVANT le run (a53e968) ; P10 gelé au premier run.
+- Hash C-b de M7 reproduits byte-à-byte pour les DEUX lignes CfA+CSP
+  (P+ eba5ac7c…, DES 70289ddf…) → chiffres de fit repris GELÉS,
+  σ_curv seul calculé aux MAP gelés (GO M10.4).
+- σ_curv baselines (évaluations au MAP gelé, P10.3) : P+ 0.0910/0.3562,
+  DES 0.0925/0.3760 (w0/wa ; sous-estiment les σ MCMC m6 comme
+  pré-annoncé pour wa asymétrique).
+- Bras P+ (baseline 2.279σ) : ΔNσ = CfA −0.028 ; CSP −0.006 ;
+  Foundation +0.367 (la préférence MONTE sans Foundation) ;
+  misc-lowz −0.436 ; DES-in-P+ −0.598 ; CfA+CSP (repris) −0.081.
+- Bras DES (baseline 3.837σ) : ΔNσ = CfA+CSP (repris) −0.230 ;
+  Foundation −1.335 (3.84 → 2.50σ — LE levier dominant, 118 SNe) ;
+  DES-removed −1.323 (N = 194, MAP dégénéré w0 = −0.46, wa = −1.61,
+  σ_curv RETENU par la politique P10.4 : variance de courbure non
+  positive, consigné) ; desc. CfA seul −0.274 ; desc. CSP seul +0.036
+  (N = 8, caveat petit-N).
+- Lecture du paradoxe M7 : côté DES le levier low-z est massivement
+  Foundation, pas les échantillons historiques ; côté P+ retirer
+  Foundation RENFORCE la préférence. Cohérent avec l'offset
+  Foundation d'Efstathiou (V3). Aucune attribution causale.
+- results/m12_loo.json ; 18 fits frais ~75 min ; warning Nelder-Mead
+  scipy (inf dans le simplexe initial) identique au comportement des
+  runs M5/M7 gelés, sans effet.
+
+## 2026-06-12 — M13 : V3 SNe communes appariées (terminé)
+
+- Runner committé AVANT le run (a53e968) ; P11 gelé au premier run.
+- Tier R (gates d'ancrage, non-aveuglement déclaré P11.2) : G13.1
+  comptes 145/118/14/27/18/3/7 + all-low-z 187 EXACTS ; G13.2 les
+  8 moyennes à ±0.001 de la Table 1 (toutes au 4e chiffre) ; G13.3
+  différentiel −0.0360 (cible −0.0360 ± 0.002) — 8/8 VERTS.
+- Tier P (AVEUGLE, jamais calculé avant ce run) : S = mean(Δμ low-z)
+  − mean(Δμ high-z) avec Δμ = MU_SH0ES − MU_DES sur 334 objets
+  (1304442 exclu pré-enregistré) : S = −0.0358 ± 0.0080 mag (SEM
+  empiriques en quadrature — l'incertitude PRIMAIRE, GO A2).
+  Sensibilité avec 1304442 : −0.0363 ± 0.0080. Règle des doublons :
+  304 même-survey / 31 plus-petite-erreur. Secondaire
+  covariance-aware : σ_S = 0.0334 (les covariances publiées sont
+  dominées par les systématiques corrélées ; corrélation cross-release
+  inconnue NON modélisée — la dispersion empirique reste la mesure).
+- Lecture : les modules de distance des MÊMES SNe diffèrent de
+  −0.036 mag (low-z vs high-z) entre les deux compilations — la
+  quantité d'Efstathiou (~0.04 mag), répliquée puis confirmée en
+  aveugle sur la définition MU. Aucune attribution causale.
+- results/m13_pairs.json ; rituel de fermeture : ruff/format/pyright/
+  pytest 119 verts (non-régression v1.0.0 incluse).
+- STOP fin M13 : rapport chiffré des 3 volets présenté à Téo ;
+  M14 (§11 + v1.1.0) attend son GO.

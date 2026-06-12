@@ -1,0 +1,9 @@
+{
+  "declared": "non-scientific timing pilot (P9.4); chi2 values discarded",
+  "n_mocks": 50,
+  "seed_stream": "m11-v1-mock (primary stream, P9.4)",
+  "total_s": 9.0,
+  "per_mock_s": 0.18,
+  "extrapolated_10000_min": 29.9,
+  "machine": "Mini_IT12"
+}

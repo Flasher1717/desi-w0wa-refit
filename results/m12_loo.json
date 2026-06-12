@@ -1,0 +1,484 @@
+{
+  "preregistration": "P10 (frozen at this run)",
+  "BAO+CMB+PantheonPlus": {
+    "baseline": {
+      "n_sne": 1590,
+      "delta_chi2_map": -7.5744099506803195,
+      "nsigma": 2.279138299347235,
+      "w0_map": -0.8530971834103968,
+      "wa_map": -0.5222776615630288,
+      "source": "results/m5_fits_corrected.json (frozen)",
+      "sigma_curv_w0": 0.09103159130089782,
+      "sigma_curv_wa": 0.356185153410721,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -19.93946353127285,
+        -18.772085537761996,
+        3.571812732161561,
+        20.80802150778709,
+        6.117116666969954
+      ],
+      "chi2_w0wa_at_map_point": 1413.3713067938127
+    },
+    "cfa+csp": {
+      "reused_from": "results/m7_cuts.json C-b (frozen, GO M10.4)",
+      "group_ids": [
+        5,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "n_sne": 1357,
+      "subset_sha256": "eba5ac7c575d669ee63dd5d0d1c50142065d2fb38fa863081b184f9a2ef59906",
+      "chi2_lcdm": 1204.5631997202368,
+      "chi2_w0wa": 1197.4083498510524,
+      "delta_chi2_map": -7.154849869184318,
+      "nsigma": 2.198021518821217,
+      "delta_nsigma_vs_baseline": -0.08111678052601823,
+      "w0_map": -0.8451470643103969,
+      "wa_map": -0.5435070821778906,
+      "delta_w0": 0.007950119099999875,
+      "delta_wa": -0.02122942061486177,
+      "sigma_curv_w0": 0.11435662100762194,
+      "sigma_curv_wa": 0.4297689698279853,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -19.79352647072119,
+        -18.850751064064752,
+        3.0077648602855334,
+        20.67539784472956,
+        6.047618910550531
+      ],
+      "chi2_w0wa_at_map_point": 1197.4083498510524,
+      "delta_sigma_curv_w0": 0.02332502970672412,
+      "delta_sigma_curv_wa": 0.0735838164172643
+    },
+    "cfa": {
+      "group_ids": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "descriptive": false,
+      "n_sne": 1433,
+      "subset_sha256": "fa171c5b396007b81dea3055d349b12a1cc9858003181b0c0453106e1bed9cc0",
+      "chi2_lcdm": 1268.4341791480863,
+      "chi2_w0wa": 1261.004679610773,
+      "delta_chi2_map": -7.429499537313177,
+      "nsigma": 2.2513791053924845,
+      "delta_nsigma_vs_baseline": -0.02775919395475057,
+      "w0_map": -0.8453930227854997,
+      "wa_map": -0.5408997788607424,
+      "delta_w0": 0.007704160624897094,
+      "delta_wa": -0.01862211729771357,
+      "w0wa_params": {
+        "omega_m": 0.31172560403620125,
+        "h": 0.674077264917083,
+        "omega_b_h2": 0.02231315000785368,
+        "w0": -0.8453930227854997,
+        "wa": -0.5408997788607424
+      },
+      "sigma_curv_w0": 0.10681661554605393,
+      "sigma_curv_wa": 0.4060292143214666,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -20.079436395803896,
+        -19.29407738566624,
+        5.948331630634129,
+        20.683998697597872,
+        6.060557295791114
+      ],
+      "chi2_w0wa_at_map_point": 1261.004679610773,
+      "delta_sigma_curv_w0": 0.015785024245156112,
+      "delta_sigma_curv_wa": 0.04984406091074561,
+      "runtime_s": 454.1
+    },
+    "csp": {
+      "group_ids": [
+        5
+      ],
+      "descriptive": false,
+      "n_sne": 1514,
+      "subset_sha256": "deaec2bf9b312ce75a529857f5d3fdc438ca924c90b9a5245d20024c7e1b5cff",
+      "chi2_lcdm": 1357.4979629686995,
+      "chi2_w0wa": 1349.9525257602882,
+      "delta_chi2_map": -7.545437208411386,
+      "nsigma": 2.273609446947709,
+      "delta_nsigma_vs_baseline": -0.005528852399526052,
+      "w0_map": -0.850962727836611,
+      "wa_map": -0.5300351176890756,
+      "delta_w0": 0.002134455573785776,
+      "delta_wa": -0.0077574561260468355,
+      "w0wa_params": {
+        "omega_m": 0.31103740302752836,
+        "h": 0.6748378653978717,
+        "omega_b_h2": 0.022312608881086077,
+        "w0": -0.850962727836611,
+        "wa": -0.5300351176890756
+      },
+      "sigma_curv_w0": 0.09466516609520487,
+      "sigma_curv_wa": 0.3675957977506186,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -20.065218519789596,
+        -18.959020891770706,
+        2.9767975740924157,
+        20.70845846235443,
+        6.070924653715792
+      ],
+      "chi2_w0wa_at_map_point": 1349.9525257602882,
+      "delta_sigma_curv_w0": 0.003633574794307051,
+      "delta_sigma_curv_wa": 0.011410644339897635,
+      "runtime_s": 696.8
+    },
+    "foundation": {
+      "group_ids": [
+        150
+      ],
+      "descriptive": false,
+      "n_sne": 1417,
+      "subset_sha256": "1f0be44383634decc4e53bb7e39aa99cfcf4eefba00e65db0da225e881e2f1b7",
+      "chi2_lcdm": 1245.3075740101995,
+      "chi2_w0wa": 1235.685418096141,
+      "delta_chi2_map": -9.622155914058567,
+      "nsigma": 2.6462451254148087,
+      "delta_nsigma_vs_baseline": 0.3671068260675736,
+      "w0_map": -0.824499663049839,
+      "wa_map": -0.595338232114126,
+      "delta_w0": 0.028597520360557738,
+      "delta_wa": -0.07306057055109716,
+      "w0wa_params": {
+        "omega_m": 0.3137955715795221,
+        "h": 0.6719319985911365,
+        "omega_b_h2": 0.02231052621218116,
+        "w0": -0.824499663049839,
+        "wa": -0.595338232114126
+      },
+      "sigma_curv_w0": 0.1017371290709814,
+      "sigma_curv_wa": 0.39079706307787454,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -19.596426170664927,
+        -19.384282670557695,
+        4.317756041700704,
+        20.408639256334027,
+        5.905394027210302
+      ],
+      "chi2_w0wa_at_map_point": 1235.685418096141,
+      "delta_sigma_curv_w0": 0.010705537770083581,
+      "delta_sigma_curv_wa": 0.03461190966715355,
+      "runtime_s": 842.0
+    },
+    "misc-lowz": {
+      "group_ids": [
+        18,
+        50,
+        51,
+        56,
+        57
+      ],
+      "descriptive": false,
+      "n_sne": 1389,
+      "subset_sha256": "caa193048400708f76dc4098d8d80de0beb7ddcd82715c5c58b514d45618b0c3",
+      "chi2_lcdm": 1265.1342091194074,
+      "chi2_w0wa": 1259.6751948873211,
+      "delta_chi2_map": -5.459014232086247,
+      "nsigma": 1.8435315260795107,
+      "delta_nsigma_vs_baseline": -0.43560677326772446,
+      "w0_map": -0.8681144193257577,
+      "wa_map": -0.4749727450411938,
+      "delta_w0": -0.015017235915360971,
+      "delta_wa": 0.047304916521834994,
+      "w0wa_params": {
+        "omega_m": 0.3097303980657796,
+        "h": 0.6760794758558737,
+        "omega_b_h2": 0.022318509129068596,
+        "w0": -0.8681144193257577,
+        "wa": -0.4749727450411938
+      },
+      "sigma_curv_w0": 0.11460036224227892,
+      "sigma_curv_wa": 0.4288749458645706,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -20.14850236400889,
+        -18.666625136006587,
+        3.425586110097356,
+        21.23394719923226,
+        6.338627303936543
+      ],
+      "chi2_w0wa_at_map_point": 1259.6751948873211,
+      "delta_sigma_curv_w0": 0.0235687709413811,
+      "delta_sigma_curv_wa": 0.0726897924538496,
+      "runtime_s": 570.6
+    },
+    "des-in-pp": {
+      "group_ids": [
+        10
+      ],
+      "descriptive": false,
+      "n_sne": 1387,
+      "subset_sha256": "b3e80ff3a1a42fee367a19ac5c2af07c1f7935b2b3a64e128174b21c15bca81e",
+      "chi2_lcdm": 1285.7579720291853,
+      "chi2_w0wa": 1281.0034932601013,
+      "delta_chi2_map": -4.754478769084017,
+      "nsigma": 1.6807760256295396,
+      "delta_nsigma_vs_baseline": -0.5983622737176955,
+      "w0_map": -0.8848929193535848,
+      "wa_map": -0.45343321155501903,
+      "delta_w0": -0.031795735943188075,
+      "delta_wa": 0.06884445000800976,
+      "w0wa_params": {
+        "omega_m": 0.3072653240138099,
+        "h": 0.6789557921720906,
+        "omega_b_h2": 0.022312808097423573,
+        "w0": -0.8848929193535848,
+        "wa": -0.45343321155501903
+      },
+      "sigma_curv_w0": 0.10670372734435966,
+      "sigma_curv_wa": 0.40444228654695374,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -20.81508207504612,
+        -18.4606930646396,
+        2.1661421192220587,
+        20.90152823839162,
+        6.206426406784734
+      ],
+      "chi2_w0wa_at_map_point": 1281.0034932601013,
+      "delta_sigma_curv_w0": 0.01567213604346185,
+      "delta_sigma_curv_wa": 0.048257133136232755,
+      "runtime_s": 730.1
+    }
+  },
+  "BAO+CMB+DES-SN5YR": {
+    "baseline": {
+      "n_sne": 1829,
+      "delta_chi2_map": -17.984219314086204,
+      "nsigma": 3.837313961736077,
+      "w0_map": -0.766124676935652,
+      "wa_map": -0.7778357859716798,
+      "source": "results/m5_fits_corrected.json (frozen)",
+      "sigma_curv_w0": 0.09254497827821065,
+      "sigma_curv_wa": 0.37598479034380633,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -18.641394542555645,
+        -19.55967028663963,
+        3.667918463179376,
+        19.020389143247485,
+        5.2159397768832605
+      ],
+      "chi2_w0wa_at_map_point": 1646.6705802050335
+    },
+    "cfa+csp": {
+      "reused_from": "results/m7_cuts.json C-b (frozen, GO M10.4)",
+      "group_ids": [
+        5,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66
+      ],
+      "n_sne": 1753,
+      "subset_sha256": "70289ddf5ce74f3a085a1ea3232c950e8a17806bfc35a86318c72487d09dc8db",
+      "chi2_lcdm": 1589.6161983478144,
+      "chi2_w0wa": 1573.456429970065,
+      "delta_chi2_map": -16.159768377749288,
+      "nsigma": 3.607042539704645,
+      "delta_nsigma_vs_baseline": -0.23027142203143214,
+      "w0_map": -0.7553348096707053,
+      "wa_map": -0.8059512407994469,
+      "delta_w0": 0.010789867264946684,
+      "delta_wa": -0.028115454827767117,
+      "sigma_curv_w0": 0.11807472840966962,
+      "sigma_curv_wa": 0.460951006193881,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -18.438165721818223,
+        -19.657016055361964,
+        3.6923756988471723,
+        18.898263031724127,
+        5.15390401857303
+      ],
+      "chi2_w0wa_at_map_point": 1573.456429970065,
+      "delta_sigma_curv_w0": 0.025529750131458973,
+      "delta_sigma_curv_wa": 0.08496621585007469
+    },
+    "foundation": {
+      "group_ids": [
+        150
+      ],
+      "descriptive": false,
+      "n_sne": 1711,
+      "subset_sha256": "e2f261eae7ce245e2144575aceef5436519136b2a6a8f7e78fa66c7eb554a63e",
+      "chi2_lcdm": 1545.7770868420594,
+      "chi2_w0wa": 1536.9896981668492,
+      "delta_chi2_map": -8.787388675210195,
+      "nsigma": 2.501839238154954,
+      "delta_nsigma_vs_baseline": -1.335474723581123,
+      "w0_map": -0.7920674955806195,
+      "wa_map": -0.6992411616322463,
+      "delta_w0": -0.025942818644967502,
+      "delta_wa": 0.07859462433943354,
+      "w0wa_params": {
+        "omega_m": 0.31646087514070603,
+        "h": 0.6694669180574062,
+        "omega_b_h2": 0.022297872864237,
+        "w0": -0.7920674955806195,
+        "wa": -0.6992411616322463
+      },
+      "sigma_curv_w0": 0.30441827885071987,
+      "sigma_curv_wa": 1.0920823204883505,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -19.020465989228796,
+        -19.381817445719207,
+        3.6321980053344305,
+        19.549422370914726,
+        5.479012480983178
+      ],
+      "chi2_w0wa_at_map_point": 1536.9896981668492,
+      "delta_sigma_curv_w0": 0.21187330057250922,
+      "delta_sigma_curv_wa": 0.7160975301445442,
+      "runtime_s": 341.6
+    },
+    "des": {
+      "group_ids": [
+        10
+      ],
+      "descriptive": false,
+      "n_sne": 194,
+      "subset_sha256": "8f7ee6f3942f4624abb03a78220d5f19d425ddb7f0438393bde7d36d0653f681",
+      "chi2_lcdm": 195.0256968830421,
+      "chi2_w0wa": 186.16511882121802,
+      "delta_chi2_map": -8.860578061824071,
+      "nsigma": 2.5147688008818654,
+      "delta_nsigma_vs_baseline": -1.3225451608542116,
+      "w0_map": -0.4556146938458725,
+      "wa_map": -1.6149471741563026,
+      "delta_w0": 0.3105099830897795,
+      "delta_wa": -0.8371113881846228,
+      "w0wa_params": {
+        "omega_m": 0.34990470972706444,
+        "h": 0.6380195091774574,
+        "omega_b_h2": 0.022250503413002356,
+        "w0": -0.4556146938458725,
+        "wa": -1.6149471741563026
+      },
+      "sigma_curv_w0": null,
+      "sigma_curv_wa": null,
+      "boundary_flagged": true,
+      "flag_reason": "non-positive curvature variance",
+      "residual_gradient": [
+        -13.85100797568839,
+        -22.34630902221113,
+        3.9328750182221484,
+        15.915054481230584,
+        3.7562892541311994
+      ],
+      "chi2_w0wa_at_map_point": 186.16511882121802,
+      "delta_sigma_curv_w0": null,
+      "delta_sigma_curv_wa": null,
+      "runtime_s": 146.6
+    },
+    "cfa-only-desc": {
+      "group_ids": [
+        63,
+        64,
+        65,
+        66
+      ],
+      "descriptive": true,
+      "n_sne": 1761,
+      "subset_sha256": "2a2a35ed5bdae7b1cf57bd660a0479e00072f50178475e5392e1c6693ae448de",
+      "chi2_lcdm": 1596.9437358635748,
+      "chi2_w0wa": 1581.1180503840933,
+      "delta_chi2_map": -15.825685479481535,
+      "nsigma": 3.5634498679461153,
+      "delta_nsigma_vs_baseline": -0.2738640937899617,
+      "w0_map": -0.759699198532187,
+      "wa_map": -0.7918811530343056,
+      "delta_w0": 0.006425478403464968,
+      "delta_wa": -0.014045367062625824,
+      "w0wa_params": {
+        "omega_m": 0.31943706564468577,
+        "h": 0.6665488621910145,
+        "omega_b_h2": 0.02229089266010479,
+        "w0": -0.759699198532187,
+        "wa": -0.7918811530343056
+      },
+      "sigma_curv_w0": 0.11606198939217441,
+      "sigma_curv_wa": 0.4532501853569521,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -18.49294575094973,
+        -19.631573840229066,
+        3.6810258995956247,
+        19.003285295559635,
+        5.203371651532507
+      ],
+      "chi2_w0wa_at_map_point": 1581.1180503840933,
+      "delta_sigma_curv_w0": 0.02351701111396376,
+      "delta_sigma_curv_wa": 0.07726539501314578,
+      "runtime_s": 316.0
+    },
+    "csp-only-desc": {
+      "group_ids": [
+        5
+      ],
+      "descriptive": true,
+      "n_sne": 1821,
+      "subset_sha256": "8a5e33a75f1efb5a2e30af3448ecfeb7159b2cf2a0121b07cc6c8fb085db597b",
+      "chi2_lcdm": 1657.3628714546498,
+      "chi2_w0wa": 1639.0804848570228,
+      "delta_chi2_map": -18.28238659762701,
+      "nsigma": 3.873781766691534,
+      "delta_nsigma_vs_baseline": 0.036467804955456984,
+      "w0_map": -0.7637014110981432,
+      "wa_map": -0.7860252600131072,
+      "delta_w0": 0.002423265837508848,
+      "delta_wa": -0.008189474041427447,
+      "w0wa_params": {
+        "omega_m": 0.31886233620019,
+        "h": 0.6671789268672592,
+        "omega_b_h2": 0.02228987859073596,
+        "w0": -0.7637014110981432,
+        "wa": -0.7860252600131072
+      },
+      "sigma_curv_w0": 0.09278117103698857,
+      "sigma_curv_wa": 0.377214783856715,
+      "boundary_flagged": false,
+      "flag_reason": null,
+      "residual_gradient": [
+        -18.616768352671897,
+        -19.576186312065147,
+        3.7006378067871992,
+        18.95307739164309,
+        5.184596789869526
+      ],
+      "chi2_w0wa_at_map_point": 1639.0804848570228,
+      "delta_sigma_curv_w0": 0.00023619275877792556,
+      "delta_sigma_curv_wa": 0.0012299935129086448,
+      "runtime_s": 323.0
+    }
+  }
+}

@@ -1,0 +1,178 @@
+{
+  "preregistration": "P11 (frozen at this run)",
+  "tier_r": {
+    "non_blind_disclosure": "computed in M10 to establish the matching rule; this is a pipeline-reproducibility gate on numbers known at freeze (P11.2)",
+    "n_pairs": 332,
+    "groups": {
+      "DES5Y": {
+        "idsurvey": 10,
+        "n": 145,
+        "n_target": 145,
+        "mean": -0.012176551724139615,
+        "mean_target_table1": -0.0122,
+        "sem_ddof0": 0.005549254452932772,
+        "g13_1_count_pass": true,
+        "g13_2_mean_pass": true
+      },
+      "FOUND": {
+        "idsurvey": 150,
+        "n": 118,
+        "n_target": 118,
+        "mean": -0.05083389830508649,
+        "mean_target_table1": -0.0508,
+        "sem_ddof0": 0.00703291633132658,
+        "g13_1_count_pass": true,
+        "g13_2_mean_pass": true
+      },
+      "CFA3S": {
+        "idsurvey": 63,
+        "n": 14,
+        "n_target": 14,
+        "mean": -0.03443571428571536,
+        "mean_target_table1": -0.0344,
+        "sem_ddof0": 0.011156217298095916,
+        "g13_1_count_pass": true,
+        "g13_2_mean_pass": true
+      },
+      "CFA3K": {
+        "idsurvey": 64,
+        "n": 27,
+        "n_target": 27,
+        "mean": -0.06155555555555782,
+        "mean_target_table1": -0.0616,
+        "sem_ddof0": 0.016275396811779773,
+        "g13_1_count_pass": true,
+        "g13_2_mean_pass": true
+      },
+      "CFA4P2": {
+        "idsurvey": 65,
+        "n": 18,
+        "n_target": 18,
+        "mean": -0.05473333333333525,
+        "mean_target_table1": -0.0547,
+        "sem_ddof0": 0.01959223202076666,
+        "g13_1_count_pass": true,
+        "g13_2_mean_pass": true
+      },
+      "CFA4P3": {
+        "idsurvey": 66,
+        "n": 3,
+        "n_target": 3,
+        "mean": 0.028466666666665457,
+        "mean_target_table1": 0.0285,
+        "sem_ddof0": 0.0868932209775401,
+        "g13_1_count_pass": true,
+        "g13_2_mean_pass": true
+      },
+      "CSP": {
+        "idsurvey": 5,
+        "n": 7,
+        "n_target": 7,
+        "mean": 0.0036571428571419468,
+        "mean_target_table1": 0.0037,
+        "sem_ddof0": 0.02069878096718997,
+        "g13_1_count_pass": true,
+        "g13_2_mean_pass": true
+      }
+    },
+    "all_low_z": {
+      "n": 187,
+      "mean": -0.04821764705882528,
+      "sem_ddof0": 0.0057720211236820885,
+      "count_pass": true,
+      "mean_pass": true
+    },
+    "differential_lowz_minus_des": -0.03604109533468566,
+    "g13_3_pass": true,
+    "sem_note": "printed Table 1 errors +/-0.0006 (DES5Y) and +/-0.0007 (FOUND) are apparent decimal typos; comparison targets are the corrected values {'DES5Y': 0.0055, 'FOUND': 0.007, 'all_low_z': 0.0058} (P11.2, GO M10.1)",
+    "pass": true
+  },
+  "tier_p": {
+    "n_objects": 335,
+    "n_primary_after_exclusion": 334,
+    "excluded_cid": "1304442",
+    "exclusion_reason": "zHD revised between releases (0.22449 vs 0.21711)",
+    "duplicate_rule_counts": {
+      "same-survey": 332,
+      "smallest-err": 3
+    },
+    "primary": {
+      "n_low": 190,
+      "n_high": 144,
+      "mean_delta_mu_low": -0.12546736842105213,
+      "sem_low": 0.005706940561541714,
+      "mean_delta_mu_high": -0.08963888888888866,
+      "sem_high": 0.005568567757190952,
+      "s_low_minus_high": -0.035828479532163476,
+      "sem_s_quadrature": 0.007973588742805633
+    },
+    "sensitivity_with_1304442": {
+      "n_low": 190,
+      "n_high": 145,
+      "mean_delta_mu_low": -0.12546736842105213,
+      "sem_low": 0.005706940561541714,
+      "mean_delta_mu_high": -0.08917724137931012,
+      "sem_high": 0.005549266686336009,
+      "s_low_minus_high": -0.03629012704174202,
+      "sem_s_quadrature": 0.0079601213137143
+    },
+    "secondary_covariance_aware": {
+      "var_from_pantheon_block": 0.0005591812348476885,
+      "var_from_des_block": 0.0005533730097851917,
+      "sigma_s_covariance_aware": 0.03335497331182983,
+      "limitation": "inter-release correlations of the paired differences are unknown and unmodeled (shared low-z source photometry); the empirical dispersion is THE primary uncertainty (GO A2)"
+    },
+    "descriptive_per_group": {
+      "5": {
+        "n": 7,
+        "mean_delta_mu_MU_based": -0.07334285714285572,
+        "sem_delta_mu": 0.0206987809671901,
+        "mean_delta_mb_based": 0.0036571428571419468,
+        "sem_delta_mb": 0.02069878096718997
+      },
+      "10": {
+        "n": 145,
+        "mean_delta_mu_MU_based": -0.08917724137931012,
+        "sem_delta_mu": 0.005549266686336009,
+        "mean_delta_mb_based": -0.012176551724139615,
+        "sem_delta_mb": 0.005549254452932772
+      },
+      "63": {
+        "n": 14,
+        "mean_delta_mu_MU_based": -0.11143571428571265,
+        "sem_delta_mu": 0.011156217298095975,
+        "mean_delta_mb_based": -0.03443571428571536,
+        "sem_delta_mb": 0.011156217298095916
+      },
+      "64": {
+        "n": 30,
+        "mean_delta_mu_MU_based": -0.13880333333333325,
+        "sem_delta_mu": 0.01502197093396018,
+        "mean_delta_mb_based": -0.06180333333333537,
+        "sem_delta_mb": 0.015021970933960186
+      },
+      "65": {
+        "n": 18,
+        "mean_delta_mu_MU_based": -0.13173333333333265,
+        "sem_delta_mu": 0.019592232020766313,
+        "mean_delta_mb_based": -0.05473333333333525,
+        "sem_delta_mb": 0.01959223202076666
+      },
+      "66": {
+        "n": 3,
+        "mean_delta_mu_MU_based": -0.04853333333333154,
+        "sem_delta_mu": 0.08689322097753961,
+        "mean_delta_mb_based": 0.028466666666665457,
+        "sem_delta_mb": 0.0868932209775401
+      },
+      "150": {
+        "n": 118,
+        "mean_delta_mu_MU_based": -0.1278338983050844,
+        "sem_delta_mu": 0.007032916331326623,
+        "mean_delta_mb_based": -0.05083389830508649,
+        "sem_delta_mb": 0.00703291633132658
+      }
+    },
+    "descriptive_s_mb_based_all335": -0.03629081669691474
+  }
+}
