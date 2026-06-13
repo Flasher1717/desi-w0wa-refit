@@ -5,9 +5,36 @@
 
 ## Jalon en cours
 
-AUCUN — extension P2.1 (M10→M14) terminée le 2026-06-12. v1.1.0
-publiée : https://github.com/Flasher1717/desi-w0wa-refit/releases/tag/v1.1.0
-(CI matrice complète verte avant le tag). Projet en veille.
+M15 (extension P2.2, SPEC_V22.md) — TERMINÉ, STOP, EN ATTENTE DU GO de Téo.
+Extraction + pré-enregistrement P12-P13 committés AVANT tout run. AUCUN run
+M16-M17 effectué. Prochain pas : GO de Téo sur les décisions A/B/D/E/G/H/I
+(voir MILESTONES 2026-06-13 et PREREGISTRATION P12-P13), puis M16 (V4).
+
+## Décisions ouvertes au STOP M15 (GO requis)
+
+- A (porteuse) : normalisation V4 scénario (i). Keeley = whitening PLEIN
+  (Eq. 9), pas la diagonale de V1. Proposition : C·κ avec κ=χ²_min/N
+  (fidèle Keeley + contrôle χ²/dof→1 exact) ; s_diag de V1 en contexte.
+- B : facteurs P+ recalculés sur l'arm réel N=1590 (fig. au run) vs valeurs
+  V1 N=1580 littérales. DES exact (N=1829, κ=0.896710, δ²=0.0020654).
+- D : statut Dovekie = EXTENSION inter-release (Dovekie remplace v1.2 sur
+  main ; v1.2 reste gelé au tag v1.2/95cf14c).
+- E : épinglage Dovekie au commit c9a4fcaf ; SHA256 au premier download.
+- G : code IDSURVEY 5 (8 SNe, CSP non documenté dans le README Dovekie) —
+  mapping v1.2 conservé (5=CSP) proposé.
+- H : BEAMS — χ² droit sans poids par-SN, N=1820 ; à vérifier contre la
+  likelihood officielle Dovekie au setup M17.
+- I : fenêtre d'ancrage 3.2σ Dovekie. Proposition [2.4, 3.4] (offset CMB
+  compressé −0.36σ comme v1.2).
+
+## Récapitulatif v1.2 en cours (P2.2)
+
+- M15 : extraction multi-agents (3 sources × vérif adversariale +
+  recoupement). V4 : Keeley v3 Eq. 1-10 (whitening plein, δ² prose),
+  facteurs gelés, métrique ΔNσ, hypothèse « renforcée ? ». V5 : Dovekie
+  3.2σ, structure réelle main c9a4fcaf (SNANA 1820 SNe, npz inverse, pas
+  de diag, Foundation=150), grille LOO, ancrage. SPEC_V22 + P12-P13 +
+  M15 committés au STOP.
 
 ## Récapitulatif v1.1.0 (P2.1)
 

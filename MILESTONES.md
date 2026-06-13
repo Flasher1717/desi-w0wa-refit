@@ -588,3 +588,64 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   Foundation −1.34σ/+0.37σ, S = −0.0358 ± 0.0080 — renvoi RESULTS.md
   §11.5/§11.6, datasets épinglés inchangés).
 - Extension P2.1 (v1.1) CLOSE. Projet en veille.
+
+## 2026-06-13 — Ouverture P2.2 (SPEC_V22.md) + M15 : extraction et
+## pré-enregistrement (STOP, en attente du GO)
+
+- Rituel d'ouverture : 123 tests verts, repo propre sur v1.1.0, SPEC +
+  SPEC_V21 + PREREGISTRATION + PROGRESS + git log relus. SPEC_V22.md
+  committé (copie intégrale immuable du prompt P2.2) ; jalons M15-M18
+  ajoutés, append-only ; résultats v1.1.0 GELÉS.
+- M15 (effort ultracode) : workflow d'extraction multi-agents — 3 agents
+  d'extraction parallèles (Keeley arXiv:2212.07917 Sec. 2 [V4] ; Dovekie
+  arXiv:2511.07517 [V5 papier] ; dépôt des-science/DES-SN5YR branche main
+  [V5 fichiers]), CHACUN re-vérifié par un agent adversarial indépendant
+  (re-fetch + tentative de réfutation), PUIS un agent de recoupement
+  croisé. Anti-injection : aucun contenu instruction-like dans les sources
+  (consigné). Hallucinations du résumeur WebFetch (numérotation de
+  sections/tables) attrapées par inspection du HTML/API brut.
+- Découvertes M15 porteuses :
+  - V4 / Keeley : la VERSION compte. v3 (2025-06-07) = nos chiffres
+    (χ²=1387.10, std=0.93, 7 %, δ²=0.002, 0/10000, >3.9σ) ; le miroir
+    ar5iv rend une version PÉRIMÉE (v1/v2 : 1418.72, 0.95, 5 %, 3.3σ).
+    v3 épinglé, ar5iv banni.
+  - V4 / normalisation (porteuse) : Keeley normalise les résidus par
+    WHITENING DE COVARIANCE PLEINE (Eq. 9, w_i = √valeurs propres de
+    C⁻¹), PAS par la diagonale comme l'a fait V1 (s_diag = 0.9141 P+ /
+    0.9037 DES). Seul le whitening plein (≡ κ = χ²/N) ramène χ²/dof → 1 ;
+    C·s_diag² donnerait 1.05/1.10. Décision A soumise au GO.
+  - V4 : Keeley NE propage PAS la correction vers l'énergie noire
+    (« no published number » confirmé v3 : il s'attend à un effet
+    négligeable sur l'estimation de paramètres, diffère aux travaux
+    futurs). δ² = prose, AUCUN n° d'équation.
+  - V5 / Dovekie papier : 3.2σ (Δχ²=−13.5, ΔlogZ=−1.7) pour DES-Dovekie +
+    CMB(Planck+ACT+SPT) + DESI DR2 BAO, réduit de 4.2σ ; w0=−0.803±0.054,
+    wa=−0.72±0.21 (§10.6, Table 10). Foundation : AUCUN shift de calib
+    Dovekie-spécifique (seul un plancher 1 % antérieur) ; filtres décalés
+    = CfA3K-V, CSP-B/V, CfA4P1/2, PS1-g — pas Foundation. Coupure low-z
+    z>0.025 (§2.2). N_eff = 1684 (Σ probas BEAMS).
+  - V5 / dépôt main HEAD c9a4fcaf (2026-01-28) : formats RADICALEMENT
+    différents de v1.2. HD = DES-Dovekie_HD.csv (SNANA, lignes SN:,
+    1820 SNe, MUERR_FINAL SUPPRIMÉ, colonnes …MU MUERR MUERR_VPEC
+    MUERR_SYS PROBIA_BEAMS). Covariance = STAT+SYS.npz stockant l'INVERSE
+    de stat+sys (float32, accès positionnel), C = inv(inv_cov), AUCUN diag
+    ajouté → la règle v1.2 ne s'applique plus. Foundation reste IDSURVEY
+    150 (117). Les fichiers v1.2 sont ABSENTS de main → Dovekie REMPLACE
+    v1.2 (v1.2 reste au tag v1.2 / commit 95cf14c).
+- PREREGISTRATION.md étendu : P12 (V4 : formules Keeley Eq. 1-10 + δ²
+  prose, deux scénarios C·κ / C−δ²I sur le bloc SNe seul, facteurs gelés
+  DES κ=0.896710 δ²=0.0020654, métrique ΔNσ vs baseline gelée, gates de
+  contrôle χ²/dof→1, hypothèse « renforcée ? » à tester) ; P13 (V5 :
+  épinglage Dovekie c9a4fcaf, loader SNANA + covariance inverse + invert-
+  puis-subset, grille LOO Foundation=150, ancrage 3.2σ fenêtre proposée
+  [2.4,3.4], comparaison inter-release côté v1.2 gelé, statut EXTENSION).
+- DÉCISIONS soumises au STOP M15 (GO requis avant tout run) : (A)
+  normalisation V4 = whitening plein/κ vs s_diag littéral ; (B) échantillon
+  P+ recalculé N=1590 vs valeurs V1 N=1580 ; (D) statut Dovekie = extension
+  inter-release ; (E) épinglage commit + SHA256 au download ; (G) code
+  IDSURVEY 5 (CSP non documenté Dovekie) ; (H) BEAMS/N=1820 ; (I) fenêtre
+  d'ancrage 3.2σ.
+- STOP M15 : AUCUN run M16-M17 effectué ; les seuls calculs sont
+  l'extraction/vérification demandées par M15 et l'arithmétique de
+  conception sur les nombres V1 DÉJÀ GELÉS (κ = χ²/N, etc., aucun fit
+  nouveau). Attente du GO de Téo.

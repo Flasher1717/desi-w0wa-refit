@@ -560,3 +560,316 @@ principal.)
   (mêmes μ) donne Δμ = 0 exactement ; le garde-fou |Δz| < 0.01 laisse
   passer exactement 1304442 comme seul |Δz| > 0.003 (deuxième max
   0.00207).
+
+---
+
+# Extension P2.2 (SPEC_V22.md) — P12-P13, committés au STOP M15
+
+> Rédigés en M15 (2026-06-13), AVANT tout run M16-M17. PROPOSITIONS soumises
+> au GO M15 de Téo ; les points qui requièrent son arbitrage sont marqués
+> `[GO M15]`. Mêmes règles : chaque section gèle au premier run qui la
+> concerne ; toute déviation est documentée dans RESULTS.md. Sources extraites
+> en M15 par workflow multi-agents (un sous-agent par source + vérification
+> adversariale indépendante + recoupement croisé ; MILESTONES.md, entrée M15) :
+> Keeley, Shafieloo & L'Huillier arXiv:2212.07917 **v3** (HTML arxiv.org, NON
+> ar5iv) ; Popovic et al. (DES-Dovekie) arXiv:2511.07517v3 ; dépôt
+> des-science/DES-SN5YR branche `main` HEAD `c9a4fcaf` (2026-01-28). Anti-
+> injection : aucun contenu instruction-like dans les sources fetchées
+> (consigné par les agents).
+
+## P12 — V4 : effet de la covariance corrigée sur la préférence w0waCDM (M16)
+
+> Analyse de SENSIBILITÉ ENCADRÉE (SPEC_V22 [CONTRAINTES]) : les covariances
+> corrigées ne sont JAMAIS « la » préférence corrigée. La covariance publiée
+> reste la baseline gelée v1.1.0. Keeley diagnostique la surestimation mais ne
+> la propage PAS vers l'énergie noire (« no published number », confirmé v3 :
+> « we expect that the overestimated errors … should not significantly affect
+> … parameter estimation and Bayesian model selection … not directly sensitive
+> to the values of the best fit chi2 of models. This can be investigated in
+> more detail in future works. »). V4 chiffre exactement cet effet attendu nul.
+
+### P12.1 Source et formules exactes (Keeley arXiv:2212.07917 v3, Sec. 2)
+
+VERSION ÉPINGLÉE : **v3** (soumise 2025-06-07), lue sur
+`https://arxiv.org/html/2212.07917v3`. PIÈGE documenté : le miroir ar5iv rend
+une version PÉRIMÉE (v1/v2) avec d'autres chiffres (χ² = 1418.72, « 10/10000 »,
+3.3σ, std = 0.95, 5 %) ; ar5iv ne doit JAMAIS être cité. Les chiffres v3
+(χ² = 1387.10, 0/10000, > 3.9σ, std = 0.93, 7 %, δ² = 0.002) sont ceux ancrés
+verts en M11 (G11.2). Tous les n° d'équations ci-dessous vérifiés verbatim sur
+le HTML v3.
+
+Mise en place : Eq. (1) `H(z) = H0·√(Ωm(1+z)³ + 1−Ωm)` ; Eq. (2)
+`D_L(z) = (1+z)∫₀^z c·dz'/H(z')` ; Eq. (3) `μ(z) = 5·log10(D_L/1 Mpc) + 25` ;
+Eq. (4) `m_B,i^th = μ(z_i) + M_B` ; Eq. (5) `χ² = Σ_{i,j}(m^data − m^th)_i^T
+C⁻¹_{ij}(m^data − m^th)_j`. Best-fit réel : χ²_réel = 1387.10, N = 1580.
+
+**Correction A — diagnostic de l'écart-type des résidus normalisés
+(Eqs. 6-10).** Eq. (6) `χ² = XᵀC⁻¹X` ; Eq. (7) insertion de la matrice des
+vecteurs propres V de C⁻¹ ; Eq. (8) `X̃ = V⁻¹X` (rotation dans la base où la
+covariance est diagonale) ; Eq. (9) `X̃_norm,i = X̃_i·w_i`, **w_i = racine des
+valeurs propres de C⁻¹** ; Eq. (10) `Σ_i X̃²_norm,i = χ²`. Écart-type rapporté :
+**std = 0.93** → erreurs de Pantheon+ surestimées de **~7 %**.
+→ NORMALISATION : Keeley utilise le **whitening de covariance PLEINE**
+(décomposition propre de C⁻¹, Eq. 9), **PAS** la diagonale `√(C_ii)`. Par
+construction (Eq. 10) std² ≈ χ²/N (0.93² = 0.865 vs 1387.10/1580 = 0.878).
+
+**Correction B — soustraction d'un intrinsic scatter.** Keeley **soustrait** un
+terme diagonal uniforme : `C_ii → C_ii − δ²`, **δ² = 0.002 (mag²)**, calé pour
+que χ²_min = N = 1580. **AUCUN n° d'équation** (prose seule ; la dernière
+équation numérotée de Sec. 2 est l'Eq. 10). `[GO M15]` Le pré-enregistrement
+NE cite PAS de n° d'équation pour δ² (il n'en existe pas).
+
+### P12.2 Les deux scénarios de correction (covariance SNe UNIQUEMENT)
+
+La correction ne touche QUE le bloc de covariance SNe de l'arm BAO+CMB+SNe ;
+BAO et CMB sont inchangés (vérifiable : `make_cmb_arm(bao, prior, sample_corr)`,
+arms.py). Chaque facteur est défini PAR ÉCHANTILLON, depuis le fit ΛCDM SN-only
+à offset profilé (convention Keeley dof = N, sans soustraction de paramètres).
+
+- **Scénario (i) — rescale global** : `C → C·κ`, `κ = χ²_min,SN-only / N`.
+  C'est le rescale-vers-χ²réduit-unité standard, qui ramène χ²/dof → 1
+  EXACTEMENT (test de contrôle P12.5) et correspond au whitening plein de
+  Keeley (Eq. 9-10 : Σ whitened² = χ² ⇒ facteur κ = χ²/N). κ < 1 ⇒ C plus
+  petite ⇒ terme χ²_SNe pondéré ×(1/κ).
+- **Scénario (ii) — intrinsic scatter** : `C → C − δ²·I`, `δ²` calé pour que
+  χ²_min,SN-only = N (réplique exacte de Keeley B ; implémenté et gelé en V1,
+  `delta2_for_chi2_eq_n`, mocks.py). Domaine SPD borné par la plus petite
+  valeur propre (déjà géré).
+
+**`[GO M15]` DÉCISION A (porteuse) — quel `s` pour le scénario (i) ?** Le prompt
+SPEC_V22 dit « s = std des résidus normalisés mesurée en V1 ». Or V1 (P9.4c,
+mocks.py:145-151) a mesuré `s` par la **diagonale** `√(diag C)` (s_diag = 0.9141
+P+ / 0.9037 DES), alors que Keeley (Eq. 9, vérifié) utilise le **whitening
+plein**. Seul le whitening plein (équivalent à κ = χ²/N) ramène χ²/dof → 1 :
+`C·s_diag²` donnerait χ²/dof = 1.05 (P+) / 1.10 (DES), PAS 1. **Proposition :
+scénario (i) PRIMAIRE = `C·κ`, κ = χ²_min/N (fidèle à Keeley Eq. 9-10 ET au
+test de contrôle) ; le s_diag de V1 est rapporté en CONTEXTE descriptif, pas
+comme facteur primaire.** C'est un écart au libellé littéral du prompt (s_diag),
+justifié par l'extraction vérifiée ; soumis au GO.
+
+### P12.3 Facteurs gelés (depuis les sorties V1 committées)
+
+Bras **DES-SN5YR** (échantillon V1 N=1829 = échantillon de l'arm, exact) —
+figés depuis results/m11_mocks.json :
+- κ_DES = 1640.0831 / 1829 = **0.896710** (scénario i)
+- δ²_DES = **0.0020653679** (scénario ii ; chi2_at_root = 1829.0000)
+- (contexte) s_diag,DES = 0.903730
+
+Bras **Pantheon+** : `[GO M15]` DÉCISION B (échantillon). L'arm BAO+CMB+P+ utilise
+N=1590 (coupure cosmo zHD>0.01), alors que les diagnostics V1 sont sur la
+sélection Keeley N=1580 (zHD>0.01 ET IS_CALIBRATOR=0). Les 10 calibrateurs
+diffèrent. **Proposition : κ_P+ et δ²_P+ sont (re)calculés sur l'échantillon
+RÉEL de l'arm (N=1590) par les fonctions GELÉES de mocks.py, et figés au
+premier run M16** (statut « gèle au premier run », comme P9-P11). Les valeurs
+V1 N=1580 (κ = 0.877472, δ² = 0.0021854, s_diag = 0.914137) servent d'ANCRAGE
+publié-Keeley de contrôle, pas de facteur appliqué. Alternative soumise au GO :
+appliquer littéralement les valeurs V1 N=1580 à l'arm N=1590 (caveat
+échantillon documenté, χ²/dof de contrôle légèrement ≠ 1).
+
+### P12.4 Bras, modèles, baselines GELÉES, métrique ΔNσ
+
+- Bras : **BAO+CMB+Pantheon+** et **BAO+CMB+DES-SN5YR** uniquement (Keeley n'a
+  testé que ces deux covariances SNe ; Union3 hors V4).
+- Modèles : ΛCDM plat et w0waCDM plat, MÊME moteur que M5/M7/M12
+  (minimize_multistart, 24 départs ΛCDM / 40 w0waCDM, seeds frais
+  `m16-<sample>-<scenario>-<model>` via derive_seed, zéro collision avec les
+  streams gelés).
+- Baselines GELÉES (results/m5_fits_corrected.json, pipeline P8, v1.1.0) :
+  P+ Nσ = 2.279 (w0 = −0.853, wa = −0.522) ; DES Nσ = 3.837
+  (w0 = −0.766, wa = −0.778). AUCUN re-fit des baselines.
+- Conversion Nσ : Δχ²_MAP → Nσ par `nsigma_from_delta_chi2` (Eq. 22, dof = 2),
+  identique à tout le projet.
+
+Métrique FIGÉE (un tableau, deux bras × deux scénarios) :
+
+| Bras | Scénario | N_SNe | χ²_ΛCDM | χ²_w0wa | Δχ²_MAP | Nσ | ΔNσ vs baseline | w0_MAP | wa_MAP | Δw0 | Δwa |
+
+(baseline = bras complet GELÉ v1.1.0 ; aucune statistique décidée après coup
+n'est présentée comme résultat principal.)
+
+### P12.5 Gates de contrôle et non-régression
+
+- **G16.1 (contrôle χ²/dof → 1, les DEUX scénarios, les DEUX bras)** : après
+  correction, le χ²_min ΛCDM SN-only divisé par N (convention Keeley dof = N)
+  vaut 1.0 à ±1e-6 pour le scénario (ii) (par construction, brentq xtol 1e-7)
+  et pour le scénario (i) primaire `C·κ` (par construction κ = χ²/N).
+  C'est un gate de CORRECTION D'IMPLÉMENTATION (la valeur cible est la
+  définition même), pas un gate d'ancrage externe. Si la DÉCISION A retient
+  `C·s_diag²`, G16.1 du scénario (i) cible la valeur χ²/(N·s_diag²) MESURÉE
+  (1.05 P+ / 1.10 DES) et NON 1 — à figer selon le GO.
+- **G16.2 (non-régression v1.1.0)** : les 123 tests existants restent verts ;
+  aucun results/*.json gelé n'est modifié (sortie unique results/m16_v4.json).
+- **G16.3 (cohérence baseline)** : ré-évaluer la baseline avec covariance NON
+  corrigée doit reproduire exactement Nσ gelé (P+ 2.279 / DES 3.837) au bruit
+  d'optimiseur (~1e-3 σ) — garde-fou que la seule différence est la covariance.
+
+### P12.6 Hypothèse arithmétique à tester explicitement (SPEC_V22)
+
+« C plus petite ⇒ Δχ² plus grand ⇒ préférence RENFORCÉE (contre-intuitif). »
+Lecture pré-enregistrée : C_SNe rétrécie pondère ×(1/κ > 1) le bloc SNe dans
+l'arm joint ; si le levier w0wa vient des SNe, Δχ²_MAP|augmente ⇒ Nσ monte.
+MAIS l'effet net dépend du déplacement du MAP et du poids relatif BAO+CMB
+(inchangé) — d'où le run. Verdict (renforcée / affaiblie / inchangée) rapporté
+TEL QUEL, chiffres ΔNσ à l'appui, dans les deux sens, zéro correction
+ultérieure (la covariance publiée RESTE la baseline).
+
+### P12.7 Implémentation et coût
+
+- Nouveau script scripts/run_m16_v4.py (clone de run_m12_loo.py) : construit
+  les SNSample corrigés (cov·κ ; cov − δ²·I), fit les deux arms × deux
+  scénarios × deux modèles, lit les baselines gelées, sortie UNIQUEMENT dans
+  results/m16_v4.json. Helper de correction de covariance ajouté à sne.py ou
+  un module dédié (testé : SPD préservée, Cholesky valide).
+- Coût estimé (chronométrages M5/M12, ~341 s/arm-complet) : 8 fits complets
+  + contrôles SN-only ≈ 45-90 min.
+
+## P13 — V5 : Foundation sous Dovekie (M17)
+
+> Comparaison INTER-RELEASE explicite (SPEC_V22 [CONTRAINTES]). Dovekie =
+> nouveau dataset épinglé ; v1.2 reste l'ancrage DR2-era, V5 le COMPARE, ne le
+> remplace pas. Question binaire : le levier Foundation (−1.335σ en v1.2, M12)
+> persiste-t-il après recalibration ?
+
+### P13.1 Épinglage Dovekie (structure RÉELLE vérifiée, pas supposée)
+
+Dépôt des-science/DES-SN5YR, branche `main`, HEAD
+**`c9a4fcafc4cbd19bd750dee47fc76194a45c181f`** (2026-01-28T10:43:40Z,
+« make clearer that the covariance matrices are already inverted »). Fichiers
+(formats RADICALEMENT différents de v1.2 — vérifié, voir RESULTS.md §12) :
+
+- **HD** : `4_DISTANCES_COVMAT/DES-Dovekie_HD.csv` (148002 o). Format SNANA,
+  délimité par espaces, lignes de données préfixées `SN:`, en-tête
+  `VARNAMES: CID IDSURVEY zHD zHEL MU MUERR MUERR_VPEC MUERR_SYS PROBIA_BEAMS`.
+  **1820 SNe** (≠ 1829 de v1.2). **MUERR_FINAL SUPPRIMÉ** ; MUERR = stat seul.
+- **Covariance** : `4_DISTANCES_COVMAT/STAT+SYS.npz` (numpy npz, ≠ .txt.gz).
+  Clés positionnelles `[nsn, cov]` (accès par `d.files[0/1]`, PAS par nom) ;
+  nsn = 1820 ; `cov` float32, triangulaire sup. longueur 1657110 = 1820·1821/2.
+  **La matrice stockée est l'INVERSE de stat+sys (Covtot_inv)** ; la likelihood
+  officielle fait `C = np.linalg.inv(inv_cov)`. **AUCUN diag(MUERR²) ajouté.**
+  → La règle v1.2 `total = STAT+SYS + diag(MUERR_FINAL²)` NE S'APPLIQUE PLUS.
+- Les noms v1.2 (`DES-SN5YR_HD.csv`, `STAT+SYS.txt.gz`) sont ABSENTS de tout le
+  dépôt sur `main` (arbre récursif 834 entrées) → **Dovekie REMPLACE v1.2 sur
+  `main`.** L'état v1.2 reste épinglé au tag v1.2 / commit `95cf14c`
+  (data_manifest.json inchangé).
+
+`[GO M15]` DÉCISION E (épinglage) : ajouter au data_manifest.json les deux
+fichiers Dovekie au commit `c9a4fcaf` (+ SHA256). SHA256 calculé au premier
+download via scripts/download_data.py (convention du manifeste : « SHA256
+computed at first download ») — PAS pendant M15 (extraction seule, aucun run).
+Pas de DOI Zenodo pour les data products (Zenodo ne couvre que l'install SNANA
+logicielle) → on épingle les URLs raw GitHub au SHA gelé.
+
+### P13.2 Loader Dovekie (nouveau, `load_des_dovekie`)
+
+- Parser SNANA dédié : ignorer les lignes de commentaire, lire l'en-tête
+  `VARNAMES:`, ne garder que les lignes `SN:`, colonnes MU / zHD / zHEL /
+  IDSURVEY (token BEAMS = `PROBIA_BEAMS`). NE PAS utiliser les défauts stale de
+  `DES-Dovekie-SN_Likelihood.py` (`DES-SN5YR_HD.csv`, `format=ascii.csv`).
+- Covariance : lire le npz par POSITION, inverser `C = inv(inv_cov)` en
+  float64 (comme la likelihood officielle), valider SPD (Cholesky), AUCUN diag
+  ajouté. LOO = **inverser PUIS sous-bloquer** (sous-bloc de C = covariance
+  marginale du sous-échantillon ; jamais sous-bloquer l'inverse). `SNSample`
+  réutilisé tel quel (cov = C float64). Limitation : précision float32 de la
+  matrice publiée, héritée et documentée.
+
+### P13.3 Règle d'appariement des groupes IDSURVEY sous Dovekie
+
+Distribution IDSURVEY vérifiée (DES-Dovekie_HD.csv, total 1820) :
+`5:8, 10:1623, 63:16, 64:31, 65:22, 66:3, 150:117`.
+
+- **Foundation = IDSURVEY 150 (117 SNe), code INCHANGÉ vs v1.2** (README dict
+  `150:'FOUND'`) → la ligne LOO Foundation est bien définie.
+- DES = 10 (1623). CfA = 63-66 (README documente 61-66 ; 61/62 vides).
+  `[GO M15]` DÉCISION G : code 5 (8 SNe) est ABSENT du dict README Dovekie mais
+  présent dans les données ; v1.2 l'appelait CSP. Proposition : conserver le
+  mapping v1.2 (5 = CSP, 63-66 = CfA, fusion CfA+CSP primaire côté DES comme
+  P10.1), documenté comme appartenance reprise de v1.2 faute de doc Dovekie.
+- Grille LOO Dovekie (miroir P10.1 côté DES) — pré-figée :
+
+| Groupe retiré | IDSURVEY | N retiré | N restant |
+|---|---|---|---|
+| Foundation | 150 | 117 | 1703 |
+| DES | 10 | 1623 | 197 |
+| CfA+CSP (primaire) | 5,63-66 | 80 | 1740 |
+| (desc.) CfA seul | 63-66 | 72 | 1748 |
+| (desc.) CSP seul | 5 | 8 | 1812 |
+
+(comptes EXACTS dérivés de la distribution vérifiée, à reproduire en pytest
+au run, P13.8 ; ligne DES-retiré N=197 attendue « boundary MAP » comme en v1.2).
+
+### P13.4 Baseline Dovekie et ancrage (3.2σ publié)
+
+- Baseline = fit FRAIS BAO+CMB+DES_Dovekie (ΛCDM + w0waCDM), aucune baseline
+  gelée n'existe (≠ V4). Calculée au run M17, figée alors. Bras construit avec
+  `make_cmb_arm(bao, prior, dovekie_sample)`, MÊME BAO DR2 et MÊME prior CMB
+  compressé P8 que tout le projet.
+- **Ancrage publié** : Popovic et al. (arXiv:2511.07517v3, §10.6, Table 10/11,
+  Eq. S10.Ex12) : DES-Dovekie + CMB(Planck+ACT+SPT) + DESI DR2 BAO →
+  **3.2σ** (Δχ² = −13.5, Δlog Z = −1.7 ; w0 = −0.803±0.054, wa = −0.72±0.21),
+  réduit de 4.2σ (DES-SN5YR). `[GO M15]` DÉCISION I (tolérance d'ancrage) : notre
+  CMB compressé sous-estime systématiquement (v1.2 : 3.837σ vs 4.2σ publié,
+  offset −0.36σ, RESULTS §9.1). Attendu Dovekie ≈ 3.2 − 0.36 ≈ 2.84σ.
+  **Proposition de fenêtre G17.1 : Nσ_baseline_Dovekie ∈ [2.4, 3.4]** (centrée
+  sous 3.2 pour l'offset de compression, largeur comparable aux G5.x).
+  Hors fenêtre = bug jusqu'à preuve du contraire → STOP audit (GO M1.2b),
+  jamais de relâchement silencieux.
+
+### P13.5 Métrique LOO et comparaison v1.2 côte à côte
+
+- Métrique IDENTIQUE à P10.2 (Δχ²_MAP, Nσ, ΔNσ, w0/wa_MAP, Δw0/Δwa,
+  σ_curv(w0,wa) + Δσ_curv), σ_curv par Hessienne FD pas fixes P10.3,
+  politique boundary-MAP P10.4 (ligne DES-retiré attendue flaguée).
+- ΔNσ de chaque ligne = vs la baseline Dovekie FRAÎCHE (pas vs v1.2).
+- Tableau de comparaison INTER-RELEASE : colonne v1.2 (lue de
+  results/m12_loo.json, GELÉ, zéro re-fit) vs colonne Dovekie (run M17),
+  même métrique. Question binaire tranchée sur la ligne Foundation :
+  - persiste (ΔNσ_Dovekie ≈ −1.34σ) → le paradoxe n'est pas une affaire de
+    calibration ;
+  - disparaît (ΔNσ_Dovekie → ~0) → Dovekie a résorbé ce qu'Efstathiou
+    pointait. Les DEUX sont des résultats, rapportés tels quels.
+
+### P13.6 Statut Dovekie : EXTENSION inter-release `[GO M15]`
+
+DÉCISION D : V5 est une **EXTENSION** (nouveau dataset épinglé), comparaison
+inter-release explicite — PAS une réplication de v1.2, PAS un remplacement de
+l'ancrage DR2-era. v1.2 (commit 95cf14c, results/m12_loo.json) reste gelé et
+fait foi pour l'ère DR2 ; Dovekie (commit c9a4fcaf) est un point de comparaison
+2026. Toute différence est une différence de RELEASE, jamais une correction de
+v1.2.
+
+### P13.7 BEAMS et convention de N `[GO M15]`
+
+DÉCISION H : le HD Dovekie porte `PROBIA_BEAMS` (N effectif = 1684 = Σ probas,
+§10.5). Le χ² cosmologique v1.2 n'appliquait AUCUN poids BEAMS par-SN (les
+probas étaient déjà repliées en amont dans HD+covariance). **Proposition :
+miroir v1.2 — χ² gaussien droit à offset profilé (Goliath A9-A12) sur les
+1820 SNe, AUCUN poids BEAMS par-SN ; N = 1820 (= dimension HD = dimension
+covariance) comme dénominateur.** À VÉRIFIER contre `DES-Dovekie-SN_Likelihood.py`
+au setup M17 : si la likelihood officielle pondère par PROBIA_BEAMS, on
+s'aligne et on documente l'écart. N_eff=1684, 1635 (DES cosmo README), 1623
+(lignes IDSURVEY=10) sont des quantités DESCRIPTIVES distinctes, non le
+dénominateur.
+
+### P13.8 Tests, déterminisme, coût
+
+- Appariement/grille déterministes ; comptes IDSURVEY ÉPINGLÉS en pytest
+  (requires_data) : total 1820 ; 150→117, 10→1623, {63,64,65,66}→{16,31,22,3},
+  5→8 ; restes LOO 1703/197/1740/1748/1812 (P13.3).
+- Covariance Dovekie : symétrie après inversion, SPD (Cholesky), finitude ;
+  auto-test inverse : `inv(inv(M)) ≈ M` à la précision float32 documentée.
+- Non-régression v1.1.0 : les 123 tests restent verts ; results/m12_loo.json
+  et tous les *.json gelés INCHANGÉS (sortie unique results/m17_dovekie.json).
+- Seeds frais `m17-dovekie-<group>-<model>` via derive_seed (schéma P7),
+  zéro collision. Coût estimé : baseline + 5 lignes LOO × 2 modèles ≈ 1-2 h.
+
+### P13.9 Divergences sources consignées (règle STOP-on-divergence)
+
+- Keeley v3 vs ar5iv (v1/v2) : chiffres différents → v3 épinglé, ar5iv banni
+  (P12.1).
+- Dovekie : Table 9 du papier ≠ fits w0wa (c'est la table « significance of
+  change … calibration systematic », w0:1.1σ/wa:1.2σ) ; les fits sont
+  Eq. S10.Ex12 + Table 10 ; corrigé ici et en RESULTS §12.
+- README Dovekie : incohérence interne du nom HD (`DES-SN55YR_HD.csv` [typo],
+  `DES-SN5YR_HD.csv`, `DES-Dovekie_HD.csv`) ; le fichier réel sur disque est
+  `DES-Dovekie_HD.csv` (vérifié). 1635 (README cosmo) ≠ 1623 (lignes code 10) :
+  quantités distinctes, ne pas confondre.
