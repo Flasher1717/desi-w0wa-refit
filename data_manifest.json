@@ -154,6 +154,27 @@
       "url": "https://data.desi.lbl.gov/public/papers/y3/bao-cosmo-params/cobaya/base_w_wa/desi-bao-all_CMB-compressed-theta-ombh2-ombch2/chain.margestats",
       "sha256": "a8f6e1e7eb43719bfbb00d919d43c335eff5e4eb14ca2555a4ef419eba993a5e",
       "size": 2178
+    },
+    {
+      "name": "DES-Dovekie_HD.csv",
+      "description": "DES-Dovekie recalibrated Hubble diagram (V5, P13). SNANA space-delimited, 1820 SNe, VARNAMES: CID IDSURVEY zHD zHEL MU MUERR MUERR_VPEC MUERR_SYS PROBIA_BEAMS (MUERR_FINAL removed vs v1.2). des-science/DES-SN5YR pinned at main HEAD commit c9a4fcaf (2026-01-28, Dovekie/Popovic et al. 2026 state; main no longer carries the v1.2 files).",
+      "url": "https://raw.githubusercontent.com/des-science/DES-SN5YR/c9a4fcafc4cbd19bd750dee47fc76194a45c181f/4_DISTANCES_COVMAT/DES-Dovekie_HD.csv",
+      "sha256": "2f57019d783eaa976df80a41b0054171a2d994ee9808d715ce850c2df5720aaf",
+      "size": 148002
+    },
+    {
+      "name": "DES-Dovekie_STAT+SYS.npz",
+      "description": "DES-Dovekie total stat+sys covariance, stored as its INVERSE (Covtot_inv) in numpy npz (keys nsn, cov; cov float32 upper-triangular incl. diagonal, length 1820*1821/2). Total covariance C = inv(inv_cov); NO diag(MUERR^2) is added (unlike v1.2). Same pinned commit c9a4fcaf.",
+      "url": "https://raw.githubusercontent.com/des-science/DES-SN5YR/c9a4fcafc4cbd19bd750dee47fc76194a45c181f/4_DISTANCES_COVMAT/STAT%2BSYS.npz",
+      "sha256": "ffd3124b32148b1372bd95fda9299269f0352a9f8eee02d416c610e38495463b",
+      "size": 6244951
+    },
+    {
+      "name": "DES-Dovekie-SN_Likelihood.py",
+      "description": "Official DES-Dovekie SN likelihood (convention reference only, never imported): offset-marginalized Gaussian chi2 = a - b^2/c + ln(c/2pi) [Goliath et al. astro-ph/0104009 A9-A12], NO per-SN BEAMS weighting (coherence gate H, P13.7); mu_th = 5 log10((1+zHD)(1+zHEL) D_A) + 25. Same pinned commit c9a4fcaf.",
+      "url": "https://raw.githubusercontent.com/des-science/DES-SN5YR/c9a4fcafc4cbd19bd750dee47fc76194a45c181f/4_DISTANCES_COVMAT/DES-Dovekie-SN_Likelihood.py",
+      "sha256": "78526c0e6013619e3586a5509be504f0bc5f0461d1e55a3d5bec0154353645ff",
+      "size": 7674
     }
   ]
 }

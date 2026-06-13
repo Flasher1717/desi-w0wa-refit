@@ -239,6 +239,89 @@ def load_des_sn5yr(hd_path: Path, cov_path: Path) -> SNSample:
     )
 
 
+def _read_snana_hd(path: Path, columns: tuple[str, ...]) -> dict[str, FloatArray]:
+    """Read SNANA-format columns by VARNAMES name from a DES-Dovekie HD file.
+
+    Data rows are prefixed ``SN:``; comment (``#``) and blank lines are
+    ignored; the column order is the ``VARNAMES:`` header line. Rows are kept
+    in file order (which matches the covariance row order; the separate
+    metadata file is reordered and must NOT be used with the covariance).
+    """
+    lines = path.read_text(encoding="utf-8").splitlines()
+    varnames: list[str] | None = None
+    rows: list[list[str]] = []
+    for line in lines:
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        tokens = stripped.split()
+        if tokens[0] == "VARNAMES:":
+            varnames = tokens[1:]
+        elif tokens[0] == "SN:":
+            rows.append(tokens[1:])
+    if varnames is None:
+        raise ValueError(f"{path}: no VARNAMES header line found")
+    try:
+        indices = {column: varnames.index(column) for column in columns}
+    except ValueError as exc:
+        raise ValueError(f"{path}: missing expected column in VARNAMES {varnames!r}") from exc
+    return {
+        column: np.asarray([row[index] for row in rows], dtype=np.float64)
+        for column, index in indices.items()
+    }
+
+
+def read_inverse_covariance_npz(path: Path) -> FloatArray:
+    """Read a DES-Dovekie covariance: an npz storing the INVERSE of stat+sys.
+
+    The npz holds (nsn, cov): ``nsn`` the dimension and ``cov`` the float32
+    upper-triangular packing (incl. the diagonal, ``np.triu_indices`` order) of
+    Covtot_inv. We reconstruct the symmetric inverse and return the covariance
+    ``C = inv(inv_cov)`` -- exactly the official DES-Dovekie likelihood's
+    ``build_covariance`` (no diag(MUERR^2) is added, unlike DES-SN5YR v1.2).
+    Float32 release precision is inherited and documented (RESULTS.md s12).
+    """
+    with np.load(path) as data:
+        n = int(np.asarray(data["nsn"]).reshape(-1)[0])
+        packed = np.asarray(data["cov"], dtype=np.float64)
+    expected = n * (n + 1) // 2
+    if packed.size != expected:
+        raise ValueError(
+            f"{path}: expected {expected} upper-triangular values for n={n}, found {packed.size}"
+        )
+    inv_cov = np.zeros((n, n), dtype=np.float64)
+    inv_cov[np.triu_indices(n)] = packed
+    lower = np.tril_indices(n, -1)
+    inv_cov[lower] = inv_cov.T[lower]
+    cov = np.linalg.inv(inv_cov)
+    # inv() of an exactly-symmetric matrix is symmetric up to roundoff;
+    # symmetrize so the strict validate_covariance check passes. Integrity is
+    # guaranteed upstream by the SHA256 pin and downstream by the SNSample
+    # Cholesky (positive-definiteness).
+    return np.asarray(0.5 * (cov + cov.T), dtype=np.float64)
+
+
+def load_des_dovekie(hd_path: Path, cov_path: Path) -> SNSample:
+    """Load the DES-Dovekie recalibrated sample (V5, PREREGISTRATION.md P13).
+
+    SNANA Hubble diagram (1820 SNe; columns MU / zHD / zHEL / IDSURVEY; MUERR is
+    a stat-only diagnostic, NOT added to the covariance) and the npz inverse
+    covariance inverted to the total covariance C. Straight offset-marginalized
+    Gaussian chi2, no per-SN BEAMS weighting (coherence gate H), matching the
+    official DES-Dovekie likelihood. Foundation is IDSURVEY 150 (unchanged).
+    """
+    cols = _read_snana_hd(hd_path, ("zHD", "zHEL", "MU", "IDSURVEY"))
+    cov = read_inverse_covariance_npz(cov_path)
+    return SNSample(
+        name="DES-Dovekie",
+        z_cmb=cols["zHD"],
+        z_hel=cols["zHEL"],
+        mag=cols["MU"],
+        cov=cov,
+        survey_ids=cols["IDSURVEY"],
+    )
+
+
 def load_union3(lcparam_path: Path, cov_path: Path) -> SNSample:
     """Load Union3 (22 spline nodes, zhel = zcmb, arbitrary zero point)."""
     cols = _read_named_columns(lcparam_path, ("zcmb", "zhel", "mb"))
