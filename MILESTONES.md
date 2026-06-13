@@ -678,3 +678,39 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
 - Séquence accordée : GO M16 (V4) → M17 (V5) → M18 ; STOP fin M17 (rapport
   chiffré des 2 volets) avant la rédaction RESULTS §12. Effort high,
   ultracode ponctuel si un gate échoue. P12-P13 GÈLENT à leurs premiers runs.
+
+## 2026-06-13 — M16 : V4 effet de la covariance corrigée (terminé)
+
+- Moteur + runner committés AVANT le run (8c32001) ; P12 gelé au premier run.
+- Revue adversariale AVANT le gel (ultracode) : a attrapé B1 — la tolérance
+  G16.1 du scénario (ii) (1e-6) était inatteignable car `delta2_for_chi2_eq_n`
+  cale brentq sur la POSITION de racine (xtol δ²), pas sur la VALEUR χ² (jacobien
+  ~1e6 ⇒ χ²/N à ~quelques×1e-5 de 1). Corrigé AVANT le run (gel non encore
+  atteint) : gate par scénario — (i-κ) ≤1e-9 (exact), (ii) ≤1e-3 ; P12.5 amendé.
+  Sans cette revue, le run aurait STOPé sur le bras P+ (ctrl=1.000024).
+- Gates : G16.3 (refit baseline NON corrigé reproduit le Nσ gelé) PASS sur les
+  deux bras à ~1.6e-9 (P+ 2.2791383, DES 3.8373140) → harnais fidèle, la seule
+  différence est la covariance. G16.1 contrôles : i-κ = 1.000000 (exact),
+  ii = 1.000024 (P+) / 1.000000 (DES) dans 1e-3 ; i-s non gaté (1.0573 / 1.0979,
+  l'écart diagonale-vs-pleine, GO M15 décision A).
+- Facteurs (décision B, sur l'échantillon réel de l'arm) : P+ N=1590 κ=0.882339
+  s_diag=0.913525 δ²=0.0007461 (≠ V1 N=1580 0.0021854 — les 10 calibrateurs
+  comptent) ; DES N=1829 κ=0.896710 s_diag=0.903730 δ²=0.0020654 (= V1, exact).
+- Résultats ΔNσ vs baseline gelée (results/m16_v4.json) :
+  - P+ (baseline 2.279σ) : i-κ +0.068 (2.347σ) ; i-s +0.100 (2.379σ) ;
+    ii −0.814 (1.466σ).
+  - DES (baseline 3.837σ) : i-κ +0.158 (3.996σ) ; i-s +0.302 (4.139σ) ;
+    ii +0.740 (4.577σ).
+- Lecture factuelle (analyse de SENSIBILITÉ, jamais « la » préférence) :
+  l'hypothèse arithmétique « C plus petite ⇒ préférence renforcée » est
+  CONFIRMÉE pour le rescale uniforme (i) sur les deux bras (+0.07 à +0.16 sur
+  le primaire i-κ — petit, cohérent avec l'attente explicite de Keeley d'un
+  effet négligeable sur l'estimation de paramètres). MAIS les deux corrections
+  Keeley DIVERGENT EN SIGNE sur P+ : le rescale renforce (+0.10), la
+  soustraction d'intrinsic scatter (ii) affaiblit fortement (−0.81). Sur DES,
+  les deux renforcent (ii le plus, +0.74). Caveat : sur P+, (ii) rend une
+  direction propre de C quasi-singulière (val. propre min 6.1e-5) qui domine le
+  fit — d'où le grand swing opposé ; à documenter en limitation §12. Le « no
+  published number » de Keeley est ainsi chiffré, encadré comme sensibilité.
+- Non-régression : 132 tests verts (123 + 9 V4) ; aucun results/*.json gelé
+  modifié (sortie unique results/m16_v4.json).

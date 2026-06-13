@@ -1,0 +1,184 @@
+{
+  "preregistration": "P12 (frozen at this run); GO M15 decisions A and B",
+  "note": "SENSITIVITY analysis; the published covariance stays the frozen v1.1.0 baseline",
+  "BAO+CMB+PantheonPlus": {
+    "baseline": {
+      "n_sne": 1590,
+      "nsigma": 2.279138299347235,
+      "delta_chi2_map": -7.5744099506803195,
+      "w0_map": -0.8530971834103968,
+      "wa_map": -0.5222776615630288,
+      "source": "results/m5_fits_corrected.json (frozen v1.1.0)",
+      "refit_nsigma_g16_3": 2.2791382976991734,
+      "refit_matches_frozen": true
+    },
+    "correction_factors": {
+      "n_sne": 1590,
+      "chi2_min_sn_only": 1402.9191282577813,
+      "reduced_chi2": 0.882339074375963,
+      "kappa": 0.882339074375963,
+      "s_diag": 0.9135249579604886,
+      "delta2": 0.000746113350403972,
+      "chi2_at_delta2": 1590.0375412292778,
+      "sample_note": "computed on the arm's own SN-only LCDM fit (GO M15 decision B)"
+    },
+    "scenarios": {
+      "i_kappa": {
+        "chi2_lcdm": 1608.390150094581,
+        "chi2_w0wa": 1600.4559004648625,
+        "delta_chi2_map": -7.934249629718579,
+        "nsigma": 2.3469503690691393,
+        "delta_nsigma_vs_baseline": 0.06781206972190423,
+        "w0_map": -0.8560862433736582,
+        "wa_map": -0.5125325985329305,
+        "delta_w0": -0.0029890599632614867,
+        "delta_wa": 0.009745063030098255,
+        "w0wa_params": {
+          "omega_m": 0.3106762054089316,
+          "h": 0.675162238328452,
+          "omega_b_h2": 0.022314859077221656,
+          "w0": -0.8560862433736582,
+          "wa": -0.5125325985329305
+        },
+        "control_reduced_chi2": 0.9999999999929712,
+        "control_gated_to_one": true,
+        "control_tol": 1e-09,
+        "runtime_s": 936.9
+      },
+      "i_sdiag": {
+        "chi2_lcdm": 1699.6588138148393,
+        "chi2_w0wa": 1691.5489172139607,
+        "delta_chi2_map": -8.109896600878528,
+        "nsigma": 2.3794950375369726,
+        "delta_nsigma_vs_baseline": 0.10035673818973745,
+        "w0_map": -0.857340292133485,
+        "wa_map": -0.5083271477881487,
+        "delta_w0": -0.004243108723088196,
+        "delta_wa": 0.013950513774880102,
+        "w0wa_params": {
+          "omega_m": 0.3105855244836105,
+          "h": 0.6752451413092695,
+          "omega_b_h2": 0.02231537615691581,
+          "w0": -0.857340292133485,
+          "wa": -0.5083271477881487
+        },
+        "control_reduced_chi2": 1.0572913481730897,
+        "control_gated_to_one": false,
+        "control_tol": null,
+        "runtime_s": 508.7
+      },
+      "ii_delta2": {
+        "chi2_lcdm": 1605.6775717906557,
+        "chi2_w0wa": 1601.7844431749336,
+        "delta_chi2_map": -3.893128615722162,
+        "nsigma": 1.465576408702221,
+        "delta_nsigma_vs_baseline": -0.8135618906450142,
+        "w0_map": -0.9039415014417435,
+        "wa_map": -0.38967491500826923,
+        "delta_w0": -0.0508443180313467,
+        "delta_wa": 0.13260274655475957,
+        "w0wa_params": {
+          "omega_m": 0.3058046569521329,
+          "h": 0.6802998135315127,
+          "omega_b_h2": 0.02232205510652705,
+          "w0": -0.9039415014417435,
+          "wa": -0.38967491500826923
+        },
+        "control_reduced_chi2": 1.0000236108360239,
+        "control_gated_to_one": true,
+        "control_tol": 0.001,
+        "runtime_s": 599.4
+      }
+    }
+  },
+  "BAO+CMB+DES-SN5YR": {
+    "baseline": {
+      "n_sne": 1829,
+      "nsigma": 3.837313961736077,
+      "delta_chi2_map": -17.984219314086204,
+      "w0_map": -0.766124676935652,
+      "wa_map": -0.7778357859716798,
+      "source": "results/m5_fits_corrected.json (frozen v1.1.0)",
+      "refit_nsigma_g16_3": 3.8373139617359646,
+      "refit_matches_frozen": true
+    },
+    "correction_factors": {
+      "n_sne": 1829,
+      "chi2_min_sn_only": 1640.083100113696,
+      "reduced_chi2": 0.8967102789030595,
+      "kappa": 0.8967102789030595,
+      "s_diag": 0.9037304724651203,
+      "delta2": 0.0020653678514396716,
+      "chi2_at_delta2": 1829.0000375126772,
+      "sample_note": "computed on the arm's own SN-only LCDM fit (GO M15 decision B)"
+    },
+    "scenarios": {
+      "i_kappa": {
+        "chi2_lcdm": 1854.5884490615465,
+        "chi2_w0wa": 1835.2917139630795,
+        "delta_chi2_map": -19.296735098467025,
+        "nsigma": 3.9955992151320214,
+        "delta_nsigma_vs_baseline": 0.15828525339594446,
+        "w0_map": -0.7676131042580986,
+        "wa_map": -0.7746610280253241,
+        "delta_w0": -0.0014884273224465838,
+        "delta_wa": 0.0031747579463556885,
+        "w0wa_params": {
+          "omega_m": 0.3185209149740025,
+          "h": 0.6675143406592585,
+          "omega_b_h2": 0.022290588289453215,
+          "w0": -0.7676131042580986,
+          "wa": -0.7746610280253241
+        },
+        "control_reduced_chi2": 1.0000000000000007,
+        "control_gated_to_one": true,
+        "control_tol": 1e-09,
+        "runtime_s": 300.6
+      },
+      "i_sdiag": {
+        "chi2_lcdm": 2034.6525304253764,
+        "chi2_w0wa": 2014.1215890842407,
+        "delta_chi2_map": -20.530941341135758,
+        "nsigma": 4.139444994116792,
+        "delta_nsigma_vs_baseline": 0.3021310323807147,
+        "w0_map": -0.7687512525139559,
+        "wa_map": -0.7723602690274528,
+        "delta_w0": -0.0026265755783039246,
+        "delta_wa": 0.005475516944226988,
+        "w0wa_params": {
+          "omega_m": 0.3183935339283218,
+          "h": 0.6676542739206057,
+          "omega_b_h2": 0.022290338640892637,
+          "w0": -0.7687512525139559,
+          "wa": -0.7723602690274528
+        },
+        "control_reduced_chi2": 1.0979290987243289,
+        "control_gated_to_one": false,
+        "control_tol": null,
+        "runtime_s": 296.0
+      },
+      "ii_delta2": {
+        "chi2_lcdm": 1859.6721582151317,
+        "chi2_w0wa": 1835.1390422204893,
+        "delta_chi2_map": -24.533115994642458,
+        "nsigma": 4.577460875977354,
+        "delta_nsigma_vs_baseline": 0.7401469142412771,
+        "w0_map": -0.7429565750297035,
+        "wa_map": -0.8283252362651499,
+        "delta_w0": 0.023168101905948535,
+        "delta_wa": -0.05048945029347007,
+        "w0wa_params": {
+          "omega_m": 0.3213943510574702,
+          "h": 0.6645048624150155,
+          "omega_b_h2": 0.02229134212852983,
+          "w0": -0.7429565750297035,
+          "wa": -0.8283252362651499
+        },
+        "control_reduced_chi2": 1.0000000205099384,
+        "control_gated_to_one": true,
+        "control_tol": 0.001,
+        "runtime_s": 344.1
+      }
+    }
+  }
+}

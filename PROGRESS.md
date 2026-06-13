@@ -5,11 +5,35 @@
 
 ## Jalon en cours
 
-M16 (V4 — effet de la covariance corrigée). GO M15 de Téo reçu le 2026-06-13
-(7 décisions, P12-P13 gelés). Séquence : M16 (V4) → M17 (V5) → M18 ; STOP fin
-M17. Prochain pas concret : implémenter le helper de correction de covariance
-+ scripts/run_m16_v4.py + tests (gate de contrôle χ²/dof→1, SPD, non-
-régression), commit du runner AVANT le run, puis run M16.
+M17 (V5 — Foundation sous Dovekie). M16 (V4) TERMINÉ le 2026-06-13 (résultats
+ci-dessous). Séquence : M16 ✅ → M17 (en cours) → M18 ; STOP fin M17 (rapport
+chiffré des 2 volets). Prochain pas concret : épingler Dovekie au manifeste
+(commit c9a4fcaf, SHA256 calculés), écrire load_des_dovekie (parser SNANA +
+covariance inverse npz + invert) + tests (comptes IDSURVEY, SPD, round-trip),
+puis scripts/run_m17_dovekie.py (grille LOO Foundation=150), commit AVANT run,
+run, ancrage G17.1 [2.4,3.4].
+
+## M16 (V4) — résultats (results/m16_v4.json, gates verts)
+
+- Gates : G16.3 refit baseline = Nσ gelé à ~1.6e-9 (P+ 2.279 / DES 3.837) ;
+  G16.1 contrôles i-κ exact, ii dans 1e-3, i-s non gaté (1.057/1.098).
+- Revue adversariale pré-gel : a attrapé la tolérance ii inatteignable (1e-6),
+  corrigée en gate par scénario AVANT le run (P12.5 amendé).
+- ΔNσ vs baseline : P+ i-κ +0.068, i-s +0.100, ii −0.814 ; DES i-κ +0.158,
+  i-s +0.302, ii +0.740. Hypothèse « C plus petite ⇒ renforcée » confirmée
+  pour le rescale (i) ; les deux corrections divergent en signe sur P+
+  (rescale +, intrinsic-scatter −). Caveat P+ ii : direction propre
+  quasi-singulière (6.1e-5).
+
+## Gate de cohérence H (Dovekie, vérifié au setup M17)
+
+- Likelihood officielle DES-Dovekie-SN_Likelihood.py = χ² gaussien à offset
+  marginalisé (Goliath A9-A12 : a − b²/c + ln(c/2π)), AUCUN poids BEAMS par-SN
+  (PROBIA_BEAMS = diagnostic). Dépaquetage covariance : inv_cov[triu]=cov,
+  reflet symétrique, C=inv(inv_cov), subset de C. → notre approche v1.2 (χ²
+  droit, N=1820) est fidèle. Gate H PASS.
+- SHA256 Dovekie (commit c9a4fcaf) : HD 2f57019d…0aaf (148002) ;
+  STAT+SYS.npz ffd3124b…463b (6244951) ; likelihood 78526c0e…45ff (7674).
 
 ## Décisions GELÉES au GO M15 (2026-06-13)
 
