@@ -5,27 +5,27 @@
 
 ## Jalon en cours
 
-M15 (extension P2.2, SPEC_V22.md) — TERMINÉ, STOP, EN ATTENTE DU GO de Téo.
-Extraction + pré-enregistrement P12-P13 committés AVANT tout run. AUCUN run
-M16-M17 effectué. Prochain pas : GO de Téo sur les décisions A/B/D/E/G/H/I
-(voir MILESTONES 2026-06-13 et PREREGISTRATION P12-P13), puis M16 (V4).
+M16 (V4 — effet de la covariance corrigée). GO M15 de Téo reçu le 2026-06-13
+(7 décisions, P12-P13 gelés). Séquence : M16 (V4) → M17 (V5) → M18 ; STOP fin
+M17. Prochain pas concret : implémenter le helper de correction de covariance
++ scripts/run_m16_v4.py + tests (gate de contrôle χ²/dof→1, SPD, non-
+régression), commit du runner AVANT le run, puis run M16.
 
-## Décisions ouvertes au STOP M15 (GO requis)
+## Décisions GELÉES au GO M15 (2026-06-13)
 
-- A (porteuse) : normalisation V4 scénario (i). Keeley = whitening PLEIN
-  (Eq. 9), pas la diagonale de V1. Proposition : C·κ avec κ=χ²_min/N
-  (fidèle Keeley + contrôle χ²/dof→1 exact) ; s_diag de V1 en contexte.
-- B : facteurs P+ recalculés sur l'arm réel N=1590 (fig. au run) vs valeurs
-  V1 N=1580 littérales. DES exact (N=1829, κ=0.896710, δ²=0.0020654).
-- D : statut Dovekie = EXTENSION inter-release (Dovekie remplace v1.2 sur
-  main ; v1.2 reste gelé au tag v1.2/95cf14c).
-- E : épinglage Dovekie au commit c9a4fcaf ; SHA256 au premier download.
-- G : code IDSURVEY 5 (8 SNe, CSP non documenté dans le README Dovekie) —
-  mapping v1.2 conservé (5=CSP) proposé.
-- H : BEAMS — χ² droit sans poids par-SN, N=1820 ; à vérifier contre la
-  likelihood officielle Dovekie au setup M17.
-- I : fenêtre d'ancrage 3.2σ Dovekie. Proposition [2.4, 3.4] (offset CMB
-  compressé −0.36σ comme v1.2).
+- A : V4 scénario (i) en DEUX sous-variantes — (i-κ) PRIMAIRE C·κ, κ=χ²/N
+  (whitening plein, control-exact) + (i-s) DESCRIPTIVE C·s_diag² (V1 littéral,
+  χ²/dof≈1.05/1.10 rapporté). ⇒ 12 fits (2 bras × 3 sous-scén. × 2 modèles).
+- B : facteurs P+ recalculés sur l'arm réel N=1590 (figés au run). DES exact
+  (N=1829, κ=0.896710, δ²=0.0020654).
+- D : Dovekie = extension inter-release ; v1.2 gelé (m12_loo.json), comparé
+  jamais substitué.
+- E : épinglage commit c9a4fcaf, SHA256 au premier download.
+- G : mapping v1.2 conservé (5=CSP) + LIMITATION (non re-confirmé Dovekie) ;
+  doute au setup M17 → STOP.
+- H : χ² droit, N=1820 ; GATE de cohérence vs likelihood officielle Dovekie
+  AVANT le LOO (setup M17).
+- I : ancrage Dovekie [2.4, 3.4] = GATE G17.1 (hors fenêtre = bug → STOP audit).
 
 ## Récapitulatif v1.2 en cours (P2.2)
 

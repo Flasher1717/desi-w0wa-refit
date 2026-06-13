@@ -649,3 +649,32 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   l'extraction/vérification demandées par M15 et l'arithmétique de
   conception sur les nombres V1 DÉJÀ GELÉS (κ = χ²/N, etc., aucun fit
   nouveau). Attente du GO de Téo.
+
+## 2026-06-13 — GO M15 de Téo : 7 décisions, P12-P13 gelés
+
+- A (porteuse) : V4 scénario (i) en DEUX sous-variantes — (i-κ) PRIMAIRE
+  `C·κ`, κ=χ²/N (whitening plein Keeley Eq. 9-10, control-exact χ²/dof→1)
+  + (i-s) DESCRIPTIVE `C·s_diag²` (valeur V1 littérale, χ²/dof résiduel
+  ≈1.05 P+ / 1.10 DES rapporté tel quel). V4 = sensibilité ⇒ la sensibilité
+  de définition diag-vs-pleine fait partie du résultat. Écart au libellé
+  littéral du prompt (s_diag seul) assumé, documenté RESULTS §12.
+  Décompte : 2 bras × 3 sous-scénarios × 2 modèles = 12 fits + contrôles.
+- B : facteurs P+ (κ, δ², s_diag) RECALCULÉS sur l'arm réel N=1590 (figés au
+  premier run), pas le 1580 de Keeley — les facteurs doivent matcher le bras
+  qu'ils corrigent. Le 1580 reste l'ancrage de méthode V1. DES exact
+  (N=1829 = échantillon V1, κ=0.896710, δ²=0.0020654).
+- D : statut Dovekie = EXTENSION inter-release. v1.2 reste l'ancrage DR2-era
+  GELÉ (lu de m12_loo.json) ; Dovekie est COMPARÉ, jamais substitué.
+- E : épinglage commit c9a4fcaf, SHA256 au premier download. Validé.
+- G : mapping v1.2 conservé (5=CSP) MAIS documenté en LIMITATION que le
+  mapping IDSURVEY n'est pas re-confirmé dans la doc Dovekie ; doute au
+  setup M17 → STOP, signalement.
+- H : χ² droit, N=1820, GATE de cohérence contre la likelihood officielle
+  Dovekie AVANT le LOO (setup M17) ; si elle pondère BEAMS, on s'aligne et
+  on re-vérifie l'ancrage.
+- I : fenêtre d'ancrage Dovekie [2.4, 3.4] = GATE (G17.1) ; baseline LOO
+  hors fenêtre = bug pipeline jusqu'à preuve du contraire, STOP audit (même
+  logique que Keeley/Betoule).
+- Séquence accordée : GO M16 (V4) → M17 (V5) → M18 ; STOP fin M17 (rapport
+  chiffré des 2 volets) avant la rédaction RESULTS §12. Effort high,
+  ultracode ponctuel si un gate échoue. P12-P13 GÈLENT à leurs premiers runs.

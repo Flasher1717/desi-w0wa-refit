@@ -565,9 +565,9 @@ principal.)
 
 # Extension P2.2 (SPEC_V22.md) — P12-P13, committés au STOP M15
 
-> Rédigés en M15 (2026-06-13), AVANT tout run M16-M17. PROPOSITIONS soumises
-> au GO M15 de Téo ; les points qui requièrent son arbitrage sont marqués
-> `[GO M15]`. Mêmes règles : chaque section gèle au premier run qui la
+> Rédigés en M15 (2026-06-13), AVANT tout run M16-M17. Décisions A/B/D/E/G/H/I
+> GELÉES au GO M15 de Téo (2026-06-13 ; consigné dans MILESTONES.md). Mêmes
+> règles : chaque section gèle au premier run qui la
 > concerne ; toute déviation est documentée dans RESULTS.md. Sources extraites
 > en M15 par workflow multi-agents (un sous-agent par source + vérification
 > adversariale indépendante + recoupement croisé ; MILESTONES.md, entrée M15) :
@@ -616,8 +616,8 @@ construction (Eq. 10) std² ≈ χ²/N (0.93² = 0.865 vs 1387.10/1580 = 0.878).
 **Correction B — soustraction d'un intrinsic scatter.** Keeley **soustrait** un
 terme diagonal uniforme : `C_ii → C_ii − δ²`, **δ² = 0.002 (mag²)**, calé pour
 que χ²_min = N = 1580. **AUCUN n° d'équation** (prose seule ; la dernière
-équation numérotée de Sec. 2 est l'Eq. 10). `[GO M15]` Le pré-enregistrement
-NE cite PAS de n° d'équation pour δ² (il n'en existe pas).
+équation numérotée de Sec. 2 est l'Eq. 10). Le pré-enregistrement NE cite PAS
+de n° d'équation pour δ² (il n'en existe pas) — fait établi à l'extraction.
 
 ### P12.2 Les deux scénarios de correction (covariance SNe UNIQUEMENT)
 
@@ -636,16 +636,20 @@ arms.py). Chaque facteur est défini PAR ÉCHANTILLON, depuis le fit ΛCDM SN-on
   `delta2_for_chi2_eq_n`, mocks.py). Domaine SPD borné par la plus petite
   valeur propre (déjà géré).
 
-**`[GO M15]` DÉCISION A (porteuse) — quel `s` pour le scénario (i) ?** Le prompt
-SPEC_V22 dit « s = std des résidus normalisés mesurée en V1 ». Or V1 (P9.4c,
-mocks.py:145-151) a mesuré `s` par la **diagonale** `√(diag C)` (s_diag = 0.9141
-P+ / 0.9037 DES), alors que Keeley (Eq. 9, vérifié) utilise le **whitening
-plein**. Seul le whitening plein (équivalent à κ = χ²/N) ramène χ²/dof → 1 :
-`C·s_diag²` donnerait χ²/dof = 1.05 (P+) / 1.10 (DES), PAS 1. **Proposition :
-scénario (i) PRIMAIRE = `C·κ`, κ = χ²_min/N (fidèle à Keeley Eq. 9-10 ET au
-test de contrôle) ; le s_diag de V1 est rapporté en CONTEXTE descriptif, pas
-comme facteur primaire.** C'est un écart au libellé littéral du prompt (s_diag),
-justifié par l'extraction vérifiée ; soumis au GO.
+**DÉCISION A (porteuse) — GELÉE au GO M15, option « rapporter les deux ».** Le
+prompt SPEC_V22 dit « s = std des résidus normalisés mesurée en V1 ». Or V1
+(P9.4c, mocks.py:145-151) a mesuré `s` par la **diagonale** `√(diag C)`
+(s_diag = 0.9141 P+ / 0.9037 DES), alors que Keeley (Eq. 9, vérifié) utilise le
+**whitening plein**. Seul le whitening plein (équivalent à κ = χ²/N) ramène
+χ²/dof → 1 : `C·s_diag²` donnerait χ²/dof = 1.05 (P+) / 1.10 (DES), PAS 1. Le
+scénario (i) est donc rapporté en DEUX sous-variantes :
+- **(i-κ) PRIMAIRE** : `C·κ`, κ = χ²_min/N (fidèle à Keeley Eq. 9-10,
+  control-exact χ²/dof → 1).
+- **(i-s) DESCRIPTIVE** : `C·s_diag²` avec le s_diag littéral de V1 ; son
+  χ²/dof résiduel (≈ 1.05 P+ / 1.10 DES) est rapporté tel quel.
+But de V4 = sensibilité ⇒ la sensibilité de définition diagonale-vs-pleine fait
+partie du RÉSULTAT, pas du bruit (GO M15). Écart au libellé littéral du prompt
+(s_diag seul) assumé et documenté en RESULTS §12.
 
 ### P12.3 Facteurs gelés (depuis les sorties V1 committées)
 
@@ -655,16 +659,16 @@ figés depuis results/m11_mocks.json :
 - δ²_DES = **0.0020653679** (scénario ii ; chi2_at_root = 1829.0000)
 - (contexte) s_diag,DES = 0.903730
 
-Bras **Pantheon+** : `[GO M15]` DÉCISION B (échantillon). L'arm BAO+CMB+P+ utilise
+Bras **Pantheon+** : DÉCISION B GELÉE au GO M15. L'arm BAO+CMB+P+ utilise
 N=1590 (coupure cosmo zHD>0.01), alors que les diagnostics V1 sont sur la
 sélection Keeley N=1580 (zHD>0.01 ET IS_CALIBRATOR=0). Les 10 calibrateurs
-diffèrent. **Proposition : κ_P+ et δ²_P+ sont (re)calculés sur l'échantillon
-RÉEL de l'arm (N=1590) par les fonctions GELÉES de mocks.py, et figés au
-premier run M16** (statut « gèle au premier run », comme P9-P11). Les valeurs
-V1 N=1580 (κ = 0.877472, δ² = 0.0021854, s_diag = 0.914137) servent d'ANCRAGE
-publié-Keeley de contrôle, pas de facteur appliqué. Alternative soumise au GO :
-appliquer littéralement les valeurs V1 N=1580 à l'arm N=1590 (caveat
-échantillon documenté, χ²/dof de contrôle légèrement ≠ 1).
+diffèrent. **κ_P+, δ²_P+ et s_diag,P+ sont (re)calculés sur l'échantillon RÉEL
+de l'arm (N=1590)** par les fonctions GELÉES de mocks.py
+(normalized_residual_std, delta2_for_chi2_eq_n) et le χ²_min ΛCDM SN-only de
+l'arm, figés au premier run M16 (statut « gèle au premier run », comme P9-P11) —
+les facteurs doivent matcher le bras qu'ils corrigent. Les valeurs V1 N=1580
+(κ = 0.877472, δ² = 0.0021854, s_diag = 0.914137) restent citées comme ANCRAGE
+de méthode publié-Keeley, jamais appliquées au bras.
 
 ### P12.4 Bras, modèles, baselines GELÉES, métrique ΔNσ
 
@@ -689,14 +693,14 @@ n'est présentée comme résultat principal.)
 
 ### P12.5 Gates de contrôle et non-régression
 
-- **G16.1 (contrôle χ²/dof → 1, les DEUX scénarios, les DEUX bras)** : après
-  correction, le χ²_min ΛCDM SN-only divisé par N (convention Keeley dof = N)
-  vaut 1.0 à ±1e-6 pour le scénario (ii) (par construction, brentq xtol 1e-7)
-  et pour le scénario (i) primaire `C·κ` (par construction κ = χ²/N).
-  C'est un gate de CORRECTION D'IMPLÉMENTATION (la valeur cible est la
-  définition même), pas un gate d'ancrage externe. Si la DÉCISION A retient
-  `C·s_diag²`, G16.1 du scénario (i) cible la valeur χ²/(N·s_diag²) MESURÉE
-  (1.05 P+ / 1.10 DES) et NON 1 — à figer selon le GO.
+- **G16.1 (contrôle χ²/dof → 1)** : après correction, le χ²_min ΛCDM SN-only
+  divisé par N (convention Keeley dof = N) vaut 1.0 à ±1e-6 pour le scénario
+  (ii) (par construction, brentq xtol 1e-7) ET pour le scénario (i-κ) primaire
+  `C·κ` (par construction κ = χ²/N), sur les DEUX bras. Gate de CORRECTION
+  D'IMPLÉMENTATION (la cible est la définition même), pas un ancrage externe.
+  La sous-variante descriptive (i-s) `C·s_diag²` n'est PAS gatée à 1 : son
+  χ²/dof (≈ 1.05 P+ / 1.10 DES) est rapporté comme MESURE de l'écart
+  diagonale-vs-pleine (GO M15, décision A « rapporter les deux »).
 - **G16.2 (non-régression v1.1.0)** : les 123 tests existants restent verts ;
   aucun results/*.json gelé n'est modifié (sortie unique results/m16_v4.json).
 - **G16.3 (cohérence baseline)** : ré-évaluer la baseline avec covariance NON
@@ -716,12 +720,13 @@ ultérieure (la covariance publiée RESTE la baseline).
 ### P12.7 Implémentation et coût
 
 - Nouveau script scripts/run_m16_v4.py (clone de run_m12_loo.py) : construit
-  les SNSample corrigés (cov·κ ; cov − δ²·I), fit les deux arms × deux
-  scénarios × deux modèles, lit les baselines gelées, sortie UNIQUEMENT dans
-  results/m16_v4.json. Helper de correction de covariance ajouté à sne.py ou
-  un module dédié (testé : SPD préservée, Cholesky valide).
-- Coût estimé (chronométrages M5/M12, ~341 s/arm-complet) : 8 fits complets
-  + contrôles SN-only ≈ 45-90 min.
+  les SNSample corrigés (cov·κ pour i-κ ; cov·s_diag² pour i-s ; cov − δ²·I
+  pour ii), fit les deux bras × trois sous-scénarios × deux modèles, lit les
+  baselines gelées, sortie UNIQUEMENT dans results/m16_v4.json. Helper de
+  correction de covariance ajouté à sne.py ou un module dédié (testé : SPD
+  préservée, Cholesky valide, χ²/dof de contrôle conforme).
+- Coût estimé (chronométrages M5/M12, ~341 s/arm-complet) : 12 fits complets
+  (2 bras × 3 sous-scénarios × 2 modèles) + contrôles SN-only ≈ 1-1.5 h.
 
 ## P13 — V5 : Foundation sous Dovekie (M17)
 
@@ -752,7 +757,7 @@ Dépôt des-science/DES-SN5YR, branche `main`, HEAD
   `main`.** L'état v1.2 reste épinglé au tag v1.2 / commit `95cf14c`
   (data_manifest.json inchangé).
 
-`[GO M15]` DÉCISION E (épinglage) : ajouter au data_manifest.json les deux
+DÉCISION E GELÉE au GO M15 (épinglage) : ajouter au data_manifest.json les deux
 fichiers Dovekie au commit `c9a4fcaf` (+ SHA256). SHA256 calculé au premier
 download via scripts/download_data.py (convention du manifeste : « SHA256
 computed at first download ») — PAS pendant M15 (extraction seule, aucun run).
@@ -780,10 +785,13 @@ Distribution IDSURVEY vérifiée (DES-Dovekie_HD.csv, total 1820) :
 - **Foundation = IDSURVEY 150 (117 SNe), code INCHANGÉ vs v1.2** (README dict
   `150:'FOUND'`) → la ligne LOO Foundation est bien définie.
 - DES = 10 (1623). CfA = 63-66 (README documente 61-66 ; 61/62 vides).
-  `[GO M15]` DÉCISION G : code 5 (8 SNe) est ABSENT du dict README Dovekie mais
-  présent dans les données ; v1.2 l'appelait CSP. Proposition : conserver le
-  mapping v1.2 (5 = CSP, 63-66 = CfA, fusion CfA+CSP primaire côté DES comme
-  P10.1), documenté comme appartenance reprise de v1.2 faute de doc Dovekie.
+  DÉCISION G GELÉE au GO M15 : code 5 (8 SNe) est ABSENT du dict README Dovekie
+  mais présent dans les données ; v1.2 l'appelait CSP. Le mapping v1.2 est
+  CONSERVÉ (5 = CSP, 63-66 = CfA, fusion CfA+CSP primaire côté DES comme P10.1).
+  LIMITATION pré-enregistrée (RESULTS §12) : le mapping IDSURVEY → nom de survey
+  n'est PAS re-confirmé par la doc Dovekie (le code 5 n'y figure pas). Si un
+  doute sur l'appartenance d'un groupe apparaît au setup M17 → STOP,
+  signalement à Téo, jamais de mapping silencieux.
 - Grille LOO Dovekie (miroir P10.1 côté DES) — pré-figée :
 
 | Groupe retiré | IDSURVEY | N retiré | N restant |
@@ -806,13 +814,14 @@ au run, P13.8 ; ligne DES-retiré N=197 attendue « boundary MAP » comme en v1.
 - **Ancrage publié** : Popovic et al. (arXiv:2511.07517v3, §10.6, Table 10/11,
   Eq. S10.Ex12) : DES-Dovekie + CMB(Planck+ACT+SPT) + DESI DR2 BAO →
   **3.2σ** (Δχ² = −13.5, Δlog Z = −1.7 ; w0 = −0.803±0.054, wa = −0.72±0.21),
-  réduit de 4.2σ (DES-SN5YR). `[GO M15]` DÉCISION I (tolérance d'ancrage) : notre
+  réduit de 4.2σ (DES-SN5YR). DÉCISION I GELÉE au GO M15 (tolérance d'ancrage) : notre
   CMB compressé sous-estime systématiquement (v1.2 : 3.837σ vs 4.2σ publié,
   offset −0.36σ, RESULTS §9.1). Attendu Dovekie ≈ 3.2 − 0.36 ≈ 2.84σ.
-  **Proposition de fenêtre G17.1 : Nσ_baseline_Dovekie ∈ [2.4, 3.4]** (centrée
-  sous 3.2 pour l'offset de compression, largeur comparable aux G5.x).
-  Hors fenêtre = bug jusqu'à preuve du contraire → STOP audit (GO M1.2b),
-  jamais de relâchement silencieux.
+  **GATE G17.1 : Nσ_baseline_Dovekie ∈ [2.4, 3.4]** (centrée sous 3.2 pour
+  l'offset de compression, largeur comparable aux G5.x). L'ancrage Dovekie est
+  un GATE au même titre que Keeley/Betoule : baseline LOO Dovekie HORS fenêtre
+  = bug pipeline jusqu'à preuve du contraire → STOP audit (GO M1.2b), entrée
+  MILESTONES, jamais de relâchement silencieux.
 
 ### P13.5 Métrique LOO et comparaison v1.2 côte à côte
 
@@ -828,27 +837,28 @@ au run, P13.8 ; ligne DES-retiré N=197 attendue « boundary MAP » comme en v1.
   - disparaît (ΔNσ_Dovekie → ~0) → Dovekie a résorbé ce qu'Efstathiou
     pointait. Les DEUX sont des résultats, rapportés tels quels.
 
-### P13.6 Statut Dovekie : EXTENSION inter-release `[GO M15]`
+### P13.6 Statut Dovekie : EXTENSION inter-release (GELÉ au GO M15)
 
-DÉCISION D : V5 est une **EXTENSION** (nouveau dataset épinglé), comparaison
+DÉCISION D GELÉE : V5 est une **EXTENSION** (nouveau dataset épinglé), comparaison
 inter-release explicite — PAS une réplication de v1.2, PAS un remplacement de
 l'ancrage DR2-era. v1.2 (commit 95cf14c, results/m12_loo.json) reste gelé et
 fait foi pour l'ère DR2 ; Dovekie (commit c9a4fcaf) est un point de comparaison
 2026. Toute différence est une différence de RELEASE, jamais une correction de
 v1.2.
 
-### P13.7 BEAMS et convention de N `[GO M15]`
+### P13.7 BEAMS et convention de N (GELÉ au GO M15)
 
-DÉCISION H : le HD Dovekie porte `PROBIA_BEAMS` (N effectif = 1684 = Σ probas,
-§10.5). Le χ² cosmologique v1.2 n'appliquait AUCUN poids BEAMS par-SN (les
-probas étaient déjà repliées en amont dans HD+covariance). **Proposition :
-miroir v1.2 — χ² gaussien droit à offset profilé (Goliath A9-A12) sur les
-1820 SNe, AUCUN poids BEAMS par-SN ; N = 1820 (= dimension HD = dimension
-covariance) comme dénominateur.** À VÉRIFIER contre `DES-Dovekie-SN_Likelihood.py`
-au setup M17 : si la likelihood officielle pondère par PROBIA_BEAMS, on
-s'aligne et on documente l'écart. N_eff=1684, 1635 (DES cosmo README), 1623
-(lignes IDSURVEY=10) sont des quantités DESCRIPTIVES distinctes, non le
-dénominateur.
+DÉCISION H GELÉE : le HD Dovekie porte `PROBIA_BEAMS` (N effectif = 1684 =
+Σ probas, §10.5). Le χ² cosmologique v1.2 n'appliquait AUCUN poids BEAMS par-SN
+(les probas étaient déjà repliées en amont dans HD+covariance). V5 fait de
+même — **χ² gaussien droit à offset profilé (Goliath A9-A12) sur les 1820 SNe,
+AUCUN poids BEAMS par-SN ; N = 1820** (= dimension HD = dimension covariance)
+comme dénominateur. **GATE de cohérence AVANT le LOO (setup M17)** : lire
+`DES-Dovekie-SN_Likelihood.py` et confirmer que sa likelihood est un χ²
+gaussien droit sans pondération BEAMS par-SN. Si elle pondère par PROBIA_BEAMS,
+on S'ALIGNE, on documente l'écart et on re-vérifie l'ancrage G17.1.
+N_eff=1684, 1635 (DES cosmo README), 1623 (lignes IDSURVEY=10) sont des
+quantités DESCRIPTIVES distinctes, jamais le dénominateur.
 
 ### P13.8 Tests, déterminisme, coût
 
