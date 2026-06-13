@@ -5,13 +5,23 @@
 
 ## Jalon en cours
 
-M17 (V5 — Foundation sous Dovekie). M16 (V4) TERMINÉ le 2026-06-13 (résultats
-ci-dessous). Séquence : M16 ✅ → M17 (en cours) → M18 ; STOP fin M17 (rapport
-chiffré des 2 volets). Prochain pas concret : épingler Dovekie au manifeste
-(commit c9a4fcaf, SHA256 calculés), écrire load_des_dovekie (parser SNANA +
-covariance inverse npz + invert) + tests (comptes IDSURVEY, SPD, round-trip),
-puis scripts/run_m17_dovekie.py (grille LOO Foundation=150), commit AVANT run,
-run, ancrage G17.1 [2.4,3.4].
+M18 (RESULTS §12 + v1.2.0) — EN ATTENTE DU GO de Téo. M16 (V4) ✅ et M17 (V5) ✅
+terminés le 2026-06-13. STOP fin M17 : rapport chiffré des 2 volets présenté.
+Prochain pas concret après GO : RESULTS.md §12 (EN) + miroir RESULTS.fr.md,
+tests de traçabilité étendus (chiffres §12 ↔ m16_v4.json / m17_dovekie.json),
+limites (V4 = sensibilité ; Dovekie = comparaison inter-release ; P+ ii
+quasi-singulier), puis CI verte, tag v1.2.0, release factuelle APRÈS GO de push.
+
+## M17 (V5) — résultats (results/m17_dovekie.json, ancrage G17.1 PASS)
+
+- Baseline Dovekie FRAÎCHE : Nσ = 2.838 (Δχ²=−10.79, w0=−0.821, wa=−0.642) ∈
+  [2.4,3.4] (= 3.2 − 0.36 offset compression, comme v1.2). Gate H confirmé
+  (χ² droit, aucun poids BEAMS). Loader vérifié à la précision machine.
+- LOO Dovekie vs v1.2 : Foundation −0.683 (v1.2 −1.335) ; DES −0.599/withheld
+  (v1.2 −1.323) ; CfA+CSP −0.471 (v1.2 −0.230) ; CfA seul −0.407 ; CSP seul
+  +0.005. RÉPONSE : Foundation PERSISTE mais ~÷2 (atténué, pas résorbé) ;
+  levier low-z redistribué vers CfA/CSP (qui augmente). Inter-release, même
+  pipeline ; aucune attribution causale.
 
 ## M16 (V4) — résultats (results/m16_v4.json, gates verts)
 

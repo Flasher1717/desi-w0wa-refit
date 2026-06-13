@@ -714,3 +714,44 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   published number » de Keeley est ainsi chiffré, encadré comme sensibilité.
 - Non-régression : 132 tests verts (123 + 9 V4) ; aucun results/*.json gelé
   modifié (sortie unique results/m16_v4.json).
+
+## 2026-06-13 — M17 : V5 Foundation sous Dovekie (terminé) — STOP fin M17
+
+- Setup : épinglage Dovekie au commit c9a4fcaf via data_manifest.json + un
+  download (fetch initial pour le SHA256, décision E) ; les 3 fichiers
+  (HD 2f57019d…, npz ffd3124b…, likelihood 78526c0e…) téléchargés et vérifiés
+  par download_data.py (25 fichiers). Loader load_des_dovekie + parser SNANA +
+  read_inverse_covariance_npz committés AVANT le run (28ea51d) ; P13 gelé.
+- Gate de cohérence H (décision H, vérifié au setup) : la likelihood officielle
+  DES-Dovekie-SN_Likelihood.py est un χ² gaussien à offset marginalisé (Goliath
+  A9-A12 : a − b²/c + ln(c/2π)), AUCUN poids BEAMS par-SN (PROBIA_BEAMS =
+  diagnostic). Notre moteur v1.1.0 est fidèle (N=1820). PASS.
+- Revue adversariale AVANT le gel (ultracode) : GO, zéro blocage ; loader
+  vérifié à la précision machine contre build_covariance officielle, LOO =
+  invert-puis-subset correct, métrique/gates conformes P13/P10.
+- Gate d'ancrage G17.1 (décision I) : baseline FRAÎCHE BAO+CMB+DES-Dovekie
+  Nσ = 2.838 (Δχ²=−10.79, w0=−0.821, wa=−0.642) ∈ [2.4, 3.4] → PASS. Pile sur
+  l'attendu 3.2 − 0.36 ≈ 2.84 (offset de compression CMB, identique à v1.2 :
+  −0.36σ). σ_curv baseline (0.0934, 0.3808) au MAP frais.
+- Décomposition LOO Dovekie vs v1.2 (results/m17_dovekie.json) :
+  - Foundation (150, −117) : ΔNσ = −0.683 (vs v1.2 −1.335) ;
+  - DES (10, −1623, N=197) : ΔNσ = −0.599 (vs −1.323), MAP « withheld »
+    (variance de courbure non positive, politique P10.4, comme v1.2 N=194) ;
+  - CfA+CSP (5,63-66, −80) : ΔNσ = −0.471 (vs −0.230) ;
+  - desc. CfA seul (63-66) : −0.407 (vs −0.274) ; desc. CSP seul (5, N=8) :
+    +0.005 (vs +0.036).
+- RÉPONSE binaire (nuancée, rapportée telle quelle) : le levier Foundation
+  PERSISTE mais est environ DIVISÉ PAR DEUX sous Dovekie (−1.34σ → −0.68σ) —
+  atténué, PAS résorbé. La recalibration a REDISTRIBUÉ le levier low-z de
+  Foundation vers CfA/CSP (dont le levier AUGMENTE, −0.23 → −0.47). En v1.2
+  Foundation dominait (−1.34 vs CfA+CSP −0.23, ~6×) ; sous Dovekie les leviers
+  sont plus uniformes (foundation −0.68, des −0.60, cfa+csp −0.47, cfa-only
+  −0.41). Comparaison INTER-RELEASE même pipeline (compressed CMB) ; v1.2 reste
+  l'ancrage DR2-era gelé. Aucune attribution causale.
+- Warning Nelder-Mead scipy identique aux runs M5/M7/M12/M16 gelés, sans effet.
+- Non-régression : aucun results/*.json gelé modifié (sortie unique
+  results/m17_dovekie.json) ; m12_loo.json lu en lecture seule pour le
+  côte-à-côte. Quality verte avant commit.
+- STOP fin M17 : rapport chiffré des 2 volets (V4 + V5) présenté à Téo ;
+  M18 (RESULTS §12 EN + miroir fr, traçabilité, limites ; puis v1.2.0)
+  attend son GO.
