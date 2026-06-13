@@ -694,13 +694,23 @@ n'est présentée comme résultat principal.)
 ### P12.5 Gates de contrôle et non-régression
 
 - **G16.1 (contrôle χ²/dof → 1)** : après correction, le χ²_min ΛCDM SN-only
-  divisé par N (convention Keeley dof = N) vaut 1.0 à ±1e-6 pour le scénario
-  (ii) (par construction, brentq xtol 1e-7) ET pour le scénario (i-κ) primaire
-  `C·κ` (par construction κ = χ²/N), sur les DEUX bras. Gate de CORRECTION
-  D'IMPLÉMENTATION (la cible est la définition même), pas un ancrage externe.
-  La sous-variante descriptive (i-s) `C·s_diag²` n'est PAS gatée à 1 : son
-  χ²/dof (≈ 1.05 P+ / 1.10 DES) est rapporté comme MESURE de l'écart
-  diagonale-vs-pleine (GO M15, décision A « rapporter les deux »).
+  divisé par N (convention Keeley dof = N) vaut 1.0, sur les DEUX bras, aux
+  tolérances PAR SCÉNARIO suivantes (gate de CORRECTION D'IMPLÉMENTATION ;
+  la cible est la définition même, pas un ancrage externe) :
+  - (i-κ) `C·κ` : ≤ 1e-9 — un rescale positif uniforme laisse l'argmin SN-only
+    inchangé et χ² se met à l'échelle ×(1/κ), donc χ²/dof = 1 à la précision
+    machine.
+  - (ii) `C − δ²·I` : ≤ 1e-3. NUANCE NUMÉRIQUE (corrigée avant gel, suite à la
+    revue adversariale M16) : `delta2_for_chi2_eq_n` cale δ² par brentq sur la
+    POSITION de la racine (xtol sur δ²), pas sur la VALEUR de χ² ; avec
+    d(χ²)/d(δ²) ~ 1e6 sur les vrais bras, χ²/N atterrit à ~quelques×1e-5 de 1
+    (p.ex. 1.000024 sur P+ N=1590) — soit χ²_min = N à 5 chiffres significatifs,
+    physiquement négligeable. La cible 1e-6 initialement écrite était une
+    sur-spécification (elle confondait précision de racine et précision de
+    valeur) ; le gate est fixé à 1e-3, largement satisfait.
+  - (i-s) `C·s_diag²` : PAS gatée à 1 ; son χ²/dof (≈ 1.05 P+ / 1.10 DES) est
+    rapporté comme MESURE de l'écart diagonale-vs-pleine (GO M15, décision A
+    « rapporter les deux »).
 - **G16.2 (non-régression v1.1.0)** : les 123 tests existants restent verts ;
   aucun results/*.json gelé n'est modifié (sortie unique results/m16_v4.json).
 - **G16.3 (cohérence baseline)** : ré-évaluer la baseline avec covariance NON
