@@ -755,3 +755,53 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
 - STOP fin M17 : rapport chiffré des 2 volets (V4 + V5) présenté à Téo ;
   M18 (RESULTS §12 EN + miroir fr, traçabilité, limites ; puis v1.2.0)
   attend son GO.
+
+## 2026-06-13 — M18 : RESULTS §12 + v1.2.0 (préparée, NON taguée) — GO de Téo
+
+- Périmètre : rédaction seule, AUCUN run scientifique, AUCUN refit. Les JSON
+  gelés results/m16_v4.json (V4) et results/m17_dovekie.json (V5) sont des
+  ENTRÉES EN LECTURE SEULE ; git diff vide sur tous les results/*.json à la fin.
+- RESULTS.md §12 (EN) « v1.2 extension (P2.2): SN covariance & cross-release
+  sensitivity » + miroir fidèle RESULTS.fr.md (mêmes nombres, mêmes 3 règles de
+  cadrage, mêmes limites). §12 = prochain numéro libre (TOC lue : §0-§11
+  occupés). Tous les chiffres proviennent des JSON gelés (source de vérité),
+  zéro recalcul à la main.
+- Trois règles de cadrage IMPÉRATIVES appliquées : (1) (ii)/P+ ΔNσ=−0.814
+  marqué « conditioning-limited / near-singular » (δ² calé juste sous la plus
+  petite valeur propre de C ; résidu re-dérivé 6.106×10⁻⁵, mode ~73× le suivant ;
+  Δw0=−0.0508/Δwa=+0.1326), JAMAIS intégré dans une fourchette « préférence
+  corrigée » ; DES sans cette fragilité (résidu 1.65×10⁻⁴). (2) (i-κ) +0.068 P+
+  / +0.158 DES cadré comme effet MÉCANIQUE attendu (rescale du seul bloc SNe),
+  pas un soutien à w0wa. (3) V5 : delta same-pipeline EN TÊTE (Dovekie 2.838σ vs
+  v1.2 3.837σ = −0.999σ ≈ −1.0σ, recalibration seule), levier Foundation ÷2
+  (−1.335 → −0.683) en second ordre ; double cohérence 2.838 = 3.2 − 0.36
+  (offset compression −0.36σ identique v1.2 et Dovekie, re-vérifié), aucune
+  attribution causale. Notes : (i-s) NON gaté-à-un (contrôle 1.057 P+ / 1.098
+  DES, diag-seul) explicité ; ligne DES-retiré V5 boundary_flagged → MAP et
+  σ_curv retenus (P10.4), seul ΔNσ rapporté.
+- Traçabilité : tests/test_results_traceability.py étendu de 4 tests (12 → 16
+  dans ce fichier ; 138 → 142 au total). test_section_12_1_v4_tables (baselines,
+  facteurs κ/s/δ², 3 scénarios × 2 bras, contrôles gated/non-gated),
+  test_section_12_2_v5_dovekie (baseline + 5 ΔNσ LOO + jumeaux v1.2 ;
+  boundary_flagged DES sans MAP), test_section_12_2_v5_derived_baseline_shift
+  (same-pipeline −0.999 et offset −0.36 re-dérivés depuis m16/m17/m5).
+  test_section_12_1_near_singular_residual_eigenvalue (requires_data,
+  DÉTERMINISTE) : charge la covariance P+ gelée + δ² gelé, calcule
+  eigvalsh(C − δ²I).min() = 6.106×10⁻⁵ (re-dérivable, présent dans AUCUN champ
+  JSON), vérifie min eig C = 8.07×10⁻⁴ et le résidu DES 1.65×10⁻⁴ (~2.7×).
+- Revue adversariale (ultracode, 4 relecteurs parallèles + vérification
+  sceptique de chaque finding) : numbers/framing/parity/tests essentiellement
+  CLEAN. 2 findings bruts → 1 réfuté (FR « retenu » pour « withheld » : sens
+  « withhold » valide en français, suppression explicitée, conforme à la
+  convention §11.2 committée — non corrigé pour ne pas diverger), 1 CONFIRMÉ
+  (low) : bande « 0.003–0.010 » des shifts (i) sous-estimait le Δwa=+0.0140 de
+  (i-s)/P+ imprimé dans la même table → élargie à « 0.003–0.014 » (EN + FR).
+  Mutation-testing des 4 tests concluant (constantes faussées → échecs, revert
+  byte-for-byte vérifié).
+- Qualité : ruff check + ruff format --check + pyright strict (0/0/0) + pytest
+  (142 verts) ; aucun warning. uv via `python -m uv`.
+- Release v1.2.0 PRÉPARÉE mais NON taguée / NON poussée (STOP, attend le GO de
+  push explicite de Téo). Convention de version conservée : pyproject/__init__
+  restent à 0.1.0 (comme v1.0.0 et v1.1.0 ; le release = tag git + notes
+  factuelles + MILESTONES/PROGRESS, sans bump). Pas de fichier CHANGELOG dans
+  ce repo.

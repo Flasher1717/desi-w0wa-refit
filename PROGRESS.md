@@ -5,12 +5,23 @@
 
 ## Jalon en cours
 
-M18 (RESULTS §12 + v1.2.0) — EN ATTENTE DU GO de Téo. M16 (V4) ✅ et M17 (V5) ✅
-terminés le 2026-06-13. STOP fin M17 : rapport chiffré des 2 volets présenté.
-Prochain pas concret après GO : RESULTS.md §12 (EN) + miroir RESULTS.fr.md,
-tests de traçabilité étendus (chiffres §12 ↔ m16_v4.json / m17_dovekie.json),
-limites (V4 = sensibilité ; Dovekie = comparaison inter-release ; P+ ii
-quasi-singulier), puis CI verte, tag v1.2.0, release factuelle APRÈS GO de push.
+M18 (RESULTS §12 + v1.2.0) — RÉDACTION TERMINÉE, v1.2.0 PRÉPARÉE, EN ATTENTE DU
+GO DE PUSH de Téo. M16 (V4) ✅ et M17 (V5) ✅ terminés le 2026-06-13 ; M18 (doc)
+terminé le 2026-06-13.
+
+Fait (M18) : RESULTS.md §12 (EN) « SN covariance & cross-release sensitivity » +
+miroir RESULTS.fr.md (mêmes nombres, 3 règles de cadrage, limites V4+V5) ; 4 tests
+de traçabilité ajoutés (138 → 142), dont le test DÉTERMINISTE near-singular
+(eigvalsh(C−δ²I).min() = 6.106×10⁻⁵ re-dérivé des entrées gelées) ; revue
+adversariale ultracode (4 relecteurs + vérif sceptique) → 1 fix low appliqué
+(bande shifts (i) 0.003–0.010 → 0.003–0.014, EN+FR). Qualité verte (ruff + format
++ pyright strict 0/0/0 + pytest 142). git diff vide sur tous les results/*.json.
+
+Prochain pas concret : APRÈS GO de push explicite de Téo — commit poussé, vérifier
+la CI full-matrix verte (ubuntu/windows ; cf. dépréciation Node 20 → Node 24 dès
+2026-06-16, surveiller), tag v1.2.0, release GitHub factuelle. Tant qu'il n'y a
+pas de GO : STOP, aucun tag, aucun push. (Convention de version inchangée :
+pyproject/__init__ restent 0.1.0 comme aux v1.0.0/v1.1.0.)
 
 ## M17 (V5) — résultats (results/m17_dovekie.json, ancrage G17.1 PASS)
 

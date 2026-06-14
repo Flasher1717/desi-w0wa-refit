@@ -12,7 +12,13 @@ import json
 from pathlib import Path
 from typing import cast
 
+import numpy as np
+import pytest
+
+from desi_w0wa_refit.sne import load_des_sn5yr, load_pantheon_plus
+
 RESULTS_DIR = Path(__file__).resolve().parent.parent / "results"
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 
 def _load(name: str) -> dict[str, object]:
@@ -384,3 +390,177 @@ def test_section_11_3_tier_p() -> None:
         == 0.0334
     )
     assert _quoted(pairs, 4, "tier_p", "descriptive_s_mb_based_all335") == -0.0363
+
+
+# --- Section 12.1 - V4 covariance corrections (m16_v4.json) ----------------
+
+# arm -> (N, nsigma, w0, wa) of the frozen v1.1.0 baseline, as quoted in 12.1
+SECTION_12_V4_BASELINE = {
+    "BAO+CMB+PantheonPlus": (1590, 2.279, -0.853, -0.522),
+    "BAO+CMB+DES-SN5YR": (1829, 3.837, -0.766, -0.778),
+}
+
+# arm -> (kappa, s_diag) correction factors, as quoted in 12.1
+SECTION_12_V4_FACTORS = {
+    "BAO+CMB+PantheonPlus": (0.8823, 0.9135),
+    "BAO+CMB+DES-SN5YR": (0.8967, 0.9037),
+}
+
+# arm -> scenario -> (control chi2/N, control_digits, gated, dchi2, nsigma,
+#                     dnsigma, dw0, dwa) exactly as the 12.1 tables print them
+ScenarioRow = tuple[float, int, bool, float, float, float, float, float]
+SECTION_12_V4_SCENARIOS: dict[str, dict[str, ScenarioRow]] = {
+    "BAO+CMB+PantheonPlus": {
+        "i_kappa": (1.000000, 6, True, -7.934, 2.347, 0.068, -0.0030, 0.0097),
+        "i_sdiag": (1.057, 3, False, -8.110, 2.379, 0.100, -0.0042, 0.0140),
+        "ii_delta2": (1.000024, 6, True, -3.893, 1.466, -0.814, -0.0508, 0.1326),
+    },
+    "BAO+CMB+DES-SN5YR": {
+        "i_kappa": (1.000000, 6, True, -19.297, 3.996, 0.158, -0.0015, 0.0032),
+        "i_sdiag": (1.098, 3, False, -20.531, 4.139, 0.302, -0.0026, 0.0055),
+        "ii_delta2": (1.000000, 6, True, -24.533, 4.577, 0.740, 0.0232, -0.0505),
+    },
+}
+
+
+def test_section_12_1_v4_tables() -> None:
+    v4 = _load("m16_v4.json")
+    for arm, (n_sne, nsig, w0, wa) in SECTION_12_V4_BASELINE.items():
+        assert _node(v4, arm, "baseline", "n_sne") == n_sne, arm
+        assert _quoted(v4, 3, arm, "baseline", "nsigma") == nsig, arm
+        assert _quoted(v4, 3, arm, "baseline", "w0_map") == w0, arm
+        assert _quoted(v4, 3, arm, "baseline", "wa_map") == wa, arm
+        # G16.3: the uncorrected refit reproduces the frozen baseline.
+        arm_node = cast(dict[str, object], v4[arm])
+        base = cast(dict[str, object], arm_node["baseline"])
+        assert base["refit_matches_frozen"] is True, arm
+        assert abs(_node(v4, arm, "baseline", "refit_nsigma_g16_3") - nsig) < 1e-3, arm
+        kappa, s_diag = SECTION_12_V4_FACTORS[arm]
+        assert _quoted(v4, 4, arm, "correction_factors", "kappa") == kappa, arm
+        assert _quoted(v4, 4, arm, "correction_factors", "s_diag") == s_diag, arm
+    # delta2 (quoted in 1e-4 / 1e-3 form in 12.1)
+    assert (
+        round(_node(v4, "BAO+CMB+PantheonPlus", "correction_factors", "delta2") * 1e4, 3) == 7.461
+    )
+    assert round(_node(v4, "BAO+CMB+DES-SN5YR", "correction_factors", "delta2") * 1e3, 3) == 2.065
+    for arm, scenarios in SECTION_12_V4_SCENARIOS.items():
+        for scen, row in scenarios.items():
+            ctrl, ctrl_digits, gated, dchi2, nsig, dnsig, dw0, dwa = row
+            where = (arm, scen)
+            assert (
+                _quoted(v4, ctrl_digits, arm, "scenarios", scen, "control_reduced_chi2") == ctrl
+            ), where
+            arm_node = cast(dict[str, object], v4[arm])
+            scen_node = cast(
+                dict[str, object], cast(dict[str, object], arm_node["scenarios"])[scen]
+            )
+            assert scen_node["control_gated_to_one"] is gated, where
+            assert _quoted(v4, 3, arm, "scenarios", scen, "delta_chi2_map") == dchi2, where
+            assert _quoted(v4, 3, arm, "scenarios", scen, "nsigma") == nsig, where
+            assert _quoted(v4, 3, arm, "scenarios", scen, "delta_nsigma_vs_baseline") == dnsig, (
+                where
+            )
+            assert _quoted(v4, 4, arm, "scenarios", scen, "delta_w0") == dw0, where
+            assert _quoted(v4, 4, arm, "scenarios", scen, "delta_wa") == dwa, where
+
+
+@pytest.mark.requires_data
+def test_section_12_1_near_singular_residual_eigenvalue() -> None:
+    """The 12.1 conditioning claim, re-derived from the frozen inputs.
+
+    The number 6.1e-5 is in no field of the frozen JSON: it must be
+    re-computable from the frozen Pantheon+ covariance C and the frozen
+    scenario-(ii) factor delta2. We load C exactly as the M16 runner does
+    (load_pantheon_plus, zHD > 0.01, N = 1590), take delta2 from m16_v4.json,
+    and assert eigvalsh(C - delta2 I).min() matches the value quoted in 12.1.
+    """
+    v4 = _load("m16_v4.json")
+    pp = load_pantheon_plus(
+        DATA_DIR / "Pantheon+SH0ES.dat", DATA_DIR / "Pantheon+SH0ES_STAT+SYS.cov"
+    )
+    delta2_pp = _node(v4, "BAO+CMB+PantheonPlus", "correction_factors", "delta2")
+    residual_pp = float(np.linalg.eigvalsh(pp.cov - delta2_pp * np.eye(pp.n_sne)).min())
+    min_eig_c_pp = float(np.linalg.eigvalsh(pp.cov).min())
+    # Quoted in 12.1: residual smallest eigenvalue 6.1e-5 (precisely 6.106e-5).
+    assert round(residual_pp * 1e5, 1) == 6.1
+    assert abs(residual_pp - 6.106e-5) < 1e-8
+    # delta2 sits JUST under the smallest eigenvalue of C (quoted 8.07e-4) and
+    # subtracting delta2 I shifts the whole spectrum by exactly delta2.
+    assert round(min_eig_c_pp * 1e4, 2) == 8.07
+    assert 0.0 < residual_pp < min_eig_c_pp
+    assert abs(residual_pp - (min_eig_c_pp - delta2_pp)) < 1e-12
+    # DES has no such fragility: residual 1.65e-4, ~2.7x the P+ value (12.1).
+    des = load_des_sn5yr(DATA_DIR / "DES-SN5YR_HD.csv", DATA_DIR / "DES-SN5YR_STAT+SYS.txt.gz")
+    delta2_des = _node(v4, "BAO+CMB+DES-SN5YR", "correction_factors", "delta2")
+    residual_des = float(np.linalg.eigvalsh(des.cov - delta2_des * np.eye(des.n_sne)).min())
+    assert round(residual_des * 1e4, 2) == 1.65
+    assert round(residual_des / residual_pp, 1) == 2.7
+
+
+# --- Section 12.2 - V5 Dovekie cross-release (m17_dovekie.json) -------------
+
+# group -> (n_sne, dchi2, nsigma, dnsigma_dovekie, dnsigma_v12, w0|None, wa|None)
+DovekieRow = tuple[int, float, float, float, float, float | None, float | None]
+SECTION_12_V5_GROUPS: dict[str, DovekieRow] = {
+    "foundation": (1703, -6.938, 2.155, -0.683, -1.335, -0.837, -0.587),
+    "des": (197, -7.367, 2.239, -0.599, -1.323, None, None),
+    "cfa+csp": (1740, -8.042, 2.367, -0.471, -0.230, -0.820, -0.639),
+    "cfa-only-desc": (1748, -8.391, 2.431, -0.407, -0.274, -0.822, -0.631),
+    "csp-only-desc": (1812, -10.824, 2.843, 0.005, 0.036, -0.818, -0.649),
+}
+
+
+def test_section_12_2_v5_dovekie() -> None:
+    v5 = _load("m17_dovekie.json")
+    # Fresh Dovekie baseline (12.2 headline), inside the G17.1 anchor window.
+    assert _node(v5, "baseline", "n_sne") == 1820
+    assert _quoted(v5, 3, "baseline", "nsigma") == 2.838
+    assert _quoted(v5, 2, "baseline", "delta_chi2_map") == -10.79
+    assert _quoted(v5, 3, "baseline", "w0_map") == -0.821
+    assert _quoted(v5, 3, "baseline", "wa_map") == -0.642
+    assert cast(dict[str, object], v5["baseline"])["anchor_pass_g17_1"] is True
+    window = cast(list[object], v5["anchor_window_g17_1"])
+    assert [float(cast(float, window[0])), float(cast(float, window[1]))] == [2.4, 3.4]
+    for group, row in SECTION_12_V5_GROUPS.items():
+        n_sne, dchi2, nsig, dnsig_dov, dnsig_v12, w0, wa = row
+        assert _node(v5, "groups", group, "n_sne") == n_sne, group
+        assert _quoted(v5, 3, "groups", group, "delta_chi2_map") == dchi2, group
+        assert _quoted(v5, 3, "groups", group, "nsigma") == nsig, group
+        assert _quoted(v5, 3, "groups", group, "delta_nsigma_vs_baseline") == dnsig_dov, group
+        assert _quoted(v5, 3, "groups", group, "v12_delta_nsigma") == dnsig_v12, group
+        node = cast(dict[str, object], cast(dict[str, object], v5["groups"])[group])
+        if w0 is None:
+            # DES removed: boundary_flagged; MAP withheld in 12.2 (P10.4).
+            assert node["boundary_flagged"] is True, group
+            assert node["sigma_curv_w0"] is None and node["sigma_curv_wa"] is None, group
+        else:
+            assert node["boundary_flagged"] is False, group
+            assert _quoted(v5, 3, "groups", group, "w0_map") == w0, group
+            assert _quoted(v5, 3, "groups", group, "wa_map") == wa, group
+    # Foundation lever roughly halved (12.2 prose "-1.34 -> -0.68").
+    assert _quoted(v5, 2, "groups", "foundation", "v12_delta_nsigma") == -1.34
+    assert _quoted(v5, 2, "groups", "foundation", "delta_nsigma_vs_baseline") == -0.68
+
+
+def test_section_12_2_v5_derived_baseline_shift() -> None:
+    """The two derived V5 headline numbers must be re-derivable from the frozen
+    records: the same-pipeline baseline shift (-1.0 sigma) against the frozen
+    v1.2 DES-SN5YR baseline, and the -0.36 sigma compression offset shared by
+    both releases (so 2.838 = 3.2 - 0.36)."""
+    v5 = _load("m17_dovekie.json")
+    v4 = _load("m16_v4.json")
+    corrected = _load("m5_fits_corrected.json")
+    dovekie_baseline = _node(v5, "baseline", "nsigma")
+    v12_des_baseline = _node(v4, "BAO+CMB+DES-SN5YR", "baseline", "nsigma")
+    same_pipeline_shift = dovekie_baseline - v12_des_baseline
+    assert round(same_pipeline_shift, 1) == -1.0
+    assert round(same_pipeline_shift, 3) == -0.999
+    # Published Dovekie full-CMB significance, parsed from the frozen record.
+    published = cast(str, v5["published_significance"])
+    published_sigma = float(published.split()[0])
+    assert published_sigma == 3.2
+    dovekie_offset = dovekie_baseline - published_sigma  # ours - published
+    assert round(dovekie_offset, 2) == -0.36
+    # The v1.2 DES-SN5YR arm carries the SAME -0.36 compression offset (section 6).
+    v12_offset = _node(corrected, "BAO+CMB+DES-SN5YR", "nsigma_minus_published")
+    assert round(v12_offset, 2) == -0.36

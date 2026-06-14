@@ -956,3 +956,242 @@ du §8. Aucune ne dit POURQUOI (§11.6).
    mot pour mot).
 4. Toutes les déclarations de périmètre négatif de v1.0.0 (§10)
    restent valables inchangées.
+
+## §12 — Extension v1.2 (P2.2) : covariance SNe & sensibilité inter-release
+
+Deux analyses de SENSIBILITÉ pré-enregistrées (P12-P13, gelées avant
+leurs runs ; GO M15 consigné dans MILESTONES.md), chacune adressant une
+limite du §9 restée ouverte à v1.1.0 — la surestimation de la covariance
+Pantheon+ (§9.4, Keeley et al.) et la recalibration DES post-DR2 (§9.6,
+Dovekie). AUCUNE n'est « la » préférence corrigée : la covariance publiée
+et le release v1.2/DR2-era restent les baselines GELÉES
+(results/m5_fits_corrected.json, results/m12_loo.json) ; un seul bloc est
+perturbé à la fois et l'écart ΔNσ est rapporté tel quel, dans les deux
+sens, sans attribution causale (SPEC out-of-scope). Chiffres de tête :
+
+1. **V4 — le rescale de covariance déplace à peine la préférence.**
+   Appliquer le whitening plein de Keeley au bloc SNe SEUL (κ = χ²/N < 1,
+   donc barres d'erreur SNe plus petites) déplace la préférence w0waCDM
+   de seulement **+0.07σ** (Pantheon+) / **+0.16σ** (DES-SN5YR) — un
+   effet mécanique négligeable, exactement comme Keeley l'anticipe
+   (« should not significantly affect parameter estimation »). L'autre
+   lecture de Keeley — soustraire un intrinsic scatter δ²I — DIVERGE EN
+   SIGNE sur Pantheon+ (−0.81σ), mais ce swing est conditioning-limited
+   (§12.1) : δ² se cale juste sous la plus petite valeur propre de C, en
+   laissant une direction quasi-singulière (valeur propre résiduelle
+   6.1×10⁻⁵) qui domine le fit. Il est rapporté, jamais intégré dans une
+   « préférence corrigée ».
+2. **V5 — la recalibration Dovekie seule déplace DES-SN5YR de −1.0σ.** À
+   pipeline FIXE (notre CMB compressé), remplacer le release v1.2
+   DES-SN5YR gelé par la recalibration Dovekie 2026 déplace la baseline
+   de préférence de **3.837σ à 2.838σ** (−1.0σ), avant tout retrait de
+   groupe. Ce n'est qu'ensuite, comme raffinement de second ordre, que le
+   levier leave-one-out Foundation du §11 est environ DIVISÉ PAR DEUX
+   (−1.34σ → −0.68σ). Les deux sont same-pipeline ; v1.2 reste l'ancrage
+   DR2-era gelé (§12.2).
+
+### 12.1 V4 — corrections de covariance SNe de Keeley (M16)
+
+Méthode (P12, GO M15 décisions A/B) : pour chaque bras BAO+CMB+{Pantheon+,
+DES-SN5YR}, le bloc de covariance SNe est corrigé de trois façons —
+facteurs calculés sur le fit flat-ΛCDM SN-only à offset profilé du bras
+LUI-MÊME (décision B, le facteur correspond ainsi au bras qu'il corrige)
+— et les deux modèles sont refittés sur le pipeline par ailleurs gelé.
+Les blocs BAO et CMB sont intacts. Gate G16.3 : le refit baseline NON
+corrigé reproduit le Nσ gelé à ~1.6×10⁻⁹ sur les deux bras (la seule
+différence en aval est la covariance). La covariance publiée reste la
+baseline v1.1.0 gelée — c'est un test de sensibilité, jamais un nouveau
+résultat de tête.
+
+Les trois corrections [Keeley, Shafieloo & L'Huillier,
+arXiv:2212.07917 v3, Sec. 2] :
+
+- **(i-κ) PRIMAIRE** — rescale uniforme C → C·κ, κ = χ²_min/N (le χ²
+  réduit du fit SN-only, dof de Keeley = N). Un rescale positif uniforme
+  laisse l'argmin SN-only inchangé, donc le χ² réduit de contrôle vaut 1
+  par construction (gate G16.1, gaté à 1×10⁻⁹).
+- **(i-s) DESCRIPTIVE** — C → C·s², s la std DIAGONALE des résidus
+  normalisés committée en V1. Comme la diagonale ignore les corrélations
+  hors-diagonale que Keeley whitenise, cela NE ramène PAS χ²/N = 1 : le
+  contrôle est 1.057 (P+) / 1.098 (DES), diagonale-seule, et est rapporté
+  tel quel, NON gaté à un. L'écart est la sensibilité diagonale-vs-pleine
+  mesurée (décision A).
+- **(ii)** — C → C − δ²I, δ² réglé pour que χ²_min = N (la soustraction
+  d'intrinsic scatter de Keeley, en prose dans v3, sans numéro
+  d'équation). Contrôle gaté à 1×10⁻³ (δ² est trouvé par un solveur sur
+  la LOCALISATION de la racine ; la VALEUR du χ² atterrit à 1.000024 (P+)
+  / 1.000000 (DES), 5 chiffres significatifs).
+
+**BAO+CMB+Pantheon+** (baseline N = 1590, 2.279σ, w0 = −0.853,
+wa = −0.522 ; facteurs κ = 0.8823, s = 0.9135, δ² = 7.461×10⁻⁴) :
+
+| Scénario | C → | contrôle χ²/N | Δχ²_MAP | Nσ | ΔNσ | Δw0 | Δwa |
+|---|---|---|---|---|---|---|---|
+| (i-κ) primaire | C·κ | 1.000000 (gaté) | −7.934 | 2.347 | **+0.068** | −0.0030 | +0.0097 |
+| (i-s) descriptive | C·s² | 1.057 (non gaté) | −8.110 | 2.379 | +0.100 | −0.0042 | +0.0140 |
+| (ii) intrinsic | C − δ²I | 1.000024 (gaté) | −3.893 | 1.466 | −0.814 † | −0.0508 | +0.1326 |
+
+**BAO+CMB+DES-SN5YR** (baseline N = 1829, 3.837σ, w0 = −0.766,
+wa = −0.778 ; facteurs κ = 0.8967, s = 0.9037, δ² = 2.065×10⁻³) :
+
+| Scénario | C → | contrôle χ²/N | Δχ²_MAP | Nσ | ΔNσ | Δw0 | Δwa |
+|---|---|---|---|---|---|---|---|
+| (i-κ) primaire | C·κ | 1.000000 (gaté) | −19.297 | 3.996 | **+0.158** | −0.0015 | +0.0032 |
+| (i-s) descriptive | C·s² | 1.098 (non gaté) | −20.531 | 4.139 | +0.302 | −0.0026 | +0.0055 |
+| (ii) intrinsic | C − δ²I | 1.000000 (gaté) | −24.533 | 4.577 | +0.740 | +0.0232 | −0.0505 |
+
+**Lecture (i), le rescale mécanique.** κ < 1 rétrécit le bloc SNe
+uniformément, donc les barres SNe diminuent et la préférence monte
+légèrement : +0.068σ (P+), +0.158σ (DES) sur la primaire (i-κ), avec
+(i-s) un peu plus grand car s² diffère de κ hors-diagonale. L'amplitude
+est négligeable et les déplacements de paramètres sont minuscules (Δw0,
+Δwa ≈ 0.003–0.014) — cohérent avec l'attente explicite de Keeley que la
+surestimation « should not significantly affect parameter estimation ».
+C'est l'effet mécanique du rétrécissement d'un bloc, PAS un soutien à
+w0waCDM.
+
+**† (ii)/Pantheon+ est conditioning-limited (quasi-singulier).** Le δ²
+qui ramène χ²_min = N sur le bras P+ vaut δ² = 7.461×10⁻⁴, juste sous la
+plus petite valeur propre de C (8.072×10⁻⁴). Soustraire δ²I décale tout
+le spectre de δ², donc la plus petite valeur propre résiduelle vaut
+**6.1×10⁻⁵** (précisément 6.106×10⁻⁵, re-dérivable depuis le C gelé et le
+δ² gelé — un test déterministe permanent l'épingle). Le poids
+d'inverse-covariance de ce mode (∝ 1/λ) est ~73× le suivant, donc le fit
+(ii)/P+ est dominé par une direction quasi-dégénérée. L'empreinte est
+dans la table : (ii)/P+ déplace Δw0 = −0.051, Δwa = +0.133 — un ordre de
+grandeur plus que les 0.003–0.014 des rescales (i) — ce qui produit le
+grand swing de −0.814σ. Le bras DES n'a pas cette fragilité : son
+δ² = 2.065×10⁻³ laisse une plus petite valeur propre résiduelle
+confortablement positive (1.65×10⁻⁴, ~2.7× la valeur P+), donc son
++0.740σ est un déplacement propre. En conséquence le nombre (ii)/P+ est
+rapporté mais JAMAIS intégré dans une fourchette « préférence corrigée de
+X à Y ».
+
+**Résumé factuel.** L'hypothèse arithmétique « C plus petite ⇒ préférence
+renforcée » (SPEC_V22) est CONFIRMÉE pour le rescale uniforme (i) sur les
+deux bras (+0.07 à +0.16σ sur la primaire, petit). Mais les deux lectures
+de Keeley DIVERGENT EN SIGNE sur Pantheon+ (rescale +0.10,
+intrinsic-scatter −0.81), cette dernière conditioning-limited ; sur DES
+les deux renforcent (ii le plus, +0.74). Keeley ne publie aucun nombre
+pour l'effet sur la préférence w0wa ; ce volet en fournit un, encadré
+strictement comme sensibilité bornée, et aucune correction n'est
+appliquée à aucun résultat de tête.
+
+### 12.2 V5 — sensibilité inter-release Dovekie (M17)
+
+Méthode (P13, GO M15 décisions D/E/G/H/I) : le bras DES-SN5YR est
+recalculé sur la recalibration DES 2026 (Dovekie, Popovic et al. 2026,
+arXiv:2511.07517, épinglée au commit c9a4fcaf), avec le MÊME pipeline
+(CMB compressé, χ² gaussien à offset marginalisé droit, N = 1820) et la
+décomposition leave-one-group-out du §11 répétée. Gate de cohérence H
+(vérifié au setup contre la likelihood officielle DES-Dovekie) : χ²
+droit, aucun poids BEAMS par-SN — notre engin v1.1.0 est fidèle. C'est
+une comparaison INTER-RELEASE ; les chiffres v1.2 gelés (m12_loo.json)
+restent l'ancrage DR2-era, comparés jamais substitués.
+
+**La baseline d'abord — la recalibration seule.** À pipeline fixe, la
+baseline Dovekie fraîche vaut **2.838σ** (Δχ²_MAP = −10.79, w0 = −0.821,
+wa = −0.642), contre la baseline DES-SN5YR v1.2 gelée de **3.837σ** — un
+déplacement de **−1.0σ** (précisément −0.999σ) dû à la recalibration
+seule, avant tout retrait de groupe (gate d'ancrage G17.1 :
+2.838 ∈ [2.4, 3.4], PASS). Un contrôle de cohérence indépendant encadre
+ce nombre :
+
+- **Le same-pipeline est la seule quantité comparable.** Notre baseline
+  CMB-compressé est −0.36σ sous la significativité PUBLIÉE full-CMB pour
+  les DEUX releases : v1.2 donne 3.837σ vs 4.2 publié (−0.36σ, §6) et
+  Dovekie donne 2.838σ vs 3.2 publié (arXiv:2511.07517 S10.6) (−0.36σ).
+  L'offset de compression est identique, donc 2.838 = 3.2 − 0.36
+  reproduit la baisse publiée 4.2 → 3.2 à notre offset de pipeline de
+  −0.36σ. Aucune attribution causale n'est impliquée : c'est un contrôle
+  de cohérence interne, PAS une mesure de la préférence full-CMB.
+
+**Leave-one-group-out sous Dovekie** (baseline 2.838σ ; la colonne ΔNσ
+v1.2 lue telle quelle du m12_loo.json gelé, côte à côte) :
+
+| Groupe retiré | N_SNe | Δχ²_MAP | Nσ | ΔNσ (Dovekie) | ΔNσ (v1.2) | w0_MAP | wa_MAP |
+|---|---|---|---|---|---|---|---|
+| Foundation (150) | 1703 | −6.938 | 2.155 | **−0.683** | −1.335 | −0.837 | −0.587 |
+| DES (10) | 197 | −7.367 | 2.239 | −0.599 | −1.323 | retenu ‡ | retenu ‡ |
+| CfA+CSP (5,63-66) | 1740 | −8.042 | 2.367 | −0.471 | −0.230 | −0.820 | −0.639 |
+| (desc.) CfA seul (63-66) | 1748 | −8.391 | 2.431 | −0.407 | −0.274 | −0.822 | −0.631 |
+| (desc.) CSP seul (5) | 1812 | −10.824 | 2.843 | +0.005 | +0.036 | −0.818 | −0.649 |
+
+‡ La ligne DES-retiré laisse 197 SNe et est boundary_flagged (variance
+de courbure non positive au MAP) : selon la politique pré-enregistrée
+P10.4, son MAP (w0, wa) et σ_curv sont RETENUS — seule la comparaison ΔNσ
+(avec le Δχ²/Nσ de qualité de fit) est rapportée, consigné tel quel
+(comme la ligne v1.2 N = 194, §11.2).
+
+**Lecture.** Le levier Foundation PERSISTE sous Dovekie mais est environ
+DIVISÉ PAR DEUX (−1.34σ → −0.68σ) : atténué, pas résorbé. Le levier low-z
+a été REDISTRIBUÉ — CfA+CSP monte de −0.23σ à −0.47σ. En v1.2 Foundation
+dominait (−1.34σ vs CfA+CSP −0.23σ, ~6×) ; sous Dovekie les leviers sont
+plus uniformes (Foundation −0.68, DES −0.60, CfA+CSP −0.47, CfA-seul
+−0.41). C'est une comparaison inter-release à pipeline fixe ; v1.2 reste
+l'ancrage DR2-era gelé, et aucune attribution causale n'est faite (la
+recalibration change beaucoup de choses à la fois — §12.3).
+
+### 12.3 Limites propres à cette extension
+
+**V4 (corrections de covariance).**
+
+- **Sensibilité bornée, jamais « la » préférence corrigée.** Chaque
+  scénario perturbe le bloc de covariance SNe seul ; la covariance
+  publiée est la baseline gelée. Les nombres bornent de combien la
+  préférence POURRAIT bouger sous les deux lectures de Keeley, pas une
+  valeur corrigée.
+- **Diagonale-vs-pleine est une vraie sensibilité.** (i-s) est
+  descriptive et NON gatée à un (contrôle χ²/N = 1.057 P+ / 1.098 DES) :
+  la normalisation diagonale ignore les corrélations que le whitening
+  plein (i-κ) retire ; l'écart entre les deux EST la quantité rapportée
+  (décision A).
+- **(ii)/Pantheon+ est quasi-singulier** (§12.1) : δ² calé juste sous la
+  plus petite valeur propre laisse une direction résiduelle 6.1×10⁻⁵ qui
+  domine le fit ; son −0.814σ est rapporté mais exclu de toute
+  fourchette. DES est bien conditionné (1.65×10⁻⁴).
+- **Keeley ne propage aucun nombre.** Il ne donne aucun effet publié sur
+  la préférence w0wa ; son attente explicite d'un effet négligeable sur
+  l'estimation de paramètres est CONFIRMÉE ici pour le rescale (i), et
+  c'est tout ce qui est affirmé.
+
+**V5 (Dovekie).**
+
+- **Release différent, pas une correction.** Dovekie ≠ v1.2 : c'est une
+  recalibration 2026 séparée (correctif F99, correctif des poids
+  systématiques). La comparaison est inter-release ; v1.2 reste l'ancrage
+  DR2-era gelé.
+- **Seul le ΔNσ same-pipeline est comparable.** Notre CMB compressé
+  diffère du full CMB publié ; le déplacement de baseline −1.0σ et les
+  ΔNσ LOO sont calculés à pipeline IDENTIQUE, la seule quantité
+  comparable terme à terme. La concordance avec la baisse publiée
+  4.2 → 3.2 (via l'offset −0.36σ) est un contrôle interne, pas une mesure
+  full-CMB.
+- **Aucune attribution causale.** La recalibration change la calibration,
+  les corrections de biais et la covariance à la fois ; que le levier
+  Foundation soit divisé par deux est rapporté, pas expliqué.
+- **Précision float32 héritée.** La covariance Dovekie est publiée comme
+  un inverse float32 ; cette précision de release est héritée et
+  documentée (loader read_inverse_covariance_npz).
+- **Mapping IDSURVEY non re-confirmé.** Le mapping de groupes v1.2
+  (5 = CSP) est conservé par décision G mais N'EST PAS re-confirmé par la
+  documentation Dovekie ; une limitation consignée, signalée au setup
+  M17.
+
+### 12.4 Ce que le §12 ne montre PAS
+
+1. **Aucune préférence corrigée, dans aucun des deux volets.** V4 est une
+   sensibilité de covariance bornée ; V5 est une comparaison
+   inter-release. Aucun ne remplace les baselines v1.1.0 gelées, et le
+   swing (ii)/P+ est un artefact de conditionnement, pas une valeur.
+2. **Aucune attribution causale.** Que le levier Foundation soit divisé
+   par deux sous Dovekie, ou que la lecture intrinsic-scatter affaiblisse
+   P+, localise une sensibilité ; cela ne dit pas qu'une calibration est
+   juste ou fausse, ni que la préférence w0wa est réelle ou fallacieuse.
+   Le §10.1 s'applique mot pour mot.
+3. **Aucune revendication full-CMB.** Tout est à notre pipeline
+   CMB-compressé ; les significativités full-CMB publiées (4.2σ, 3.2σ)
+   sont référencées uniquement comme contrôles de cohérence à même offset
+   (le §9.1 s'applique).
+4. Toutes les déclarations de périmètre négatif de v1.0.0/v1.1.0 (§10,
+   §11.6) restent valables inchangées.
