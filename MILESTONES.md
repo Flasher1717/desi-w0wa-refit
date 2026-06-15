@@ -805,3 +805,39 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
   restent à 0.1.0 (comme v1.0.0 et v1.1.0 ; le release = tag git + notes
   factuelles + MILESTONES/PROGRESS, sans bump). Pas de fichier CHANGELOG dans
   ce repo.
+
+## 2026-06-14 — v1.2.0 publiée + maintenance CI Node 24
+
+- v1.2.0 PUBLIÉE (le GO de push de Téo a levé le STOP de l'entrée M18 ci-dessus,
+  qui reste inchangée — append-only). Séquence vérifiée a posteriori (tag, run
+  CI, release, horodatages) :
+  - `main` poussé à ab613a0 (origin/main == ab613a0) ;
+  - CI run 27488929240 sur ab613a0 = SUCCESS, matrice complète 4/4
+    (ubuntu/windows × py3.11/3.13), terminé 05:01:25Z — AVANT le tag ;
+  - tag annoté `v1.2.0` → ab613a0 ;
+  - release factuelle « v1.2.0 — SN covariance & cross-release sensitivity »
+    marquée *Latest*, publiée 2026-06-14T05:04:14Z :
+    https://github.com/Flasher1717/desi-w0wa-refit/releases/tag/v1.2.0
+  - Convention de version inchangée : pyproject/__init__ restent 0.1.0 (comme
+    v1.0.0 et v1.1.0). Extension P2.2 (v1.2) CLOSE.
+- Maintenance CI — bump des actions GitHub vers Node 24, pour anticiper la
+  bascule Node 24 forcée par GitHub le 2026-06-16 (la dépréciation Node 20 était
+  consignée non bloquante aux releases v1.0.0/v1.1.0/v1.2.0). Périmètre strict :
+  `.github/workflows/` + doc de suivi uniquement — aucun src/, test/,
+  results/*.json, gate, SPEC ni PREREGISTRATION touché.
+  - `.github/workflows/ci.yml` : `actions/checkout` @v4 → @v6 ;
+    `astral-sh/setup-uv` @v5 → @v8.2.0. Rien d'autre (mêmes jobs, même matrice,
+    mêmes 5 steps, même bloc `with: python-version`).
+  - Cibles vérifiées à la source (gh api sur `action.yml` au tag) : checkout
+    v4 = node20, v6.0.3 = node24, tag flottant @v6 présent (seul Δ v6 = creds
+    persistées dans un fichier séparé, sans effet sur notre checkout unique) ;
+    setup-uv v5 = node20, v6 encore node20, v7 = 1re majeure node24, v8.2.0 =
+    node24 avec l'input `python-version` intact. v8 ayant SUPPRIMÉ les tags
+    majeurs/mineurs flottants (@v8 → 404), l'épinglage figé @v8.2.0 est requis
+    et assumé (décision Téo : strictement la dernière majeure stable).
+  - Local AVANT commit : ruff check + ruff format --check + pyright strict
+    (0/0/0) + pytest 142 verts ; zéro warning. uv via `python -m uv`.
+  - Committé sur la branche `chore/ci-node24` (PAS sur main, PAS poussé). Phase
+    de validation (après GO de push) : PR + run CI VERT 4/4 ET zéro annotation
+    de dépréciation Node 20 = critère de succès ; merge sur GO explicite de Téo
+    uniquement (pas de merge auto).

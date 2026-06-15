@@ -5,23 +5,28 @@
 
 ## Jalon en cours
 
-M18 (RESULTS §12 + v1.2.0) — RÉDACTION TERMINÉE, v1.2.0 PRÉPARÉE, EN ATTENTE DU
-GO DE PUSH de Téo. M16 (V4) ✅ et M17 (V5) ✅ terminés le 2026-06-13 ; M18 (doc)
-terminé le 2026-06-13.
+Maintenance CI — bump des actions GitHub vers Node 24 (branche `chore/ci-node24`).
+v1.2.0 SHIPPÉE le 2026-06-14 : M16 (V4) ✅, M17 (V5) ✅ et M18 (doc §12) ✅ clos ;
+projet de nouveau en veille hormis cette maintenance d'outillage.
 
-Fait (M18) : RESULTS.md §12 (EN) « SN covariance & cross-release sensitivity » +
-miroir RESULTS.fr.md (mêmes nombres, 3 règles de cadrage, limites V4+V5) ; 4 tests
-de traçabilité ajoutés (138 → 142), dont le test DÉTERMINISTE near-singular
-(eigvalsh(C−δ²I).min() = 6.106×10⁻⁵ re-dérivé des entrées gelées) ; revue
-adversariale ultracode (4 relecteurs + vérif sceptique) → 1 fix low appliqué
-(bande shifts (i) 0.003–0.010 → 0.003–0.014, EN+FR). Qualité verte (ruff + format
-+ pyright strict 0/0/0 + pytest 142). git diff vide sur tous les results/*.json.
+Fait (v1.2.0 publiée) : GO de push de Téo donné ; `main` poussé (à ab613a0) ;
+CI run 27488929240 VERTE 4/4 (ubuntu/windows × py3.11/3.13) AVANT le tag ; tag
+`v1.2.0` → ab613a0 ; release factuelle « v1.2.0 — SN covariance & cross-release
+sensitivity » marquée *Latest* (2026-06-14). Convention de version inchangée
+(pyproject/__init__ restent 0.1.0, comme v1.0.0/v1.1.0). Détail M18 archivé dans
+MILESTONES.md (RESULTS §12 EN + miroir fr, 138 → 142 tests, revue ultracode).
 
-Prochain pas concret : APRÈS GO de push explicite de Téo — commit poussé, vérifier
-la CI full-matrix verte (ubuntu/windows ; cf. dépréciation Node 20 → Node 24 dès
-2026-06-16, surveiller), tag v1.2.0, release GitHub factuelle. Tant qu'il n'y a
-pas de GO : STOP, aucun tag, aucun push. (Convention de version inchangée :
-pyproject/__init__ restent 0.1.0 comme aux v1.0.0/v1.1.0.)
+Fait (maintenance CI, en cours) : `.github/workflows/ci.yml` — `actions/checkout`
+@v4 → @v6 et `astral-sh/setup-uv` @v5 → @v8.2.0 (les deux sur node24 vérifié à la
+source ; checkout garde un tag flottant @v6, setup-uv v8 a supprimé les tags
+flottants → pin figé @v8.2.0). Aucune autre modif (mêmes jobs, même matrice,
+même bloc python-version). Local vert : ruff + format + pyright strict 0/0/0 +
+pytest 142. Aucun results/*.json, aucun src/, aucun test touché.
+
+Prochain pas concret : APRÈS GO de push de Téo — pousser `chore/ci-node24`, ouvrir
+la PR, confirmer la CI 4/4 VERTE **et zéro annotation de dépréciation Node 20**
+(critère du bump), puis STOP en attente du GO de merge (pas de merge auto). Tant
+qu'il n'y a pas de GO : STOP, aucun push.
 
 ## M17 (V5) — résultats (results/m17_dovekie.json, ancrage G17.1 PASS)
 
@@ -133,8 +138,10 @@ pyproject/__init__ restent 0.1.0 comme aux v1.0.0/v1.1.0.)
 - Candidat v2 : θ*/r_d par CAMB (recombinaison complète) — rendrait P8
   caduc (RESULTS.md §9.5). Autres pistes notées : Dovekie comme nouveau
   jeu d'ancrages (§9.6), covariance Pantheon+ / Keeley (§9.4).
-- Maintenance CI signalée par GitHub : actions checkout@v4 / setup-uv@v5
-  sur Node 20 déprécié (bascule Node 24 forcée à partir du 2026-06-16).
+- Maintenance CI Node 24 : TRAITÉE (jalon courant, branche chore/ci-node24) —
+  checkout @v4→@v6, setup-uv @v5→@v8.2.0 ; la bascule Node 24 forcée du
+  2026-06-16 est ainsi anticipée. Vérification CI 4/4 + zéro annotation Node 20
+  en Phase C après GO de push.
 - uv s'invoque via `python -m uv` sur cette machine (uv.exe hors PATH).
 - Compte gh : basculé sur Flasher1717 pendant M9 (l'autre compte du
   trousseau est Kodiaquebec).
