@@ -57,6 +57,9 @@ SPEC.md = autorité, immuable. Ce fichier = règles opérationnelles mesurables.
   `data/` absent. Seeds fixés partout (déterminisme total).
 - Commits atomiques (un sujet par commit), identité locale
   `Téo Alletz <teo.alletz@gmail.com>` (vérifiée avant le premier commit).
+- Before any push: `gh auth status` must show Flasher1717; otherwise `gh auth
+  switch` (the keyring also holds the Kodiaquebec account, which silently
+  reactivates and gets 403 on these repos).
 
 ## Données
 
