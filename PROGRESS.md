@@ -5,9 +5,12 @@
 
 ## Jalon en cours
 
-Maintenance CI — bump des actions GitHub vers Node 24 (branche `chore/ci-node24`).
-v1.2.0 SHIPPÉE le 2026-06-14 : M16 (V4) ✅, M17 (V5) ✅ et M18 (doc §12) ✅ clos ;
-projet de nouveau en veille hormis cette maintenance d'outillage.
+Maintenance CI Node 24 — **CLÔTURÉE** : PR #1 mergée le 2026-06-14 (merge commit
+`20e686b`), run CI 27497877476 VERT 4/4, `origin/main` = `20e686b`. Clôture
+consignée le 2026-07-01 (MILESTONES entrée dédiée). v1.2.0 SHIPPÉE le 2026-06-14 :
+M16 (V4) ✅, M17 (V5) ✅ et M18 (doc §12) ✅ clos.
+Seul reliquat actif : report de la même migration CI sur le P0 `C:\JJP-JANUS`
+(commit préparé, STOP avant push). Sinon projet en veille.
 
 Fait (v1.2.0 publiée) : GO de push de Téo donné ; `main` poussé (à ab613a0) ;
 CI run 27488929240 VERTE 4/4 (ubuntu/windows × py3.11/3.13) AVANT le tag ; tag
@@ -16,17 +19,17 @@ sensitivity » marquée *Latest* (2026-06-14). Convention de version inchangée
 (pyproject/__init__ restent 0.1.0, comme v1.0.0/v1.1.0). Détail M18 archivé dans
 MILESTONES.md (RESULTS §12 EN + miroir fr, 138 → 142 tests, revue ultracode).
 
-Fait (maintenance CI, en cours) : `.github/workflows/ci.yml` — `actions/checkout`
+Fait (maintenance CI, CLÔTURÉE) : `.github/workflows/ci.yml` — `actions/checkout`
 @v4 → @v6 et `astral-sh/setup-uv` @v5 → @v8.2.0 (les deux sur node24 vérifié à la
 source ; checkout garde un tag flottant @v6, setup-uv v8 a supprimé les tags
 flottants → pin figé @v8.2.0). Aucune autre modif (mêmes jobs, même matrice,
 même bloc python-version). Local vert : ruff + format + pyright strict 0/0/0 +
 pytest 142. Aucun results/*.json, aucun src/, aucun test touché.
 
-Prochain pas concret : APRÈS GO de push de Téo — pousser `chore/ci-node24`, ouvrir
-la PR, confirmer la CI 4/4 VERTE **et zéro annotation de dépréciation Node 20**
-(critère du bump), puis STOP en attente du GO de merge (pas de merge auto). Tant
-qu'il n'y a pas de GO : STOP, aucun push.
+Prochain pas concret : (desi) néant — jalon clos, `main` = `20e686b`, v1.2.0 reste
+la dernière release *Latest*, aucun re-tag. (P0 janus) appliquer la même migration
+d'actions dans `C:\JJP-JANUS` (`checkout@v6` + `setup-uv@v8.2.0`, commit séparé,
+PAS de re-tag), vérifier, puis STOP avant push en attente du GO de push janus.
 
 ## M17 (V5) — résultats (results/m17_dovekie.json, ancrage G17.1 PASS)
 

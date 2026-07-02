@@ -841,3 +841,31 @@ Prochain STOP : fin M5 (gates d'ancrage), rapport chiffré complet avant M6.
     de validation (après GO de push) : PR + run CI VERT 4/4 ET zéro annotation
     de dépréciation Node 20 = critère de succès ; merge sur GO explicite de Téo
     uniquement (pas de merge auto).
+
+---
+
+## 2026-07-01 — Clôture (constatée) du jalon maintenance CI Node 24
+
+Entrée append-only. L'entrée du 2026-06-14 ci-dessus décrit la phase de
+validation comme *future* et la branche comme « PAS poussée » ; elle reste
+inchangée. La présente entrée acte la clôture réelle du jalon, qui n'avait
+jamais été consignée. Séquence vérifiée a posteriori (gh, 2026-07-01) :
+
+- Branche `chore/ci-node24` poussée ; PR #1 « chore(ci): bump checkout v6 +
+  setup-uv v8.2.0 to Node 24; sync v1.2.0 shipped » ouverte puis **MERGED** le
+  2026-06-14T11:48:46Z (merge commit `20e686b` sur `origin/main`).
+- Run CI de la PR `27497877476` = **success**, matrice complète 4/4
+  (ubuntu-latest/windows-latest × py3.11/3.13), 1m36s.
+- Critère de succès du bump vérifié : toutes les steps `Run actions/checkout@v6`
+  et `Run astral-sh/setup-uv@v8.2.0` (+ leurs `Post Run`) en `success` sur
+  runtime node24 ; le workflow ne référence AUCUNE autre action → zéro
+  annotation de dépréciation Node 20 par construction. La bascule Node 24 forcée
+  du 2026-06-16 est ainsi absorbée sans incident.
+- `origin/main` = `20e686b` ; `.github/workflows/ci.yml` sur `main` porte bien
+  `checkout@v6` + `setup-uv@v8.2.0`. Aucun re-tag (maintenance d'outillage, pas
+  de release) : `v1.2.0` reste la dernière release *Latest*.
+- Périmètre inchangé vs l'entrée 06-14 : aucun src/, test/, results/*.json,
+  gate, SPEC ni PREREGISTRATION touché. Local 2026-07-01 : pytest 142 verts.
+- Report sur le P0 `janus-pantheon-refit` (même migration d'actions, clone
+  `C:\JJP-JANUS`) : traité séparément, commit propre sans re-tag, STOP avant
+  push — hors du GO de push doc-only de CE repo.
